@@ -1,0 +1,116 @@
+{
+  "id": "0004",
+  "topic": "관계 안 깨지고 거절하는 문장 3개",
+  "axis": "B",
+  "category": "상사",
+  "total_sec": 45.0,
+  "voice": {
+    "lang": "ko-KR",
+    "style": "30대 직장인, 담담하고 약간 지친 톤. 과장 없이 툭 던지듯",
+    "speed": 1.05
+  },
+  "image_style": "photorealistic, modern Korean office interior, muted desaturated color grade, soft window light, shallow depth of field, no visible faces, no text, vertical 9:16 composition, cinematic",
+  "hook_candidates": [
+    {
+      "pattern": "시각고정",
+      "text": "팀장이 일 더 줄 때, 관계 안 깨고 거절하는 법 있어요."
+    },
+    {
+      "pattern": "손해경고",
+      "text": "그냥 알겠습니다 하면, 다음 주에 또 옵니다."
+    },
+    {
+      "pattern": "대사인용",
+      "text": "이것 좀 해줄 수 있어요? 라는 말 들었을 때"
+    }
+  ],
+  "hook_chosen": 0,
+  "scenes": [
+    {
+      "n": 1,
+      "role": "HOOK",
+      "start": 0.0,
+      "end": 4.0,
+      "tts": "팀장이 일 더 줄 때, 관계 안 깨고 거절하는 법 있어요.",
+      "caption": "일이 또 왔다",
+      "image_prompt": "a hand placing a stack of documents onto an already full desk",
+      "motion": "zoom_in"
+    },
+    {
+      "n": 2,
+      "role": "SETUP",
+      "start": 4.0,
+      "end": 9.0,
+      "tts": "그냥 안 된다고 하면 찍혀요. 대신 이 세 문장으로 바꾸세요.",
+      "caption": "안 된다고 하면 찍힘",
+      "image_prompt": "two office chairs facing each other in an empty meeting room, tense",
+      "motion": "pan_left"
+    },
+    {
+      "n": 3,
+      "role": "BODY1",
+      "start": 9.0,
+      "end": 16.0,
+      "tts": "첫째, 지금 이거 하고 있는데 어느 걸 먼저 할까요. 거절이 아니라 우선순위를 되묻는 거예요.",
+      "caption": "1 · 우선순위",
+      "image_prompt": "a to do list on a notepad with two items circled, desk view",
+      "motion": "zoom_in"
+    },
+    {
+      "n": 4,
+      "role": "BODY2",
+      "start": 16.0,
+      "end": 23.0,
+      "tts": "둘째, 언제까지 필요하세요. 기한만 물어봐도 진짜 급한 일인지 바로 드러나요.",
+      "caption": "2 · 기한",
+      "image_prompt": "a desk calendar with a date circled in red, close up",
+      "motion": "zoom_in"
+    },
+    {
+      "n": 5,
+      "role": "BODY3",
+      "start": 23.0,
+      "end": 31.0,
+      "tts": "셋째, 제가 맡으면 수요일까지 걸려요. 못 한다가 아니라 드는 비용을 먼저 말해주는 거예요.",
+      "caption": "3 · 비용",
+      "image_prompt": "an hourglass on an office desk next to a laptop, warm light",
+      "motion": "zoom_out"
+    },
+    {
+      "n": 6,
+      "role": "PAYOFF",
+      "start": 31.0,
+      "end": 40.0,
+      "tts": "거절은 안 된다고 말하는 게 아니라, 선택지를 상대한테 넘기는 거예요. 결정은 팀장이 하게 두면 관계도 안 깨져요.",
+      "caption": "선택지를 넘기기",
+      "image_prompt": "an open palm gesture over a desk, handing something over, blurred background",
+      "motion": "static"
+    },
+    {
+      "n": 7,
+      "role": "CTA",
+      "start": 40.0,
+      "end": 45.0,
+      "tts": "셋 중에 뭐가 제일 쓸 만해요? 1번, 2번, 3번 중에 골라주세요.",
+      "caption": "1 · 2 · 3 ?",
+      "image_prompt": "three sticky notes numbered on a monitor bezel, close up",
+      "motion": "zoom_in"
+    }
+  ],
+  "youtube": {
+    "title": "관계 안 깨고 거절하는 3문장",
+    "description": "그냥 안 된다고 하면 찍힙니다. 선택지를 넘기는 세 문장.\n\n#shorts #직장생활 #거절하는법 #직장인꿀팁 #직장인생존기\n\n※ 본 영상의 사례는 일반적인 상황을 각색한 것이며 특정 인물·회사와 무관합니다.",
+    "tags": [
+      "#shorts",
+      "#직장생활",
+      "#거절하는법",
+      "#직장인꿀팁",
+      "#직장인생존기"
+    ],
+    "pinned_comment": "저는 2번 기한 물어보기가 제일 잘 먹혔어요. 그쪽은 몇 번?",
+    "thumbnail_text": "거절 3문장",
+    "made_for_kids": false,
+    "ai_disclosure": true
+  },
+  "status": "validated"
+}

@@ -33,10 +33,11 @@ axes:
 
 # 초 단위 구조. 검수 스크립트가 블록 존재와 순서를 검증한다.
 structure:
-  - { id: HOOK,   start: 0.0,  end: 3.0,  role: "이탈 저지. 답이 아니라 조건만 제시" }
-  - { id: SETUP,  start: 3.0,  end: 8.0,  role: "장면을 세운다 / 흔한 오답을 죽인다" }
-  - { id: BODY1,  start: 8.0,  end: 15.0, role: "누구나 아는 것 / 스텝 1" }
-  - { id: BODY2,  start: 15.0, end: 22.0, role: "겪어본 사람만 아는 것 / 스텝 2" }
-  - { id: BODY3,  start: 22.0, end: 30.0, role: "다들 말 안 하던 것 / 스텝 3" }
-  - { id: PAYOFF, start: 30.0, end: 40.0, role: "반전 또는 뼈 있는 한 줄" }
-  - { id: CTA,    start: 40.0, end: 45.0, role: "댓글 유도 질문. 양자택일 우선" }
+# 각 구간의 글자 상한 = (end - start) x 5.5. 합계 약 245자.
+  - { id: HOOK,   start: 0.0,  end: 4.0,  role: "이탈 저지. 답이 아니라 조건만 제시" }   # ~22자
+  - { id: SETUP,  start: 4.0,  end: 9.0,  role: "장면을 세운다 / 흔한 오답을 죽인다" }   # ~27자
+  - { id: BODY1,  start: 9.0,  end: 16.0, role: "누구나 아는 것 / 스텝 1" }               # ~38자
+  - { id: BODY2,  start: 16.0, end: 23.0, role: "겪어본 사람만 아는 것 / 스텝 2" }        # ~38자
+  - { id: BODY3,  start: 23.0, end: 31.0, role: "다들 말 안 하던 것 / 스텝 3" }           # ~44자
+  - { id: PAYOFF, start: 31.0, end: 40.0, role: "반전 또는 뼈 있는 한 줄" }               # ~49자
+  - { id: CTA,    start: 40.0, end: 45.0, role: "댓글 유도 질문. 양자택일 우선" }         # ~27자

@@ -1,0 +1,116 @@
+{
+  "id": "0005",
+  "topic": "점심 혼자 먹고 싶은 날 쓰는 핑계 순위",
+  "axis": "A",
+  "category": "동료",
+  "total_sec": 45.0,
+  "voice": {
+    "lang": "ko-KR",
+    "style": "30대 직장인, 담담하고 약간 지친 톤. 과장 없이 툭 던지듯",
+    "speed": 1.05
+  },
+  "image_style": "photorealistic, modern Korean office interior, muted desaturated color grade, soft window light, shallow depth of field, no visible faces, no text, vertical 9:16 composition, cinematic",
+  "hook_candidates": [
+    {
+      "pattern": "시각고정",
+      "text": "점심시간 10분 전, 혼자 먹고 싶은 날이 있어요."
+    },
+    {
+      "pattern": "금기폭로",
+      "text": "점심 같이 먹는 거, 사실 매일은 힘들잖아요."
+    },
+    {
+      "pattern": "대상호명",
+      "text": "점심시간이 제일 피곤한 사람 있죠."
+    }
+  ],
+  "hook_chosen": 0,
+  "scenes": [
+    {
+      "n": 1,
+      "role": "HOOK",
+      "start": 0.0,
+      "end": 4.0,
+      "tts": "점심시간 10분 전, 혼자 먹고 싶은 날이 있어요.",
+      "caption": "점심 10분 전",
+      "image_prompt": "an office wall clock showing five minutes to noon, blurred desks behind",
+      "motion": "zoom_in"
+    },
+    {
+      "n": 2,
+      "role": "SETUP",
+      "start": 4.0,
+      "end": 9.0,
+      "tts": "근데 그 말을 못 하겠어요. 그래서 다들 핑계를 만들죠.",
+      "caption": "말을 못 함",
+      "image_prompt": "an office worker's tray at a cafeteria, seen from above, crowded hall",
+      "motion": "pan_right"
+    },
+    {
+      "n": 3,
+      "role": "BODY1",
+      "start": 9.0,
+      "end": 16.0,
+      "tts": "3위, 은행 좀 다녀와야 해서요. 제일 무난한데 한 달에 한 번 쓰면 그게 한계예요.",
+      "caption": "3위 · 은행",
+      "image_prompt": "an ATM lobby seen through glass, midday street light",
+      "motion": "zoom_out"
+    },
+    {
+      "n": 4,
+      "role": "BODY2",
+      "start": 16.0,
+      "end": 23.0,
+      "tts": "2위, 오늘 약속이 있어요. 편한데 누구랑이냐고 한 번 물어보면 그때부터 꼬이기 시작해요.",
+      "caption": "2위 · 약속",
+      "image_prompt": "a phone face down on a desk next to a jacket, close up",
+      "motion": "zoom_in"
+    },
+    {
+      "n": 5,
+      "role": "BODY3",
+      "start": 23.0,
+      "end": 31.0,
+      "tts": "1위는 그냥 조용히 먼저 나가기예요. 아무 말도 안 하는 게 사실 제일 안전하고 뒤탈도 없더라고요.",
+      "caption": "1위 · 그냥 나가기",
+      "image_prompt": "an office building exit door with daylight coming in, empty corridor",
+      "motion": "pan_left"
+    },
+    {
+      "n": 6,
+      "role": "PAYOFF",
+      "start": 31.0,
+      "end": 40.0,
+      "tts": "혼자 먹고 싶은 건 사람이 싫어서가 아니에요. 오전 내내 말하느라 입이 지쳐서, 딱 한 시간만 조용히 쉬고 싶은 거예요.",
+      "caption": "입을 쉬는 시간",
+      "image_prompt": "a single bowl of food on a small table by a window, quiet, warm light",
+      "motion": "zoom_in"
+    },
+    {
+      "n": 7,
+      "role": "CTA",
+      "start": 40.0,
+      "end": 45.0,
+      "tts": "그쪽은 몇 번 써요? 1번, 2번, 3번 중에 골라주세요.",
+      "caption": "1 · 2 · 3 ?",
+      "image_prompt": "three empty cafeteria seats in a row, vertical composition",
+      "motion": "static"
+    }
+  ],
+  "youtube": {
+    "title": "점심 혼자 먹고 싶은 날 핑계",
+    "description": "혼자 먹고 싶은 날의 핑계 순위. 3위부터 1위까지.\n\n#shorts #직장생활 #점심시간 #직장인공감 #직장인생존기\n\n※ 본 영상의 사례는 일반적인 상황을 각색한 것이며 특정 인물·회사와 무관합니다.",
+    "tags": [
+      "#shorts",
+      "#직장생활",
+      "#점심시간",
+      "#직장인공감",
+      "#직장인생존기"
+    ],
+    "pinned_comment": "저는 1번이요. 말 안 하고 그냥 나가는 게 제일 편해요. 그쪽은?",
+    "thumbnail_text": "혼밥 핑계 순위",
+    "made_for_kids": false,
+    "ai_disclosure": true
+  },
+  "status": "validated"
+}

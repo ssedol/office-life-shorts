@@ -1,0 +1,116 @@
+{
+  "id": "0002",
+  "topic": "보고서 첫 줄에 이것만 넣으면 반려가 줄어든다",
+  "axis": "B",
+  "category": "보고문서",
+  "total_sec": 45.0,
+  "voice": {
+    "lang": "ko-KR",
+    "style": "30대 직장인, 담담하고 약간 지친 톤. 과장 없이 툭 던지듯",
+    "speed": 1.05
+  },
+  "image_style": "photorealistic, modern Korean office interior, muted desaturated color grade, soft window light, shallow depth of field, no visible faces, no text, vertical 9:16 composition, cinematic",
+  "hook_candidates": [
+    {
+      "pattern": "손해경고",
+      "text": "보고서 계속 반려당하는 대리님, 내용 문제 아니에요."
+    },
+    {
+      "pattern": "오답파괴",
+      "text": "보고서는 자세할수록 좋다고요? 그래서 반려당하는 거예요."
+    },
+    {
+      "pattern": "숫자예고",
+      "text": "팀장이 한 번에 통과시키는 보고서 첫 세 줄 공식이에요."
+    }
+  ],
+  "hook_chosen": 0,
+  "scenes": [
+    {
+      "n": 1,
+      "role": "HOOK",
+      "start": 0.0,
+      "end": 4.0,
+      "tts": "보고서 계속 반려당하는 대리님, 내용 문제 아니에요.",
+      "caption": "반려 또 반려",
+      "image_prompt": "a stack of printed documents on a desk with red pen marks, overhead view",
+      "motion": "zoom_in"
+    },
+    {
+      "n": 2,
+      "role": "SETUP",
+      "start": 4.0,
+      "end": 9.0,
+      "tts": "다들 반려당하면 내용을 더 채우려는데, 그럴수록 더 반려당해요.",
+      "caption": "더 채우면 더 반려",
+      "image_prompt": "a thick printed report with many dense pages, overwhelming, desk lamp light",
+      "motion": "zoom_out"
+    },
+    {
+      "n": 3,
+      "role": "BODY1",
+      "start": 9.0,
+      "end": 16.0,
+      "tts": "첫 줄에 이렇게 박아버리세요. 결론, 이렇게 하겠습니다. 딱 한 문장이면 돼요.",
+      "caption": "1줄 · 결론",
+      "image_prompt": "close up of a blank document on a laptop screen with a cursor on the first line",
+      "motion": "zoom_in"
+    },
+    {
+      "n": 4,
+      "role": "BODY2",
+      "start": 16.0,
+      "end": 23.0,
+      "tts": "둘째 줄은 이유예요. 왜냐하면 이 세 가지 때문입니다. 네 개 넘어가면 안 읽혀요.",
+      "caption": "2줄 · 이유 3개",
+      "image_prompt": "a notebook with three short bullet points written, clean desk, minimal",
+      "motion": "pan_right"
+    },
+    {
+      "n": 5,
+      "role": "BODY3",
+      "start": 23.0,
+      "end": 31.0,
+      "tts": "셋째 줄은 확인받을 것 딱 하나예요. 이 부분만 확인해 주시면 바로 진행하겠습니다.",
+      "caption": "3줄 · 확인 1개",
+      "image_prompt": "a pen pointing at a single line on a printed page, close up",
+      "motion": "zoom_in"
+    },
+    {
+      "n": 6,
+      "role": "PAYOFF",
+      "start": 31.0,
+      "end": 40.0,
+      "tts": "팀장은 시간이 없어서 반려하는 거지, 내용이 부족해서 반려하는 게 아니거든요. 읽는 시간을 줄여주면 그냥 통과돼요.",
+      "caption": "시간이 없는 것뿐",
+      "image_prompt": "a wall clock on an office wall showing late afternoon, blurred desks behind",
+      "motion": "static"
+    },
+    {
+      "n": 7,
+      "role": "CTA",
+      "start": 40.0,
+      "end": 45.0,
+      "tts": "이거 쓰고 한 번에 통과되신 분 있어요? 댓글로 자랑해 주세요.",
+      "caption": "통과했어요?",
+      "image_prompt": "a clean desk with a closed laptop and a single coffee cup, end of day light",
+      "motion": "zoom_out"
+    }
+  ],
+  "youtube": {
+    "title": "보고서 반려 줄이는 첫 3줄",
+    "description": "보고서 반려는 내용이 부족해서가 아닙니다. 첫 세 줄만 바꾸세요.\n\n#shorts #직장생활 #보고서 #직장인꿀팁 #직장인생존기\n\n※ 본 영상의 사례는 일반적인 상황을 각색한 것이며 특정 인물·회사와 무관합니다.",
+    "tags": [
+      "#shorts",
+      "#직장생활",
+      "#보고서",
+      "#직장인꿀팁",
+      "#직장인생존기"
+    ],
+    "pinned_comment": "첫 줄에 결론 박는 거, 진짜 이것만 해도 반이에요. 효과 본 분 있나요?",
+    "thumbnail_text": "보고서 첫 3줄",
+    "made_for_kids": false,
+    "ai_disclosure": true
+  },
+  "status": "validated"
+}

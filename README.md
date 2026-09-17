@@ -1,78 +1,61 @@
 # office-life-shorts
 
-직장인 대상 유튜브 쇼츠 채널 운영 시스템.
-**주제 → 대본 → 검수 → 제작 → 업로드**를 단계로 쪼개고, 각 단계의 규칙을 기계가 읽을 수 있는
-형태로 고정했다. 지금은 사람이 돌리고, 순서대로 코드로 대체한다.
+직장인 **공감 + 꿀팁** 쇼츠 채널.
 
-## 채널 한 줄 정의
+## 역할 분담
 
-> 대한민국 직장인이 "아 맞아 저거"라고 말하게 만드는 40초짜리 **공감 + 꿀팁** 채널
-
-**활성 축: A(공감) 50% / B(꿀팁) 50%.** C(정보)는 보류 — `docs/01` 참고.
-
-## 설계 원칙: 규칙은 데이터, 문서는 해설
-
-| 종류 | 위치 | 읽는 주체 |
+| 누가 | 뭘 하나 | 결과물 |
 |---|---|---|
-| **규칙** | `config/*.yaml`, `data/topics.yaml` | 사람 + 스크립트 + LLM |
-| **산출물** | `output/NNNN.json` (`schema/script.schema.json` 준수) | 스크립트 |
-| **해설** | `docs/*.md` | 사람만 |
+| **클로드** | 주제 고르기 + 대본 쓰기 | `output/NNNN.json` 파일 1개 |
+| **로컬 PC** | 그 파일 읽어서 TTS · 이미지 · 영상 · 업로드 | 유튜브 영상 |
 
-**같은 사실을 두 곳에 쓰지 않는다.** 금지어를 바꾸려면 `config/channel.yaml` 한 곳만 고친다.
-`output/*.md` 는 JSON에서 생성되는 파생물이므로 직접 수정하지 않는다.
+**주고받는 건 JSON 파일 하나뿐입니다.** 형식은 `HANDOFF.md` 에 있습니다.
 
-## 빠른 시작
+## 지금 바로 쓸 수 있는 것
+
+`output/` 에 **검수를 통과한 대본 5편**이 있습니다. 로컬에서 그대로 돌리면 됩니다.
+
+| 파일 | 축 | 주제 |
+|---|---|---|
+| `output/0001.json` | 공감 | 팀장이 한숨 쉴 때 하면 안 되는 것 |
+| `output/0002.json` | 꿀팁 | 보고서 첫 줄에 이것만 넣으면 반려가 줄어든다 |
+| `output/0003.json` | 공감 | 퇴근하고 아무것도 못 하는 건 게으른 게 아니다 |
+| `output/0004.json` | 꿀팁 | 관계 안 깨지고 거절하는 문장 3개 |
+| `output/0005.json` | 공감 | 점심 혼자 먹고 싶은 날 쓰는 핑계 순위 |
+
+같은 이름의 `.md` 파일은 사람이 읽기 편하게 만든 사본입니다. 내용은 같습니다.
+
+## 대본이 더 필요할 때
+
+저한테 이렇게 말씀하시면 됩니다.
+
+> "공감 3개, 꿀팁 2개 더 만들어줘"
+> "연차 주제로 꿀팁 하나"
+
+주제를 직접 고르고 싶으면 `data/topics.yaml` 에 49개가 대기 중입니다.
+
+## 검수 (선택)
+
+대본이 채널 규칙을 지키는지 확인합니다. 제가 만들 때 이미 돌리지만, 로컬에서도 됩니다.
 
 ```bash
-pip install -r requirements.txt
-
-# 1. 주제 고르기 (data/topics.yaml 에서 status: idea 인 것)
-# 2. 대본 뼈대 생성
-./scripts/new.sh -c A -k 상사 -t T002 "'편하게 말해봐'에 진짜 편하게 말하면 생기는 일"
-
-# 3. prompts/generate-shorts.md 로 대본 채우기 (LLM)
-# 4. 검수 게이트 — 통과해야 제작으로 넘어간다
-./scripts/validate.py output/0002.json
-
-# 5. 사람이 읽을 마크다운 생성
-./scripts/render.py output/0002.json -w
+pip install PyYAML
+./scripts/validate.py output/0001.json
 ```
 
-## 파이프라인
+금지어, 대본 길이, 후킹 구체성, 자막 길이, 제목 25자, 해시태그 개수 등을 검사하고
+문제가 있으면 종료 코드 1을 냅니다. **파이프라인 앞단에 걸어두면 불량 대본이 안 넘어갑니다.**
 
-```
-01_collect  주제 수집    → data/topics.yaml        [수동]
-02_select   주제 선별    → status: idea → queued   [수동]
-03_script   대본 생성    → output/NNNN.json        [수동 + 프롬프트]
-04_validate 검수 게이트  → scripts/validate.py     [자동 ✅]
-05_produce  영상 생성    → TTS/녹음 + 자막 + 렌더  [미착수]
-06_approve  사람 승인    →                         [의도적으로 사람]
-07_upload   업로드       → YouTube Data API        [미착수]
-08_measure  지표 수집    → 01로 되먹임             [미착수]
-```
+## 나머지 파일들
 
-설계와 리스크는 **`docs/08-automation.md`** 에 있다. 자동화를 시작하기 전에 반드시 읽을 것.
+당장 안 봐도 됩니다. 채널 규칙이 어디 적혀 있는지만 알아두세요.
 
-## 파일 지도
-
-| 경로 | 역할 |
+| 경로 | 뭐가 들었나 |
 |---|---|
-| `config/channel.yaml` | 페르소나, 분량 기준, 금지어, 안전 규칙 |
-| `config/axes.yaml` | 축 정의·비중(`active_mix`), 초 단위 구조 |
-| `config/hooks.yaml` | 후킹 패턴 8종, 금지 도입부 |
-| `data/topics.yaml` | 주제 뱅크 (단일 진실) |
-| `schema/script.schema.json` | 대본 JSON 스키마 |
-| `scripts/new.sh` | 대본 뼈대 생성 |
-| `scripts/validate.py` | **검수 게이트** — 통과 못 하면 제작 금지 |
-| `scripts/render.py` | JSON → 마크다운 |
-| `docs/01`~`07` | 전략·대본공식·후킹·주제·제작·업로드·운영 해설 |
-| `docs/08-automation.md` | 자동화 설계, 정책 리스크, API 제약 |
-| `output/0001.*` | 검수를 통과한 샘플 대본 |
-
-## 절대 규칙 4가지
-
-1. **0~3초에 자기소개·인사·로고 금지.** 첫 프레임부터 상황이 시작된다.
-2. **`scripts/validate.py` 를 통과하지 못한 대본은 제작하지 않는다.**
-3. **실존 회사·상사를 특정할 수 있는 디테일 금지.** 모든 사례는 일반화·각색한다.
-4. **모든 영상에 사람 고유 요소가 최소 1개 있어야 한다.**
-   템플릿만 갈아끼운 대량 생산물은 YouTube `inauthentic content` 정책 대상이다 (`docs/08` §0).
+| `HANDOFF.md` | **JSON 형식 설명 — 로컬 코드 짤 때 이거 보세요** |
+| `config/channel.yaml` | 금지어, 대본 길이, 목소리 톤 |
+| `config/axes.yaml` | 씬 7개의 시간 배분 |
+| `config/hooks.yaml` | 첫 4초 후킹 패턴 8종 |
+| `data/topics.yaml` | 주제 49개 대기열 |
+| `docs/` | 전략·대본공식·제작·업로드 해설 (사람용) |
+| `docs/08-automation.md` | **자동화 전 꼭 읽을 것** — 유튜브 정책 리스크 |

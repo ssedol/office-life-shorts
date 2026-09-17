@@ -20,8 +20,9 @@ persona:
 # 검수 스크립트가 강제하는 정량 기준
 constraints:
   duration_sec: { min: 35, max: 50, default: 45 }
-  # 한국어 나레이션 체감 속도 ≈ 초당 5자 (공백 제외)
-  chars_per_sec: 5
+  # 한국어 쇼츠 나레이션 속도 ≈ 초당 5.5자 (공백·구두점 제외)
+  # 45초 × 5.5 = 247자가 물리적 상한. 목표 210~240자는 그 안에서 숨 쉴 여유를 남긴 값.
+  chars_per_sec: 5.5
   narration_chars: { min: 210, max: 240 }   # 45초 기준
   # HOOK은 본문보다 빠르게 말한다. 3초 구간이지만 22자까지 허용.
   hook_max_chars: 22
