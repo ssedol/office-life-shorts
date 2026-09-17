@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Shorts Script",
+  "description": "대본 산출물. LLM은 이 스키마에 맞는 JSON을 뱉고, scripts/validate.py가 게이트 역할을 한다.",
+  "type": "object",
+  "required": ["id", "axis", "topic", "hook_candidates", "hook_chosen", "blocks", "meta"],
+  "properties": {
+    "id":        { "type": "string", "pattern": "^[0-9]{4}$" },
+    "topic_id":  { "type": "string" },
+    "topic":     { "type": "string", "minLength": 1 },
+    "axis":      { "type": "string", "enum": ["A", "B"] },
+    "category":  { "type": "string" },
+    "brief": {
+      "type": "object",
+      "properties": {
+        "situation":   { "type": "string" },
+        "emotion_before": { "type": "string" },
+        "emotion_after":  { "type": "string" },
+        "core_line":   { "type": "string" },
+        "cta_question":{ "type": "string" }
+      }
+    },
+    "hook_candidates": {
+      "type": "array", "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["pattern", "text"],
+        "properties": {
+          "pattern": { "type": "string" },
+          "text":    { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "hook_chosen":  { "type": "integer", "minimum": 0 },
+    "hook_reason":  { "type": "string" },
+    "blocks": {
+      "type": "array", "minItems": 7, "maxItems": 7,
+      "items": {
+        "type": "object",
+        "required": ["id", "narration", "visual"],
+        "properties": {
+          "id":        { "type": "string", "enum": ["HOOK","SETUP","BODY1","BODY2","BODY3","PAYOFF","CTA"] },
+          "narration": { "type": "string" },
+          "visual":    { "type": "string" },
+          "caption":   { "type": "string" }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["title", "hashtags", "pinned_comment", "thumbnail_text"],
+      "properties": {
+        "title":          { "type": "string" },
+        "hashtags":       { "type": "array", "items": { "type": "string" } },
+        "description":    { "type": "string" },
+        "pinned_comment": { "type": "string" },
+        "thumbnail_text": { "type": "string" }
+      }
+    },
+    "production": {
+      "type": "object",
+      "properties": {
+        "synthetic_voice":  { "type": "boolean" },
+        "synthetic_visual": { "type": "boolean" },
+        "human_elements":   { "type": "array", "items": { "type": "string" },
+                              "description": "이 영상에 들어간 사람 고유의 요소. 비면 양산형 판정 위험" }
+      }
+    },
+    "status": { "type": "string", "enum": ["draft","validated","produced","published"] }
+  }
+}

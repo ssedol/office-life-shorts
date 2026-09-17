@@ -1,0 +1,42 @@
+# 콘텐츠 축 정의. active: false 인 축은 파이프라인이 선택하지 않는다.
+
+active_mix:   # 합이 100이어야 한다
+  A: 50
+  B: 50
+  C: 0
+
+axes:
+  A:
+    name: 공감
+    active: true
+    goal: "도달·댓글. '나만 그런 게 아니구나'"
+    mode: 재현          # 설명하지 말고 장면을 중계한다
+    body_rule: "3블록. ① 누구나 아는 것 ② 겪어본 사람만 아는 것 ③ 다들 말 안 하던 것"
+    success_metric: comment_rate
+    pass_test: "읽고 나서 시청자가 특정 인물 한 명을 떠올릴 수 있는가"
+
+  B:
+    name: 꿀팁
+    active: true
+    goal: "저장·구독. '내일 아침에 써먹는다'"
+    mode: 처방
+    body_rule: "실행 스텝 3개. 각 스텝은 '무엇을'과 '어떻게'를 함께 준다"
+    success_metric: subscriber_delta
+    pass_test: "내일 9시에 그대로 복사해서 쓸 수 있는가. 추상적이면 실패"
+    anti_pattern: "'결론부터 쓰세요' 같은 추상 조언. → '첫 줄에 결론: ~하겠습니다 를 박으세요'"
+
+  C:
+    name: 정보
+    active: false        # 보류. 팩트체크 파이프라인이 준비되면 활성화
+    parked_reason: "노무·세무 오류 시 채널 신뢰 붕괴. 자동화 단계에서는 특히 위험"
+    reactivate_when: "1차 출처 자동 인용 + 사람 검수 게이트가 붙은 뒤"
+
+# 초 단위 구조. 검수 스크립트가 블록 존재와 순서를 검증한다.
+structure:
+  - { id: HOOK,   start: 0.0,  end: 3.0,  role: "이탈 저지. 답이 아니라 조건만 제시" }
+  - { id: SETUP,  start: 3.0,  end: 8.0,  role: "장면을 세운다 / 흔한 오답을 죽인다" }
+  - { id: BODY1,  start: 8.0,  end: 15.0, role: "누구나 아는 것 / 스텝 1" }
+  - { id: BODY2,  start: 15.0, end: 22.0, role: "겪어본 사람만 아는 것 / 스텝 2" }
+  - { id: BODY3,  start: 22.0, end: 30.0, role: "다들 말 안 하던 것 / 스텝 3" }
+  - { id: PAYOFF, start: 30.0, end: 40.0, role: "반전 또는 뼈 있는 한 줄" }
+  - { id: CTA,    start: 40.0, end: 45.0, role: "댓글 유도 질문. 양자택일 우선" }

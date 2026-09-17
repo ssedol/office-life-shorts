@@ -1,51 +1,78 @@
 # office-life-shorts
 
 직장인 대상 유튜브 쇼츠 채널 운영 시스템.
-**주제 하나를 입력하면 → 업로드 직전 상태의 쇼츠 대본 + 메타데이터가 나오는 구조**를 목표로 한다.
+**주제 → 대본 → 검수 → 제작 → 업로드**를 단계로 쪼개고, 각 단계의 규칙을 기계가 읽을 수 있는
+형태로 고정했다. 지금은 사람이 돌리고, 순서대로 코드로 대체한다.
 
 ## 채널 한 줄 정의
 
-> 대한민국 직장인이 "아 맞아 저거"라고 말하게 만드는 40초짜리 공감 + 꿀팁 채널
+> 대한민국 직장인이 "아 맞아 저거"라고 말하게 만드는 40초짜리 **공감 + 꿀팁** 채널
 
-## 폴더 구조
+**활성 축: A(공감) 50% / B(꿀팁) 50%.** C(정보)는 보류 — `docs/01` 참고.
+
+## 설계 원칙: 규칙은 데이터, 문서는 해설
+
+| 종류 | 위치 | 읽는 주체 |
+|---|---|---|
+| **규칙** | `config/*.yaml`, `data/topics.yaml` | 사람 + 스크립트 + LLM |
+| **산출물** | `output/NNNN.json` (`schema/script.schema.json` 준수) | 스크립트 |
+| **해설** | `docs/*.md` | 사람만 |
+
+**같은 사실을 두 곳에 쓰지 않는다.** 금지어를 바꾸려면 `config/channel.yaml` 한 곳만 고친다.
+`output/*.md` 는 JSON에서 생성되는 파생물이므로 직접 수정하지 않는다.
+
+## 빠른 시작
+
+```bash
+pip install -r requirements.txt
+
+# 1. 주제 고르기 (data/topics.yaml 에서 status: idea 인 것)
+# 2. 대본 뼈대 생성
+./scripts/new.sh -c A -k 상사 -t T002 "'편하게 말해봐'에 진짜 편하게 말하면 생기는 일"
+
+# 3. prompts/generate-shorts.md 로 대본 채우기 (LLM)
+# 4. 검수 게이트 — 통과해야 제작으로 넘어간다
+./scripts/validate.py output/0002.json
+
+# 5. 사람이 읽을 마크다운 생성
+./scripts/render.py output/0002.json -w
+```
+
+## 파이프라인
+
+```
+01_collect  주제 수집    → data/topics.yaml        [수동]
+02_select   주제 선별    → status: idea → queued   [수동]
+03_script   대본 생성    → output/NNNN.json        [수동 + 프롬프트]
+04_validate 검수 게이트  → scripts/validate.py     [자동 ✅]
+05_produce  영상 생성    → TTS/녹음 + 자막 + 렌더  [미착수]
+06_approve  사람 승인    →                         [의도적으로 사람]
+07_upload   업로드       → YouTube Data API        [미착수]
+08_measure  지표 수집    → 01로 되먹임             [미착수]
+```
+
+설계와 리스크는 **`docs/08-automation.md`** 에 있다. 자동화를 시작하기 전에 반드시 읽을 것.
+
+## 파일 지도
 
 | 경로 | 역할 |
 |---|---|
-| `docs/01-channel-strategy.md` | 채널 포지셔닝, 타겟, 콘텐츠 3축, 심리학 채널과의 차이 |
-| `docs/02-script-formula.md` | 초 단위 대본 공식 (공감형 / 꿀팁형 / 정보형) |
-| `docs/03-hook-library.md` | 0~3초 후킹 문장 라이브러리 + 금지 패턴 |
-| `docs/04-topic-bank.md` | 주제 뱅크 (카테고리별 시드 60개) |
-| `docs/05-production.md` | 화면·자막·BGM·편집 규칙 |
-| `docs/06-upload-meta.md` | 제목 / 설명 / 해시태그 / 고정댓글 규칙 |
-| `docs/07-ops-loop.md` | 업로드 주기, 성과 지표, 개선 루프 |
-| `templates/topic-brief.md` | 주제 입력 폼 (여기에 주제를 적는다) |
-| `templates/script.md` | 대본 산출물 템플릿 |
-| `prompts/generate-shorts.md` | 주제 → 완성 대본 변환용 프롬프트 (LLM에 그대로 붙여넣기) |
-| `scripts/new.sh` | `./scripts/new.sh "주제"` → `output/`에 대본 뼈대 생성 |
-| `output/` | 회차별 완성 대본 (`0001-주제.md`) |
+| `config/channel.yaml` | 페르소나, 분량 기준, 금지어, 안전 규칙 |
+| `config/axes.yaml` | 축 정의·비중(`active_mix`), 초 단위 구조 |
+| `config/hooks.yaml` | 후킹 패턴 8종, 금지 도입부 |
+| `data/topics.yaml` | 주제 뱅크 (단일 진실) |
+| `schema/script.schema.json` | 대본 JSON 스키마 |
+| `scripts/new.sh` | 대본 뼈대 생성 |
+| `scripts/validate.py` | **검수 게이트** — 통과 못 하면 제작 금지 |
+| `scripts/render.py` | JSON → 마크다운 |
+| `docs/01`~`07` | 전략·대본공식·후킹·주제·제작·업로드·운영 해설 |
+| `docs/08-automation.md` | 자동화 설계, 정책 리스크, API 제약 |
+| `output/0001.*` | 검수를 통과한 샘플 대본 |
 
-## 작업 흐름
-
-```
-주제 선정 (docs/04-topic-bank.md)
-  ↓
-./scripts/new.sh -c 공감 "월요일 아침 팀장 표정 읽는 법"
-  ↓
-output/0001-*.md 생성
-  ↓
-prompts/generate-shorts.md 프롬프트로 대본 채우기
-  ↓
-docs/02 공식 + docs/03 후킹 기준으로 자가 검수
-  ↓
-영상 편집 (docs/05-production.md 규칙)
-  ↓
-업로드 (docs/06-upload-meta.md 메타데이터)
-  ↓
-48시간 후 지표 확인 (docs/07-ops-loop.md)
-```
-
-## 절대 규칙 3가지
+## 절대 규칙 4가지
 
 1. **0~3초에 자기소개·인사·로고 금지.** 첫 프레임부터 상황이 시작된다.
-2. **정보형(법·제도·급여) 콘텐츠는 1차 출처 확인 없이 업로드 금지.** 틀린 노무 정보는 채널 신뢰를 한 번에 태운다.
+2. **`scripts/validate.py` 를 통과하지 못한 대본은 제작하지 않는다.**
 3. **실존 회사·상사를 특정할 수 있는 디테일 금지.** 모든 사례는 일반화·각색한다.
+4. **모든 영상에 사람 고유 요소가 최소 1개 있어야 한다.**
+   템플릿만 갈아끼운 대량 생산물은 YouTube `inauthentic content` 정책 대상이다 (`docs/08` §0).

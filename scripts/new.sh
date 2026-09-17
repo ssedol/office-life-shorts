@@ -1,75 +1,84 @@
 #!/usr/bin/env bash
-# 주제 하나로 output/ 에 대본 뼈대를 만든다.
-#   ./scripts/new.sh -c A "팀장이 한숨 쉴 때 하면 안 되는 것"
-#   ./scripts/new.sh -c 꿀팁 -k 보고문서 "보고서 첫 줄 공식"
+# 주제 하나로 output/NNNN.json 뼈대를 만든다.
+# JSON이 단일 진실이고, 마크다운은 scripts/render.py 가 만든다.
+#   ./scripts/new.sh -c A -k 상사 "팀장이 한숨 쉴 때 하면 안 되는 것"
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-AXIS=""
-CATEGORY=""
+AXIS=""; CATEGORY=""; TOPIC_ID=""
 
 usage() {
   cat <<'USAGE'
-사용법: ./scripts/new.sh -c <축> [-k <카테고리>] "<주제>"
+사용법: ./scripts/new.sh -c <축> [-k <카테고리>] [-t <주제ID>] "<주제>"
 
-  -c  축 (필수) : A|공감 , B|꿀팁 , C|정보
-  -k  카테고리   : 상사, 보고문서, 동료, 회식, 연차, 야근, 연봉, 이직, 신입 ...
-  -h  도움말
-
-예) ./scripts/new.sh -c A -k 상사 "팀장이 한숨 쉴 때 하면 안 되는 것"
+  -c  축 (필수) : A|공감 , B|꿀팁     (C축은 현재 비활성 — config/axes.yaml)
+  -k  카테고리   : 상사, 보고문서, 동료, 회식, 연차, 야근, 연봉, 이직, 신입
+  -t  주제 ID    : data/topics.yaml 의 id (예: T001)
 USAGE
 }
 
-while getopts ":c:k:h" opt; do
+while getopts ":c:k:t:h" opt; do
   case "$opt" in
     c) AXIS="$OPTARG" ;;
     k) CATEGORY="$OPTARG" ;;
+    t) TOPIC_ID="$OPTARG" ;;
     h) usage; exit 0 ;;
     \?) echo "알 수 없는 옵션: -$OPTARG" >&2; usage; exit 1 ;;
-    :) echo "-$OPTARG 에 값이 필요합니다" >&2; exit 1 ;;
+    :)  echo "-$OPTARG 에 값이 필요합니다" >&2; exit 1 ;;
   esac
 done
 shift $((OPTIND - 1))
 
 TOPIC="${1:-}"
-if [[ -z "$TOPIC" || -z "$AXIS" ]]; then
-  echo "주제와 -c 축은 필수입니다." >&2; usage; exit 1
-fi
+[[ -n "$TOPIC" && -n "$AXIS" ]] || { echo "주제와 -c 축은 필수입니다." >&2; usage; exit 1; }
 
 case "$AXIS" in
-  A|a|공감) AXIS_LABEL="A(공감)" ;;
-  B|b|꿀팁) AXIS_LABEL="B(꿀팁)" ;;
-  C|c|정보) AXIS_LABEL="C(정보)" ;;
-  *) echo "축은 A|공감, B|꿀팁, C|정보 중 하나여야 합니다: $AXIS" >&2; exit 1 ;;
+  A|a|공감) AXIS="A" ;;
+  B|b|꿀팁) AXIS="B" ;;
+  C|c|정보) echo "C축(정보)은 현재 비활성입니다. config/axes.yaml 참고." >&2; exit 1 ;;
+  *) echo "축은 A|공감, B|꿀팁 중 하나여야 합니다: $AXIS" >&2; exit 1 ;;
 esac
 
 mkdir -p "$ROOT/output"
-
-# 다음 회차 번호
-LAST=$(find "$ROOT/output" -maxdepth 1 -name '[0-9][0-9][0-9][0-9]-*.md' -printf '%f\n' 2>/dev/null \
-       | sed 's/^\([0-9]\{4\}\).*/\1/' | sort -n | tail -1)
+LAST=$(find "$ROOT/output" -maxdepth 1 -name '[0-9][0-9][0-9][0-9].json' -printf '%f\n' 2>/dev/null \
+       | sed 's/\.json$//' | sort -n | tail -1)
 NEXT=$(printf '%04d' $(( 10#${LAST:-0} + 1 )))
+FILE="$ROOT/output/${NEXT}.json"
+[[ -e "$FILE" ]] && { echo "이미 존재합니다: $FILE" >&2; exit 1; }
 
-SLUG=$(echo "$TOPIC" | tr ' /' '--' | tr -d '?!,.:"'"'")
-FILE="$ROOT/output/${NEXT}-${SLUG}.md"
+AXIS="$AXIS" CATEGORY="$CATEGORY" TOPIC="$TOPIC" TOPIC_ID="$TOPIC_ID" NEXT="$NEXT" \
+python3 - "$FILE" <<'PY'
+import json, os, sys, yaml, pathlib
+root = pathlib.Path(__file__).resolve()
+ax = yaml.safe_load(open(os.path.join(os.path.dirname(sys.argv[1]), "..", "config", "axes.yaml"), encoding="utf-8"))
+blocks = [{"id": b["id"], "narration": "", "visual": "", "caption": "", "_role": b["role"]}
+          for b in ax["structure"]]
+doc = {
+    "id": os.environ["NEXT"],
+    "topic_id": os.environ["TOPIC_ID"],
+    "topic": os.environ["TOPIC"],
+    "axis": os.environ["AXIS"],
+    "category": os.environ["CATEGORY"],
+    "brief": {"situation": "", "emotion_before": "", "emotion_after": "",
+              "core_line": "", "cta_question": ""},
+    "hook_candidates": [{"pattern": "", "text": ""} for _ in range(3)],
+    "hook_chosen": 0,
+    "hook_reason": "",
+    "blocks": blocks,
+    "meta": {"title": "", "hashtags": ["#shorts", "#직장생활", "", "#직장인생존기"],
+             "description": "", "pinned_comment": "", "thumbnail_text": "",
+             "ai_disclosure": False},
+    "production": {"synthetic_voice": False, "synthetic_visual": False, "human_elements": []},
+    "status": "draft",
+}
+open(sys.argv[1], "w", encoding="utf-8").write(json.dumps(doc, ensure_ascii=False, indent=2) + "\n")
+PY
 
-if [[ -e "$FILE" ]]; then
-  echo "이미 존재합니다: $FILE" >&2; exit 1
-fi
+echo "생성됨: output/${NEXT}.json"
+cat <<EOF
 
-TODAY=$(date +%Y-%m-%d)
-
-sed -e "s/^회차: 0000/회차: ${NEXT}/" \
-    -e "s/^주제:$/주제: ${TOPIC}/" \
-    -e "s|^축:.*|축: ${AXIS_LABEL}|" \
-    -e "s/^카테고리:$/카테고리: ${CATEGORY}/" \
-    -e "s/^작성일:$/작성일: ${TODAY}/" \
-    -e "s/^# {주제}$/# ${TOPIC}/" \
-    "$ROOT/templates/script.md" > "$FILE"
-
-echo "생성됨: output/${NEXT}-${SLUG}.md"
-echo
-echo "다음 단계:"
-echo "  1) prompts/generate-shorts.md 의 [입력]을 채워 대본을 뽑는다"
-echo "  2) 결과를 위 파일에 붙여넣는다"
-echo "  3) docs/02-script-formula.md §5 검수 7문항을 통과시킨다"
+다음 단계:
+  1) prompts/generate-shorts.md 로 대본 생성 → output/${NEXT}.json 채우기
+  2) ./scripts/validate.py output/${NEXT}.json     # 통과해야 다음 단계
+  3) ./scripts/render.py   output/${NEXT}.json -w  # 사람이 읽을 마크다운
+EOF
