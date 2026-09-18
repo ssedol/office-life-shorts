@@ -46,6 +46,17 @@
 ⚠️ **`assets/ref/main.webp` 를 매 생성에 캐릭터 레퍼런스로 함께 넣으세요.**
 프롬프트만으로는 35장에 걸쳐 같은 캐릭터가 유지되지 않습니다.
 
+## 이미지 만들기 — 시트부터
+
+**씬마다 따로 생성하면 캐릭터가 흔들립니다.** 한 번의 생성 안에 들어간 그림만 서로 같습니다.
+
+```
+1. prompts/character-sheets.md 의 시트 프롬프트 4개를 생성   → 레퍼런스 컷 21개
+2. ./scripts/crop_sheet.py 로 격자대로 자르기
+3. ./scripts/genimg.py output/*.json --check-refs            → 준비 확인
+4. ./scripts/genimg.py output/0001.json                      → 씬 이미지 생성
+```
+
 ## 이미지 생성 (로컬)
 
 ```bash

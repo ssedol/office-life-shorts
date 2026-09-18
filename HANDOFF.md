@@ -182,6 +182,44 @@
 
 검수기가 영상 씬 0개인 대본에 경고를 냅니다.
 
+## ⚠️ 캐릭터를 고정하는 실제 방법 — 시트 먼저
+
+**씬마다 한 장씩 따로 생성하면 생성 횟수만큼 다른 캐릭터가 나옵니다.** 모델이 매번 새로
+그리기 때문입니다. 누가 만들어도 똑같습니다.
+
+> **한 번의 생성 안에 들어간 그림들은 서로 같다.**
+
+이게 유일하게 확실한 방법입니다. `prompts/character-sheets.md` 에 시트 프롬프트 4개를 넣어
+뒀습니다. **시트 4장만 뽑으면 레퍼런스 컷 21개가 나옵니다.**
+
+| 시트 | 격자 | 내용 |
+|---|---|---|
+| 1 | 3×3 | 주인공 표정 9종 |
+| 2 | 2×3 | 주인공 전신 포즈 6종 |
+| 3 | 2×3 | 팀장 포즈 6종 |
+| 4 | 1×3 | 동료 포즈 3종 |
+
+```bash
+# 1) 시트 4장 생성 — 캐릭터 만드셨던 그 도구에서, main.webp 를 참조로 넣고
+# 2) 격자대로 자르기
+pip install Pillow
+./scripts/crop_sheet.py sheet2.png --grid 2x3 \
+    --names desk docs count123 bed leaving sofa --prefix main --out assets/ref/poses
+
+# 3) 다 준비됐는지 확인
+./scripts/genimg.py output/*.json --check-refs
+```
+
+씬마다 `ref_pose` 에 **그 장면에 맞는 포즈·표정 컷**이 지정돼 있습니다. 생성할 때
+`main.webp` + 해당 포즈 컷이 자동으로 함께 들어갑니다.
+
+```json
+{ "role": "BODY2",
+  "ref_pose": ["assets/ref/poses/boss_mouse.png", "assets/ref/expr/main_shocked.png"] }
+```
+
+더 빡빡하게 가려면 `--chain` 을 쓰세요. 앞 씬 결과물을 다음 씬의 추가 레퍼런스로 넣습니다.
+
 ## 이미지 생성 — 로컬에서 돌리기
 
 ```bash

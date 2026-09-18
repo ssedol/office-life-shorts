@@ -36,7 +36,11 @@
       "image_prompt": "a chibi Korean male team leader in his 40s, big head small body, short slicked black hair with graying sides, thick square glasses, light gray dress shirt with a loosened dark tie, slightly round belly dropping a heavy stack of new documents onto a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge's already full desk with a loud impact burst; a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge reacts with huge round shocked eyes, dropped jaw, both hands raised, motion lines",
       "motion": "zoom_in",
       "asset_type": "video",
-      "video_motion": "a stack of documents drops onto the desk, papers scatter, the protagonist recoils backwards"
+      "video_motion": "a stack of documents drops onto the desk, papers scatter, the protagonist recoils backwards",
+      "ref_pose": [
+        "assets/ref/poses/boss_drop.png",
+        "assets/ref/expr/main_shocked.png"
+      ]
     },
     {
       "n": 2,
@@ -47,7 +51,11 @@
       "caption": "안 된다고 하면 찍힘",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge wearing a stiff forced smile while cold sweat runs down his face, nervous side-eye glance, single sweat drop, stiff forced smile, hunched shoulders; a small red warning mark above his head, office desk",
       "motion": "pan_left",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_desk.png",
+        "assets/ref/expr/main_nervous.png"
+      ]
     },
     {
       "n": 3,
@@ -58,7 +66,11 @@
       "caption": "1 · 우선순위",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge raising one finger and pointing between two document trays, confident smirk, one fist clenched, determined narrowed eyes; a big rounded number 1 bubble floats beside him, two glowing task icons",
       "motion": "zoom_in",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_desk.png",
+        "assets/ref/expr/main_determined.png"
+      ]
     },
     {
       "n": 4,
@@ -69,7 +81,11 @@
       "caption": "2 · 기한",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge holding up two fingers while pointing at a desk calendar with a circled date, confident smirk, one fist clenched, determined narrowed eyes; a big rounded number 2 bubble, a small alarm clock icon",
       "motion": "zoom_in",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_desk.png",
+        "assets/ref/expr/main_determined.png"
+      ]
     },
     {
       "n": 5,
@@ -80,7 +96,11 @@
       "caption": "3 · 비용",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge holding up three fingers next to a floating hourglass, confident smirk, one fist clenched, determined narrowed eyes; a big rounded number 3 bubble, a small price tag icon beside the hourglass",
       "motion": "zoom_out",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_desk.png",
+        "assets/ref/expr/main_determined.png"
+      ]
     },
     {
       "n": 6,
@@ -92,7 +112,11 @@
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge calmly holding out two option cards on his open palms toward a chibi Korean male team leader in his 40s, big head small body, short slicked black hair with graying sides, thick square glasses, light gray dress shirt with a loosened dark tie, slightly round belly, who scratches his head and picks one; friendly non-confrontational mood, office",
       "motion": "static",
       "asset_type": "video",
-      "video_motion": "the protagonist extends two option cards forward, the manager hesitates then takes one"
+      "video_motion": "the protagonist extends two option cards forward, the manager hesitates then takes one",
+      "ref_pose": [
+        "assets/ref/poses/main_docs.png",
+        "assets/ref/poses/boss_glare.png"
+      ]
     },
     {
       "n": 7,
@@ -103,7 +127,10 @@
       "caption": "1 · 2 · 3 ?",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge facing the viewer holding up one two three fingers with a confident smile; three big rounded number bubbles 1 2 3 float around him, bright yellow background",
       "motion": "zoom_in",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_count123.png"
+      ]
     }
   ],
   "youtube": {

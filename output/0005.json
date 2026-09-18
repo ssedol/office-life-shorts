@@ -35,7 +35,11 @@
       "caption": "점심 10분 전",
       "image_prompt": "an office wall clock showing ten minutes to noon; a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge at his desk glancing sideways at it with nervous side-eye glance, single sweat drop, stiff forced smile, hunched shoulders; coworkers blurred in the background",
       "motion": "zoom_in",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_desk.png",
+        "assets/ref/expr/main_nervous.png"
+      ]
     },
     {
       "n": 2,
@@ -46,7 +50,11 @@
       "caption": "말을 못 함",
       "image_prompt": "a chibi Korean female office worker in her late 20s, big head small body, shoulder length dark brown bob hair, beige blouse, blue lanyard with a white ID card badge cheerfully waving toward a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge as if calling him to lunch; a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge freezes with a stiff awkward smile, wide panicked eyes, flailing hands, spiral motion lines, sweat drops",
       "motion": "pan_right",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/peer_wave.png",
+        "assets/ref/expr/main_panicked.png"
+      ]
     },
     {
       "n": 3,
@@ -57,7 +65,10 @@
       "caption": "3위 · 은행",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge pointing toward an ATM machine while holding a bank card, innocent excuse face; a big rounded number 3 rank badge floats above him",
       "motion": "zoom_out",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_docs.png"
+      ]
     },
     {
       "n": 4,
@@ -68,7 +79,11 @@
       "caption": "2위 · 약속",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge holding up his phone and pointing at the screen as if showing an appointment, nervous side-eye glance, single sweat drop, stiff forced smile, hunched shoulders; a big rounded number 2 rank badge floats above him",
       "motion": "zoom_in",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_desk.png",
+        "assets/ref/expr/main_nervous.png"
+      ]
     },
     {
       "n": 5,
@@ -80,7 +95,10 @@
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge seen from behind, quietly slipping out of the office door with his bag, tiptoeing, small sweat drop; a big rounded number 1 rank badge floats above him",
       "motion": "pan_left",
       "asset_type": "video",
-      "video_motion": "the protagonist tiptoes out of the door frame, slow careful steps, door closing softly behind"
+      "video_motion": "the protagonist tiptoes out of the door frame, slow careful steps, door closing softly behind",
+      "ref_pose": [
+        "assets/ref/poses/main_leaving.png"
+      ]
     },
     {
       "n": 6,
@@ -92,7 +110,11 @@
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge sitting alone at a small window table eating a bowl of food, relieved closed eyes, small soft smile, visible exhale puff; warm sunlight through the window, peaceful quiet mood",
       "motion": "zoom_in",
       "asset_type": "video",
-      "video_motion": "warm sunlight slowly shifts across the table, steam rising gently from the bowl"
+      "video_motion": "warm sunlight slowly shifts across the table, steam rising gently from the bowl",
+      "ref_pose": [
+        "assets/ref/poses/main_sofa.png",
+        "assets/ref/expr/main_relieved.png"
+      ]
     },
     {
       "n": 7,
@@ -103,7 +125,10 @@
       "caption": "1 · 2 · 3 ?",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge facing the viewer holding up one two three fingers with a playful smile; three big rounded number bubbles 1 2 3 float around him, bright yellow background",
       "motion": "static",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_count123.png"
+      ]
     }
   ],
   "youtube": {

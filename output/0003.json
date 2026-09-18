@@ -36,7 +36,10 @@
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge collapsed face up on a bed still wearing his work shirt and loosened navy tie, arms spread wide, dead hollow eyes, slumped shoulders, soulless blank stare, drooping posture; a phone glowing beside him, dim night bedroom",
       "motion": "zoom_in",
       "asset_type": "video",
-      "video_motion": "the protagonist flops backwards onto the bed, tie swinging, slow settle, gentle bounce"
+      "video_motion": "the protagonist flops backwards onto the bed, tie swinging, slow settle, gentle bounce",
+      "ref_pose": [
+        "assets/ref/poses/main_bed.png"
+      ]
     },
     {
       "n": 2,
@@ -47,7 +50,11 @@
       "caption": "게을러서가 아님",
       "image_prompt": "close up of a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge lying down and staring straight up at the ceiling, vacant eyes, slightly open mouth, floating soul leaving the body; faint city light through the curtain, quiet night mood",
       "motion": "zoom_out",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_bed.png",
+        "assets/ref/expr/main_tired.png"
+      ]
     },
     {
       "n": 3,
@@ -58,7 +65,11 @@
       "caption": "하루 종일 참는 중",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge at his office desk holding back what he wants to say, pressing his lips shut, nervous side-eye glance, single sweat drop, stiff forced smile, hunched shoulders; small speech bubbles with X marks floating away from his mouth; busy office",
       "motion": "pan_right",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_desk.png",
+        "assets/ref/expr/main_nervous.png"
+      ]
     },
     {
       "n": 4,
@@ -70,7 +81,11 @@
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge standing with an empty red battery gauge floating above his head, flat straight line mouth, half lidded eyes, expressionless resignation; his body slightly transparent at the edges, office background fading",
       "motion": "zoom_in",
       "asset_type": "video",
-      "video_motion": "the battery gauge above his head drains from full to empty, his body slowly slumps down"
+      "video_motion": "the battery gauge above his head drains from full to empty, his body slowly slumps down",
+      "ref_pose": [
+        "assets/ref/poses/main_desk.png",
+        "assets/ref/expr/main_resigned.png"
+      ]
     },
     {
       "n": 5,
@@ -81,7 +96,10 @@
       "caption": "남은 게 없음",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge slumped sideways on a sofa in front of a glowing TV, vacant eyes, slightly open mouth, floating soul leaving the body; a remote fallen from his hand, dark living room at night",
       "motion": "static",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_sofa.png"
+      ]
     },
     {
       "n": 6,
@@ -92,7 +110,11 @@
       "caption": "다 쓴 것뿐",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge sitting on the sofa with a soft blanket draped over his shoulders, relieved closed eyes, small soft smile, visible exhale puff; warm yellow lamp light, gentle and comforting atmosphere",
       "motion": "zoom_out",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_sofa.png",
+        "assets/ref/expr/main_relieved.png"
+      ]
     },
     {
       "n": 7,
@@ -103,7 +125,10 @@
       "caption": "퇴근하고 뭐 해요?",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge facing the viewer in home clothes, tilting his head with a curious friendly smile, one hand raised in a small wave, bright yellow background",
       "motion": "zoom_in",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_count123.png"
+      ]
     }
   ],
   "youtube": {

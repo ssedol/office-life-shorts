@@ -35,7 +35,11 @@
       "caption": "반려 또 반려",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge holding up a printed report completely covered in red correction marks, dead hollow eyes, slumped shoulders, soulless blank stare, drooping posture; his desk buried in paper, dim office",
       "motion": "zoom_in",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_docs.png",
+        "assets/ref/expr/main_tired.png"
+      ]
     },
     {
       "n": 2,
@@ -46,7 +50,11 @@
       "caption": "더 채우면 더 반려",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge hugging an enormously thick stack of documents that towers over his head, wide panicked eyes, flailing hands, spiral motion lines, sweat drops; a red down arrow beside the stack showing it backfires",
       "motion": "zoom_out",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_docs.png",
+        "assets/ref/expr/main_panicked.png"
+      ]
     },
     {
       "n": 3,
@@ -58,7 +66,11 @@
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge sitting confidently at a laptop, typing the very first line of a blank document, confident smirk, one fist clenched, determined narrowed eyes; a glowing yellow highlight bar on the first line of the screen",
       "motion": "zoom_in",
       "asset_type": "video",
-      "video_motion": "fingers typing on the keyboard, the first line of text appears with a yellow highlight sweeping across"
+      "video_motion": "fingers typing on the keyboard, the first line of text appears with a yellow highlight sweeping across",
+      "ref_pose": [
+        "assets/ref/poses/main_desk.png",
+        "assets/ref/expr/main_determined.png"
+      ]
     },
     {
       "n": 4,
@@ -69,7 +81,11 @@
       "caption": "2줄 · 이유 3개",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge holding up exactly three fingers while pointing at a notepad with three short bullet points, confident smirk, one fist clenched, determined narrowed eyes; clean desk, three small yellow dots floating",
       "motion": "pan_right",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_desk.png",
+        "assets/ref/expr/main_determined.png"
+      ]
     },
     {
       "n": 5,
@@ -80,7 +96,10 @@
       "caption": "3줄 · 확인 1개",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge pointing a pen at a single circled line on a printed page, calm and clear expression; one big green check mark floating above the page",
       "motion": "zoom_in",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_desk.png"
+      ]
     },
     {
       "n": 6,
@@ -92,7 +111,10 @@
       "image_prompt": "a chibi Korean male team leader in his 40s, big head small body, short slicked black hair with graying sides, thick square glasses, light gray dress shirt with a loosened dark tie, slightly round belly hurrying past with a phone to his ear and a stack of files under his arm, glancing at a wall clock; motion lines showing he has no time; office corridor",
       "motion": "static",
       "asset_type": "video",
-      "video_motion": "the manager hurries past the frame left to right, papers fluttering, clock hands spinning behind"
+      "video_motion": "the manager hurries past the frame left to right, papers fluttering, clock hands spinning behind",
+      "ref_pose": [
+        "assets/ref/poses/boss_rush.png"
+      ]
     },
     {
       "n": 7,
@@ -103,7 +125,11 @@
       "caption": "통과했어요?",
       "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge holding an approved document overhead in both hands with sparkling star eyes, wide open happy mouth, both arms raised; confetti sparkles and a big green check mark, bright yellow background",
       "motion": "zoom_out",
-      "asset_type": "image"
+      "asset_type": "image",
+      "ref_pose": [
+        "assets/ref/poses/main_count123.png",
+        "assets/ref/expr/main_excited.png"
+      ]
     }
   ],
   "youtube": {
