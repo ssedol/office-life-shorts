@@ -5,9 +5,10 @@
     "중요 단어 강조: scene-plan.json의 subtitle 값에 emphasisMarkup으로 감싼다.",
     "  \"subtitle\": \"이 말 먼저 하면 **손해**\"  → '손해'만 노란색",
     "emphasisKeywords에 단어를 넣어두면 마크업 없이도 항상 강조된다.",
-    "maxCharsPerLine은 '기본 폰트 크기 기준 전각 글자 수' 상한이다. 실제 픽셀 폭과 비교해 작은 쪽이 적용된다."
+    "maxCharsPerLine은 '기본 폰트 크기 기준 전각 글자 수' 상한이다. 실제 픽셀 폭과 비교해 작은 쪽이 적용된다.",
+    "fontSize/outlineWidth는 실제 캐릭터 이미지에 얹어 프레임을 뽑아보고 정한 값이다.",
+    "66px는 쇼츠 기준으로 작고 얇아, 흰 셔츠나 책상 위에서 외곽선에만 의존해 읽혔다."
   ],
-
   "fontName": "NanumGothic",
   "fontFile": null,
   "fontCandidates": [
@@ -20,28 +21,23 @@
     "/System/Library/Fonts/AppleSDGothicNeo.ttc",
     "/Library/Fonts/AppleGothic.ttf"
   ],
-
-  "fontSize": 66,
-  "minFontSize": 46,
+  "fontSize": 84,
+  "minFontSize": 58,
   "bold": true,
-
   "primaryColor": "#FFFFFF",
   "emphasisColor": "#FFD400",
   "outlineColor": "#152046",
-  "outlineWidth": 5,
-  "shadow": 1,
-
+  "outlineWidth": 8,
+  "shadow": 2,
   "maxLines": 2,
-  "maxCharsPerLine": 15,
+  "maxCharsPerLine": 12,
   "alignment": "bottom_center",
-
   "safeArea": {
     "$comment": "1080×1920 기준. marginBottom은 YouTube Shorts 하단 UI를 피하는 값이다 (명세서 §27).",
     "marginLeft": 80,
     "marginRight": 80,
     "marginBottom": 360
   },
-
   "emphasisMarkup": "**",
   "emphasisKeywords": []
 }

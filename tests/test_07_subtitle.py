@@ -234,19 +234,46 @@ def test_ass_uses_two_lines_for_long_subtitle(tmp_path, default_config):
     assert dialogue.count("\\N") == 1
 
 
+def _usable_px(subtitle_cfg: dict, width: int = 1080) -> float:
+    safe = subtitle_cfg["safeArea"]
+    return width - safe["marginLeft"] - safe["marginRight"]
+
+
+def _korean_text_of_width(target_width: float) -> str:
+    """지정한 표시 폭에 최대한 가까운 한국어 문장을 만든다.
+
+    폰트 크기 설정이 바뀌어도 테스트가 그대로 유효하도록, 문장을 하드코딩하지 않고
+    config에서 역산한 폭에 맞춰 생성한다.
+    """
+    pool = ["회사에서", "이런", "말을", "먼저", "꺼내면", "생각보다",
+            "크게", "손해를", "보게", "됩니다", "정말", "자주", "다들", "그렇게"]
+    words: list[str] = []
+    for index in range(60):
+        candidate = words + [pool[index % len(pool)]]
+        if display_width(" ".join(candidate)) > target_width:
+            break
+        words = candidate
+    return " ".join(words)
+
+
 def test_long_subtitle_shrinks_font_instead_of_adding_a_third_line(tmp_path, default_config):
     """명세서 §19 최대 2줄. 글자가 많으면 폰트를 줄여서라도 2줄에 맞춘다."""
-    long_text = "회사에서 이런 말을 먼저 꺼내면 생각보다 정말 크게 손해를 봅니다"
-    timeline = make_timeline([long_text], duration=8.0, audio=7.0)
-
-    # 기본 폰트 크기에서는 3줄이 필요한 문장이어야 이 테스트가 의미가 있다.
     base = default_config.subtitle
-    usable = 1080 - base["safeArea"]["marginLeft"] - base["safeArea"]["marginRight"]
-    assert layout_text(long_text, max_width=usable / base["fontSize"], max_lines=2).overflow
+    usable = _usable_px(base)
+    max_lines = base["maxLines"]
 
-    cues, warnings = build_cues(timeline, base, 1080)
+    # 기본 폰트로는 2줄에 안 들어가지만, 최소 폰트로는 들어가는 길이를 고른다.
+    at_base = max_lines * usable / base["fontSize"]
+    at_min = max_lines * usable / base["minFontSize"]
+    long_text = _korean_text_of_width((at_base + at_min) / 2)
 
-    assert len(cues[0].layout.lines) == 2
+    assert layout_text(long_text, max_width=usable / base["fontSize"], max_lines=max_lines).overflow, (
+        "기본 폰트에서 이미 2줄에 들어가면 이 테스트가 의미를 잃는다"
+    )
+
+    cues, warnings = build_cues(make_timeline([long_text], duration=8.0, audio=7.0), base, 1080)
+
+    assert len(cues[0].layout.lines) == max_lines
     assert cues[0].shrunk
     assert base["minFontSize"] <= cues[0].font_size < base["fontSize"]
     assert not warnings
@@ -254,13 +281,14 @@ def test_long_subtitle_shrinks_font_instead_of_adding_a_third_line(tmp_path, def
 
 def test_subtitle_too_long_even_at_min_font_warns_but_keeps_text(tmp_path, default_config):
     """최소 폰트로도 2줄을 못 맞추면 글자를 버리지 않고 경고로 알린다."""
-    too_long = "회사에서 이런 말을 먼저 꺼내면 생각보다 훨씬 더 크게 손해를 보게 되는 진짜 이유가 따로 있습니다"
-    timeline = make_timeline([too_long], duration=10.0, audio=9.0)
+    base = default_config.subtitle
+    # 최소 폰트에서의 2줄 수용량보다 확실히 긴 문장.
+    too_long = _korean_text_of_width(base["maxLines"] * _usable_px(base) / base["minFontSize"] * 1.5)
 
-    cues, warnings = build_cues(timeline, default_config.subtitle, 1080)
+    cues, warnings = build_cues(make_timeline([too_long], duration=10.0, audio=9.0), base, 1080)
 
-    assert cues[0].font_size == default_config.subtitle["minFontSize"]
-    assert cues[0].layout.plain.replace("\n", " ") == too_long
+    assert cues[0].font_size == base["minFontSize"]
+    assert cues[0].layout.plain.replace("\n", " ") == too_long, "넘쳐도 글자를 버리지 않는다"
     assert any("최대 2줄" in w or "줄입니다" in w for w in warnings)
 
 
