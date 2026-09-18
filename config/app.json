@@ -1,0 +1,30 @@
+{
+  "$comment": "전역 실행 설정 (명세서 §8, §14, §23)",
+
+  "sceneCount": 8,
+
+  "durationRange": {
+    "$comment": "명세서 §8.1 — 최소 35초 / 권장 40초 / 최대 45초. 벗어나면 경고만 낸다.",
+    "minSec": 35,
+    "maxSec": 45
+  },
+
+  "timeline": {
+    "$comment": "씬 길이는 max(durationSec, leadIn + TTS길이 + tailPad, minSceneSec)로 정해진다 (명세서 §31 RISK-3)",
+    "leadInSec": 0.15,
+    "tailPadSec": 0.35,
+    "minSceneSec": 1.0
+  },
+
+  "paths": {
+    "inputsDir": "inputs",
+    "outputsDir": "outputs",
+    "workflowsDir": "workflows"
+  },
+
+  "ffmpeg": {
+    "bin": "ffmpeg",
+    "probeBin": "ffprobe",
+    "logLevel": "error"
+  }
+}

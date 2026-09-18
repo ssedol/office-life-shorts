@@ -1,0 +1,71 @@
+{
+  "$comment": [
+    "LTX 2.5 I2V 설정 (명세서 §16, §17).",
+    "",
+    "명세서 §17: '사용자가 별도로 안정화한 ComfyUI LTX 2.5 I2V workflow JSON을 그대로 재사용할 수 있게 구현한다.'",
+    "그래서 커넥터는 워크플로우 구조를 전혀 가정하지 않는다. 아래 inject 매핑이",
+    "'어느 노드의 어느 입력에 무엇을 넣을지'를 선언하고, 커넥터는 그 자리에만 값을 꽂는다.",
+    "",
+    "쓰는 순서:",
+    "  1. ComfyUI에서 안정화한 LTX 2.5 I2V 워크플로우를 'Workflow → Export (API)'로 저장",
+    "  2. 그 파일을 workflows/ltx25_i2v.json 으로 덮어쓰기",
+    "  3. 아래 inject의 node 값을 실제 노드 ID로 수정 (ComfyUI 노드 우측 상단 번호)",
+    "  4. python main.py --input ./inputs/YYYY-MM-DD",
+    "",
+    "매핑이 실제 워크플로우와 맞지 않으면 어떤 노드/입력이 없는지 오류 메시지에 나온다.",
+    "쓰지 않을 항목은 null로 두면 주입을 건너뛴다.",
+    "",
+    "imageMode:",
+    "  upload — ComfyUI /upload/image API로 올린다 (기본, 원격 ComfyUI도 가능)",
+    "  copy   — comfyui.inputDir로 파일을 복사한다 (같은 PC)",
+    "  path   — 절대 경로를 그대로 주입한다 (LoadImageFromPath 계열 커스텀 노드용)"
+  ],
+
+  "enabled": true,
+  "provider": "comfyui",
+  "workflowFile": "workflows/ltx25_i2v.json",
+
+  "comfyui": {
+    "baseUrl": "http://127.0.0.1:8188",
+    "clientId": "today-to-work-shorts",
+    "imageMode": "upload",
+    "inputDir": null,
+    "outputDir": null,
+    "connectTimeoutSec": 10,
+    "pollIntervalSec": 2.0,
+    "timeoutSec": 900
+  },
+
+  "defaults": {
+    "$comment": "명세서 §16 — I2V는 3~5초, 작은 움직임만. negativePrompt는 §16 '피해야 할 것'을 옮긴 것이다.",
+    "minSec": 3.0,
+    "maxSec": 5.0,
+    "seed": null,
+    "negativePrompt": "walking, running, large pose change, crowd, fast camera movement, new objects appearing, complex hand gestures, scene transformation, morphing face, distorted hands, text artifacts, watermark"
+  },
+
+  "retry": {
+    "attempts": 2,
+    "backoffSec": 3.0
+  },
+
+  "fallback": {
+    "$comment": "명세서 §16 Fallback — I2V 실패 시 원본 이미지를 STILL(slow_zoom_in)로 쓰고 render-log.json에 기록한다.",
+    "enabled": true,
+    "motion": "slow_zoom_in"
+  },
+
+  "inject": {
+    "$comment": "node는 API 형식 워크플로우의 노드 ID(문자열), field는 그 노드의 inputs 키다.",
+    "imagePath": { "node": "10", "field": "image" },
+    "positivePrompt": { "node": "6", "field": "text" },
+    "negativePrompt": { "node": "7", "field": "text" },
+    "seed": { "node": "3", "field": "seed" },
+    "width": { "node": "70", "field": "width" },
+    "height": { "node": "70", "field": "height" },
+    "frameCount": { "node": "70", "field": "length" },
+    "durationSec": null,
+    "fps": { "node": "9", "field": "frame_rate" },
+    "outputPrefix": { "node": "9", "field": "filename_prefix" }
+  }
+}

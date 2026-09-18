@@ -1,6 +1,16 @@
-assets/scenes/*/
-!assets/scenes/.gitkeep
-build/*/
-!build/.gitkeep
-token.json
-client_secret.json
+# 비밀 값
+.env
+
+# 파이썬
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# 출력물 — 용량이 커서 커밋하지 않는다 (명세서 §23)
+outputs/*/
+!outputs/.gitkeep
+
+# 중간 작업 파일
+**/.work/

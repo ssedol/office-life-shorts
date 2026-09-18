@@ -1,0 +1,57 @@
+{
+  "$comment": [
+    "렌더 설정 (명세서 §15, §20, §21). 명세서 §35-1에서 렌더러는 FFmpeg로 확정.",
+    "fitMode: cover = 9:16으로 크롭 / contain = 레터박스. 둘 다 이미지를 늘리지 않는다 (명세서 §15).",
+    "superSample: zoompan 계단 현상을 줄이는 내부 배율. profiles에서 덮어쓴다.",
+    "resolution/fps는 project.json에 값이 있으면 그쪽이 우선한다."
+  ],
+
+  "renderer": "ffmpeg",
+
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+
+  "fitMode": "cover",
+  "backgroundColor": "#101828",
+  "superSample": 2.0,
+
+  "still": {
+    "$comment": "명세서 §15 — 확대/팬 과도 금지. 전체 구간에 걸쳐 12%만 움직인다.",
+    "zoomAmount": 0.12,
+    "panAmount": 0.12
+  },
+
+  "audio": {
+    "codec": "aac",
+    "bitrate": "192k",
+    "sampleRate": 48000,
+    "channels": 1
+  },
+
+  "h264Profile": "high",
+  "h264Level": "4.1",
+
+  "profiles": {
+    "preview": {
+      "$comment": "명세서 §21 검수용. 해상도는 그대로 두어야 자막 안전영역을 실제 크기로 볼 수 있다.",
+      "crf": 26,
+      "preset": "veryfast",
+      "superSample": 1.5
+    },
+    "final": {
+      "crf": 18,
+      "preset": "slow",
+      "superSample": 2.0
+    }
+  },
+
+  "bgm": {
+    "$comment": "명세서 §35-4 — MVP에서는 제외. 음원 파일을 넣고 enabled를 true로 바꾸면 동작한다.",
+    "enabled": false,
+    "file": null,
+    "gainDb": -22
+  }
+}

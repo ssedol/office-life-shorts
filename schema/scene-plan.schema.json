@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://today-to-work.local/schema/scene-plan.schema.json",
+  "title": "scene-plan.json",
+  "description": "ChatGPT가 만든 8씬 구성과 STILL/I2V 판단 결과 (명세서 §12). 로컬에서 재판단하지 않는다 (명세서 §33-2).",
+  "type": "object",
+  "required": ["scenes"],
+  "additionalProperties": true,
+  "properties": {
+    "scenes": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "description": "명세서 §8.2 — 항상 8씬.",
+      "items": { "$ref": "#/$defs/scene" }
+    }
+  },
+  "$defs": {
+    "scene": {
+      "type": "object",
+      "required": ["id", "order", "durationSec", "type", "reason", "imageFile", "narration", "subtitle"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^SCENE-\\d{2}$" },
+        "order": { "type": "integer", "minimum": 1, "maximum": 8 },
+        "durationSec": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "계획 길이. 실제 TTS가 더 길면 그쪽에 맞춰 늘어난다 (명세서 §31 RISK-3)."
+        },
+        "type": { "type": "string", "enum": ["STILL", "I2V"] },
+        "reason": { "type": "string", "description": "ChatGPT가 STILL/I2V를 그렇게 정한 이유 (명세서 §7.2-B)." },
+        "imageFile": { "type": "string", "pattern": "^scene-0[1-8]\\.(png|jpg|jpeg|webp)$" },
+        "narration": { "type": "string", "description": "TTS로 읽을 문장." },
+        "subtitle": {
+          "type": "string",
+          "description": "화면에 띄울 문구. config/subtitle.json의 emphasisMarkup(기본 **)으로 감싼 부분은 노란색으로 강조된다."
+        },
+        "motion": {
+          "type": "string",
+          "enum": ["static", "slow_zoom_in", "slow_zoom_out", "slow_pan_left", "slow_pan_right"],
+          "description": "STILL일 때 선택 필드 (명세서 §15). 생략하면 slow_zoom_in."
+        },
+        "videoPrompt": {
+          "type": "string",
+          "description": "I2V일 때 필수 (명세서 §12). LTX 2.5에 넘길 영문 프롬프트."
+        },
+        "seed": { "type": "integer", "description": "I2V 재현용 고정 시드. 생략하면 난수." }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "I2V" } }, "required": ["type"] },
+          "then": { "required": ["videoPrompt"] }
+        }
+      ]
+    }
+  }
+}

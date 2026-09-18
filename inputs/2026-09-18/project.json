@@ -1,0 +1,19 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-09-18",
+  "topic": "회사에서 이 말 먼저 하면 손해 봅니다",
+  "title": "회사에서 이 말, 먼저 꺼내면 손해 봅니다",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+  "tts": {
+    "engine": "edge",
+    "voice": "ko-KR-SunHiNeural",
+    "speed": 1.05
+  },
+  "renderMode": "preview"
+}

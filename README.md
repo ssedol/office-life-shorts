@@ -1,120 +1,349 @@
-# 오늘도 출근
+# 오늘도출근 Shorts Factory
 
-직장인 **공감 + 꿀팁** 쇼츠 채널. (`office-life-shorts`)
+직장인 공감형 YouTube Shorts 채널 **오늘도출근**의 반자동 제작 시스템입니다.
+ChatGPT가 만든 이미지 8장과 씬 구성을 폴더에 넣으면, 나머지 공정을 자동으로 처리합니다.
+
+SSOT는 `TODAY_TO_WORK_PROJECT_SPEC.md` (명세서 v1.0)이고, 이 저장소는 그 구현입니다.
+
+> 저장소 이름은 `office-life-shorts`이지만, 명세서 §1.1의 권장 이름은 `today-to-work-shorts`입니다.
+> 코드 동작에는 영향이 없습니다.
+
+---
 
 ## 역할 분담
 
-| 누가 | 뭘 하나 | 결과물 |
+| 단계 | 담당 | 결과물 |
 |---|---|---|
-| **클로드** | 주제 고르기 + 대본 쓰기 | `output/NNNN.json` 파일 1개 |
-| **로컬 PC** | 그 파일 읽어서 TTS · 이미지 · 영상 · 업로드 | 유튜브 영상 |
+| 주제 / 제목 / 대본 / 8씬 구성 | 외부 AI | `script.txt`, 씬 구성 |
+| 씬 이미지 8장 + STILL/I2V 판단 | **ChatGPT** | `scene-01~08.png`, `scene-plan.json` |
+| I2V / TTS / 자막 / 타임라인 / 렌더 | **이 저장소** | `preview.mp4`, `final.mp4` |
+| 검수 및 업로드 | 사람 | — |
 
-**주고받는 건 JSON 파일 하나뿐입니다.** 형식은 `HANDOFF.md` 에 있습니다.
+로컬 시스템은 **이미지를 생성하지 않고, STILL/I2V를 재판단하지 않습니다** (명세서 §33-1, §33-2).
 
-## 지금 바로 쓸 수 있는 것
+---
 
-`output/` 에 **검수를 통과한 대본 5편**이 있습니다. 로컬에서 그대로 돌리면 됩니다.
-
-| 파일 | 축 | 주제 |
-|---|---|---|
-| `output/0001.json` | 공감 | 팀장이 한숨 쉴 때 하면 안 되는 것 |
-| `output/0002.json` | 꿀팁 | 보고서 첫 줄에 이것만 넣으면 반려가 줄어든다 |
-| `output/0003.json` | 공감 | 퇴근하고 아무것도 못 하는 건 게으른 게 아니다 |
-| `output/0004.json` | 꿀팁 | 관계 안 깨지고 거절하는 문장 3개 |
-| `output/0005.json` | 공감 | 점심 혼자 먹고 싶은 날 쓰는 핑계 순위 |
-
-같은 이름의 `.md` 파일은 사람이 읽기 편하게 만든 사본입니다. 내용은 같습니다.
-
-## 대본이 더 필요할 때
-
-저한테 이렇게 말씀하시면 됩니다.
-
-> "공감 3개, 꿀팁 2개 더 만들어줘"
-> "연차 주제로 꿀팁 하나"
-
-주제를 직접 고르고 싶으면 `data/topics.yaml` 에 49개가 대기 중입니다.
-
-## 이미지 프롬프트 뽑기
-
-씬별 완성 프롬프트를 복붙 가능한 형태로 냅니다.
+## 설치
 
 ```bash
-./scripts/prompts.py output/0001.json           # 눈으로 보기
-./scripts/prompts.py output/0001.json --json    # 코드에서 읽기
+# 1. 시스템 의존성
+sudo apt-get install ffmpeg fonts-nanum      # Ubuntu/Debian
+# brew install ffmpeg                         # macOS (한글 폰트는 기본 내장)
+
+# 2. 파이썬 패키지
+pip install -r requirements.txt
+
+# 3. 설치 확인
+python main.py --input ./inputs/2026-09-18 --validate-only
 ```
 
-⚠️ **`assets/ref/main.webp` 를 매 생성에 캐릭터 레퍼런스로 함께 넣으세요.**
-프롬프트만으로는 35장에 걸쳐 같은 캐릭터가 유지되지 않습니다.
+Python 3.10 이상이 필요합니다.
 
-## 파이프라인
+---
+
+## 빠른 시작
+
+저장소에는 바로 돌려볼 수 있는 샘플 입력(`inputs/2026-09-18/`)이 들어 있습니다.
 
 ```bash
-python -m pipeline.run 0001            # 막히는 지점까지 진행
-python -m pipeline.run 0001 --status   # 어디까지 됐는지
+# Preview 렌더 (LTX 2.5 없이 먼저 확인)
+python main.py --input ./inputs/2026-09-18 --skip-i2v
+
+# 검수 후 Final 렌더
+python main.py --input ./inputs/2026-09-18 --mode final
 ```
 
+결과는 `outputs/2026-09-18/` 에 생깁니다.
+
+> 샘플 이미지는 파이프라인 확인용 **자리표시자**입니다. 캐릭터 일관성 검수에는 쓸 수 없습니다.
+> `python tools/make_sample_images.py <폴더>` 로 다시 만들 수 있습니다.
+
+---
+
+## 처리 흐름
+
+```text
+inputs/YYYY-MM-DD/
+        │
+        ▼
+  ① 입력 검증        8씬 / 이미지 8장 / type / videoPrompt / durationSec
+        │
+        ▼
+  ② TTS              씬별 한국어 내레이션 합성 + 실제 길이 측정
+        │
+        ▼
+  ③ 타임라인 구성     씬 길이 = max(durationSec, leadIn + TTS길이 + tailPad)
+        │
+        ▼
+  ④ STILL / I2V 분기  I2V 씬만 LTX 2.5 호출, 실패하면 STILL fallback
+        │
+        ▼
+  ⑤ 내레이션 합치기   씬 길이에 맞춰 패딩 → narration.wav
+        │
+        ▼
+  ⑥ 자막             subtitles.srt / subtitles.ass / subtitle-timeline.json
+        │
+        ▼
+  ⑦ Preview 렌더  →  사람 검수  →  Final 렌더
 ```
-1 validate  대본 검수           자동
-2 prompts   이미지 프롬프트 출력 자동
-3 images    이미지 확인         ⏸ GPT 등에서 생성해 넣는다
-4 tts       음성 + 타임라인      자동
-5 video     영상 조립           자동
-6 review    눈으로 확인         ⏸ 사람이 본다
-7 upload    업로드              자동
+
+**명세서 §3.1과 순서가 한 군데 다릅니다.** 명세서는 I2V → TTS 순이지만,
+씬 길이가 실제 TTS 길이에 의존하기 때문에(명세서 §31 RISK-3) TTS를 먼저 돌리고
+확정된 길이를 I2V에 넘깁니다. 입력이 같으면 결과도 같으므로 논리적 순서는 그대로입니다.
+
+---
+
+## 입력 패키지 (명세서 §10)
+
+```text
+inputs/2026-09-18/
+├─ project.json          채널/날짜/제목/해상도/TTS 설정
+├─ script.txt            전체 대본 (사람이 읽는 원본)
+├─ scene-plan.json       8씬 구성 + STILL/I2V 판단 + 내레이션/자막
+└─ scene-01.png ~ scene-08.png
 ```
 
-자세한 건 **`PIPELINE.md`**. 중단해도 상태가 남아 이어서 돌아갑니다.
+JSON 형식은 `schema/project.schema.json`, `schema/scene-plan.schema.json` 에 정의돼 있습니다.
+편집기에 스키마를 연결하면 필드 누락을 바로 잡을 수 있습니다.
 
-## 이미지 만들기 — 시트부터
+### scene-plan.json 씬 1개
 
-**씬마다 따로 생성하면 캐릭터가 흔들립니다.** 한 번의 생성 안에 들어간 그림만 서로 같습니다.
-
+```json
+{
+  "id": "SCENE-02",
+  "order": 2,
+  "durationSec": 4,
+  "type": "I2V",
+  "reason": "상사와 주인공 상호작용이 핵심",
+  "imageFile": "scene-02.png",
+  "narration": "팀장님이 갑자기 일을 하나 넘깁니다.",
+  "subtitle": "팀장님이 일을 넘길 때",
+  "videoPrompt": "A young office worker looks slightly surprised ..."
+}
 ```
-1. prompts/character-sheets.md 의 시트 프롬프트 4개를 생성   → 레퍼런스 컷 21개
-2. ./scripts/crop_sheet.py 로 격자대로 자르기
-3. ./scripts/genimg.py output/*.json --check-refs            → 준비 확인
-4. ./scripts/genimg.py output/0001.json                      → 씬 이미지 생성
+
+- `type`이 `I2V`면 `videoPrompt`가 **필수**입니다.
+- `type`이 `STILL`이면 `motion`을 선택적으로 넣습니다 (`static` / `slow_zoom_in` / `slow_zoom_out` / `slow_pan_left` / `slow_pan_right`). 생략하면 `slow_zoom_in`.
+- `seed`를 넣으면 I2V 결과를 재현할 수 있습니다.
+
+### 자막 강조
+
+명세서 §19의 "중요 단어 노란색"을 위해 `subtitle` 값 안에서 `**`로 감쌉니다.
+
+```json
+"subtitle": "먼저 꺼내면 **손해** 보는 말"
 ```
 
-## 이미지 생성 (로컬)
+마크업이 없으면 전부 흰색으로 나오므로, 기존 입력과도 호환됩니다.
+항상 강조할 단어는 `config/subtitle.json`의 `emphasisKeywords`에 넣어두면 됩니다.
+
+---
+
+## CLI (명세서 §24)
 
 ```bash
-pip install -r requirements.txt openai      # 또는 google-genai
-export OPENAI_API_KEY=...
-
-./scripts/genimg.py output/0001.json --dry-run      # 확인
-./scripts/genimg.py output/0001.json                # 생성
+python main.py --input ./inputs/2026-09-18 [옵션]
 ```
 
-씬마다 `asset_type` 이 `image`(정지) 또는 `video`(첫 프레임 + 모션)로 표시돼 있습니다.
-영상 씬은 이미지까지만 만들고, 움직이는 건 `video_motion` 을 i2v 모델에 넣으시면 됩니다.
-
-## 검수 (선택)
-
-대본이 채널 규칙을 지키는지 확인합니다. 제가 만들 때 이미 돌리지만, 로컬에서도 됩니다.
-
-```bash
-pip install PyYAML
-./scripts/validate.py output/0001.json
-```
-
-금지어, 대본 길이, 후킹 구체성, 자막 길이, 제목 25자, 해시태그 개수 등을 검사하고
-문제가 있으면 종료 코드 1을 냅니다. **파이프라인 앞단에 걸어두면 불량 대본이 안 넘어갑니다.**
-
-## 나머지 파일들
-
-당장 안 봐도 됩니다. 채널 규칙이 어디 적혀 있는지만 알아두세요.
-
-| 경로 | 뭐가 들었나 |
+| 옵션 | 설명 |
 |---|---|
-| `PIPELINE.md` | **파이프라인 사용법 — 이걸 먼저 보세요** |
-| `HANDOFF.md` | **JSON 형식 설명 — 로컬 코드 짤 때 이거 보세요** |
-| `config/style.yaml` | **비주얼 규칙** — 캐릭터 3명, 표정 사전, 색 팔레트, 구도 |
-| `assets/ref/main.webp` | **캐릭터 레퍼런스** — 이미지 생성마다 함께 넣을 것 |
-| `assets/scenes/` | 생성된 씬 이미지가 쌓이는 곳 |
-| `config/channel.yaml` | 금지어, 대본 길이, 목소리 톤 |
-| `config/axes.yaml` | 씬 7개의 시간 배분 |
-| `config/hooks.yaml` | 첫 4초 후킹 패턴 8종 |
-| `data/topics.yaml` | 주제 49개 대기열 |
-| `docs/` | 전략·대본공식·제작·업로드 해설 (사람용) |
-| `docs/08-automation.md` | **자동화 전 꼭 읽을 것** — 유튜브 정책 리스크 |
+| `--mode preview\|final` | 렌더 모드. 기본 `preview` |
+| `--skip-i2v` | LTX 2.5 호출을 건너뛰고 I2V 씬도 정지 이미지로 렌더 |
+| `--force` | 기존 결과물 덮어쓰기 + Preview 없이 Final 허용 |
+| `--validate-only` | 입력 검증만 수행 |
+| `--tts-engine NAME` | `config/tts.json`의 engine을 덮어씀 (`edge` / `supertonic` / `cli` / `offline`) |
+| `--tts-voice VOICE` | 보이스를 덮어씀 |
+| `--output DIR` | 출력 폴더 직접 지정 |
+| `--config DIR` | config 폴더 경로 |
+| `--keep-work` | 중간 파일(`.work`)을 남김 |
+| `-v` / `-q` | 상세 로그 / 경고 이상만 |
+
+**Preview → 검수 → Final 순서는 강제됩니다** (명세서 §21, §33-6).
+`preview.mp4` 없이 `--mode final`을 실행하면 중단되고, 정말 건너뛰려면 `--force`가 필요합니다.
+
+---
+
+## 출력 (명세서 §23)
+
+```text
+outputs/2026-09-18/
+├─ preview.mp4              검수용
+├─ final.mp4                최종본
+├─ narration.wav            내레이션 (전체 길이에 맞춰 패딩됨)
+├─ subtitles.srt            표준 자막 (업로드/검수용)
+├─ subtitles.ass            번인 렌더용 (외곽선/강조색/안전영역 포함)
+├─ subtitle-timeline.json   자막 타임라인
+├─ render-log.json          실행 기록
+└─ scenes/                  씬별 클립 8개
+```
+
+---
+
+## 설정 (`config/`)
+
+| 파일 | 내용 |
+|---|---|
+| `app.json` | 씬 수, 길이 범위, 타임라인 여백, ffmpeg 경로 |
+| `render.json` | 해상도/fps, 모션 강도, preview·final 프로파일, BGM |
+| `tts.json` | 엔진 선택, 보이스, 속도, 음량 정규화, 재시도 |
+| `subtitle.json` | 폰트, 색상, 줄 수, 안전영역, 강조 마크업 |
+| `i2v.json` | ComfyUI 주소, workflow 파일, **주입 매핑**, fallback |
+
+우선순위는 **CLI 옵션 > `project.json` > `config/*.json`** 입니다.
+`resolution` / `fps` / `tts`는 `project.json`에서 영상별로 덮어쓸 수 있습니다.
+
+각 JSON 안의 `$comment` 필드에 해당 설정의 의미와 관련 명세서 절이 적혀 있습니다.
+
+---
+
+## LTX 2.5 I2V 연동
+
+**`workflows/ltx25_i2v.json`은 자리표시자입니다.** 실제 워크플로우로 교체해야 I2V가 동작합니다.
+교체 방법과 주입 매핑 설명은 [`workflows/README.md`](workflows/README.md)를 보세요.
+
+요약하면:
+
+1. ComfyUI에서 **Workflow → Export (API)** 로 저장
+2. `workflows/ltx25_i2v.json` 으로 덮어쓰기
+3. `config/i2v.json`의 `inject` 에 적힌 `node` 값을 실제 노드 ID로 수정
+
+커넥터는 워크플로우 구조를 전혀 가정하지 않습니다. 매핑이 틀리면
+어떤 노드/입력을 못 찾았는지 오류 메시지에 그대로 나옵니다 (명세서 §17).
+
+### I2V 실패 시 (명세서 §16)
+
+ComfyUI가 꺼져 있든, 매핑이 틀렸든, 생성이 실패하든 **전체 제작은 중단되지 않습니다.**
+해당 씬은 원본 이미지 + `slow_zoom_in`으로 대체되고 `render-log.json`에 기록됩니다.
+
+```json
+"i2v": { "SCENE-02": "success", "SCENE-05": "fallback_still" }
+```
+
+---
+
+## TTS
+
+기본 엔진은 **edge-tts**입니다. 무료이고 한국어 뉴럴 보이스 품질이 좋지만 **인터넷 연결이 필요합니다.**
+
+```bash
+# 사용 가능한 한국어 보이스 확인
+python -m edge_tts --list-voices | grep ko-KR
+```
+
+`config/tts.json`의 `engine`만 바꾸면 다른 어댑터로 교체됩니다.
+
+| engine | 설명 |
+|---|---|
+| `edge` | 기본. 무료 한국어 뉴럴 보이스. 인터넷 필요 |
+| `supertonic` | 명세서 §18이 지목한 로컬 엔진 자리. `cliPath`와 `args`를 채우면 동작 |
+| `cli` | 임의의 로컬 TTS 실행 파일 브리지 |
+| `offline` | **무음 자리표시자.** 네트워크 없는 환경에서 파이프라인 점검용. 실제 제작에는 쓰지 않음 |
+
+새 엔진을 붙이려면 `src/tts/base.py`의 `TTSProvider`를 구현하고
+`src/tts/factory.py`의 `REGISTRY`에 등록하면 됩니다.
+WAV 변환·음량 정규화·길이 패딩은 공통 코드가 처리하므로 다시 구현할 필요가 없습니다.
+
+---
+
+## 렌더러 교체
+
+현재 구현은 `FFmpegRenderer` 하나입니다 (명세서 §35-1에서 FFmpeg로 확정).
+Remotion 등으로 바꾸려면 `src/render/base.py`의 `Renderer` 인터페이스만 구현하면 됩니다.
+타임라인·자막·내레이션은 렌더러와 무관하게 이미 만들어져 있으므로,
+새 렌더러는 `RenderJob → mp4 한 개`만 책임지면 됩니다.
+
+---
+
+## 테스트
+
+```bash
+pytest                    # 전체
+pytest -m "not slow"      # 1080×1920 실제 렌더 테스트 제외
+pytest tests/test_04_i2v.py -v
+```
+
+명세서 §28의 TEST-1 ~ TEST-10을 파일 단위로 대응시켰습니다.
+
+| 파일 | 대응 |
+|---|---|
+| `test_01_validation.py` | TEST-1 입력 검증 / TEST-2 씬 수 |
+| `test_02_config_cli.py` | 설정 로딩, CLI 옵션, 번들 샘플·스키마 정합성 |
+| `test_03_still.py` | TEST-3 STILL 모션 |
+| `test_04_i2v.py` | TEST-4 I2V 호출 / TEST-5 fallback |
+| `test_06_tts.py` | TEST-6 TTS |
+| `test_07_subtitle.py` | TEST-7 자막 |
+| `test_08_pipeline.py` | TEST-8 렌더 / TEST-9 싱크 / TEST-10 반복 실행 |
+
+I2V 테스트는 `tests/fake_comfyui.py`의 가짜 ComfyUI 서버를 띄워
+실제 HTTP 프로토콜(업로드 → 제출 → 폴링 → 다운로드)을 그대로 검증합니다.
+ComfyUI 설치 없이 돌아갑니다.
+
+---
+
+## 오류 코드 (명세서 §25)
+
+| 코드 | 정책 |
+|---|---|
+| `ERR_INPUT_MISSING` | 중단 |
+| `ERR_SCENE_COUNT` | 중단 |
+| `ERR_SCENE_IMAGE_MISSING` | 중단 |
+| `ERR_INVALID_SCENE_TYPE` | 중단 |
+| `ERR_I2V_FAILED` | **fallback 후 계속** |
+| `ERR_TTS_FAILED` | 중단 |
+| `ERR_SUBTITLE_FAILED` | 중단 |
+| `ERR_RENDER_FAILED` | 중단 |
+| `ERR_CONFIG_INVALID` | 중단 (명세서 목록 외 추가) |
+| `ERR_DEPENDENCY_MISSING` | 중단 (명세서 목록 외 추가) |
+
+검증 오류는 첫 항목에서 멈추지 않고 **전부 모아서** 출력합니다 (명세서 §14).
+
+---
+
+## 폴더 구조
+
+```text
+.
+├─ main.py                 CLI 진입점
+├─ config/                 설정 5종
+├─ schema/                 project / scene-plan JSON Schema
+├─ workflows/              LTX 2.5 ComfyUI workflow (교체 필요)
+├─ inputs/YYYY-MM-DD/      입력 패키지
+├─ outputs/YYYY-MM-DD/     결과물
+├─ tools/                  샘플 이미지 생성기
+├─ tests/                  TEST-1 ~ TEST-10
+└─ src/
+   ├─ config.py            설정 병합 + .env
+   ├─ errors.py            오류 코드
+   ├─ pipeline.py          오케스트레이션
+   ├─ loader/              입력 패키지 로딩
+   ├─ validator/           FEAT-1 입력 검증
+   ├─ scene/               모델, 타임라인, FEAT-2 STILL 모션
+   ├─ i2v/                 FEAT-3 LTX 2.5 커넥터 + fallback
+   ├─ tts/                 FEAT-4 Provider 인터페이스 + 어댑터
+   ├─ subtitle/            FEAT-5 자막 생성
+   ├─ render/              FEAT-6 렌더러 인터페이스 + FFmpeg 구현
+   ├─ media/               ffmpeg / ffprobe 래퍼
+   └─ logger/              render-log.json
+```
+
+---
+
+## 보안 (명세서 §26)
+
+- API Key는 `.env`에 두고, `.env`는 커밋하지 않습니다 (`.gitignore`에 포함).
+- 계정 비밀번호·결제정보는 저장하지 않습니다.
+- 개인정보를 수집하지 않고, 로컬 영상 제작 데이터만 저장합니다.
+
+`.env.example`을 복사해 쓰세요. MVP는 유료 API를 쓰지 않으므로 값은 전부 선택 사항입니다.
+
+---
+
+## 확정된 결정 (명세서 §35)
+
+| 항목 | 결정 |
+|---|---|
+| 렌더러 | **FFmpeg** (Renderer 인터페이스로 교체 가능) |
+| TTS | **edge-tts** 기본, Provider 교체 가능 |
+| 자막 폰트 | `fontFile` → `fontCandidates` → 시스템 폰트 순으로 자동 탐색 (Linux는 NanumGothic Bold) |
+| BGM/SFX | **MVP 제외.** `config/render.json`의 `bgm`에 파일을 넣고 켜면 동작 |
+| LTX workflow | 주입 매핑 구조. 사용자가 안정화한 workflow JSON을 그대로 재사용 |

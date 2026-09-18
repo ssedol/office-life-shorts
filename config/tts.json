@@ -1,0 +1,66 @@
+{
+  "$comment": [
+    "TTS 설정 (명세서 §18). Provider 교체 가능 구조 — engine 값만 바꾸면 어댑터가 교체된다.",
+    "engine 후보: edge / supertonic / cli / offline",
+    "  edge      — 무료 한국어 뉴럴 보이스. 인터넷 연결 필요. 기본값.",
+    "  supertonic— 명세서 §18이 지목한 로컬 엔진 자리. engines.supertonic을 채우면 붙는다.",
+    "  cli       — 임의의 로컬 TTS 실행 파일 브리지.",
+    "  offline   — 무음 자리표시자. 네트워크 없는 환경에서 파이프라인 점검용. 실제 제작에는 쓰지 않는다.",
+    "보이스 목록: python -m edge_tts --list-voices | grep ko-KR",
+    "project.json의 tts 블록이 이 값보다 우선하고, CLI 옵션이 그보다 우선한다."
+  ],
+
+  "engine": "edge",
+  "voice": "ko-KR-SunHiNeural",
+  "speed": 1.0,
+
+  "sampleRate": 48000,
+  "channels": 1,
+
+  "normalize": {
+    "$comment": "명세서 §18 음량 정규화. EBU R128 기준.",
+    "enabled": true,
+    "targetLufs": -16.0,
+    "truePeakDb": -1.5,
+    "lra": 11.0
+  },
+
+  "retry": {
+    "attempts": 3,
+    "backoffSec": 2.0
+  },
+
+  "engines": {
+    "edge": {
+      "$comment": [
+        "명세서 §18 '친근한 직장 동료 느낌 / 아나운서 톤 지양'. SunHi는 밝은 여성, InJoon은 차분한 남성.",
+        "proxy: null이면 HTTPS_PROXY 환경변수를 따르고, \"\"로 두면 프록시를 무시한다."
+      ],
+      "voice": "ko-KR-SunHiNeural",
+      "pitchHz": 0,
+      "proxy": null
+    },
+    "supertonic": {
+      "$comment": "명세서 §35-2 미확정. cliPath와 args를 채우면 바로 동작한다. 자리표시자: {text} {voice} {speed} {out} {sampleRate}",
+      "cliPath": null,
+      "args": ["--text", "{text}", "--voice", "{voice}", "--speed", "{speed}", "--out", "{out}"],
+      "voice": null,
+      "outputSuffix": ".wav",
+      "cwd": null,
+      "timeoutSec": 120
+    },
+    "cli": {
+      "cliPath": null,
+      "args": ["--text", "{text}", "--out", "{out}"],
+      "voice": null,
+      "outputSuffix": ".wav",
+      "cwd": null,
+      "timeoutSec": 120
+    },
+    "offline": {
+      "$comment": "글자 수로 길이만 추정해 같은 길이의 무음을 만든다.",
+      "charsPerSec": 7.0,
+      "minSec": 0.8
+    }
+  }
+}

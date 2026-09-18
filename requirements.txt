@@ -1,5 +1,21 @@
-PyYAML>=6.0
+# 오늘도출근 Shorts Factory
+#
+# 시스템 요구사항 (pip으로 설치되지 않습니다):
+#   ffmpeg / ffprobe  — 렌더링에 필수
+#       Ubuntu/Debian: sudo apt-get install ffmpeg
+#       macOS:         brew install ffmpeg
+#       Windows:       https://www.gyan.dev/ffmpeg/builds/
+#   한글 폰트         — 자막 렌더링에 필수
+#       Ubuntu/Debian: sudo apt-get install fonts-nanum
+#       (Windows/macOS는 기본 내장 폰트를 자동으로 찾습니다)
 
-# 이미지 생성 — 쓰는 쪽만 설치하면 됩니다
-# openai>=1.0
-# google-genai>=1.0
+# --- 필수 ---------------------------------------------------------------
+edge-tts>=6.1            # 기본 한국어 TTS (명세서 §18)
+
+# --- 권장 ---------------------------------------------------------------
+Pillow>=10.0             # 이미지 규격 검증 (§14) + 샘플 이미지 생성 도구
+                         # 없어도 동작하지만 이미지 크기/비율 검사를 건너뜁니다
+
+# --- 개발/테스트 --------------------------------------------------------
+pytest>=8.0
+jsonschema>=4.0          # schema/*.json 으로 입력을 검증하는 테스트용

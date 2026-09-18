@@ -1,0 +1,92 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01",
+      "order": 1,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "훅 자막과 표정 전달이 핵심이라 정지 이미지로 충분하다",
+      "imageFile": "scene-01.png",
+      "narration": "회사에서 이 말, 먼저 꺼내면 괜히 손해 봅니다.",
+      "subtitle": "먼저 꺼내면 **손해** 보는 말",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02",
+      "order": 2,
+      "durationSec": 4,
+      "type": "I2V",
+      "reason": "상사가 일을 넘기는 순간의 상호작용과 표정 변화가 의미를 가진다",
+      "imageFile": "scene-02.png",
+      "narration": "팀장님이 갑자기 일을 하나 넘깁니다.",
+      "subtitle": "팀장님이 일을 넘길 때",
+      "videoPrompt": "A young office worker looks slightly surprised and awkward as a manager hands over documents. Keep the original character design, clothing and office layout unchanged. Add subtle blinking, a slight head tilt, a small hesitant hand movement, and a very slow camera push-in."
+    },
+    {
+      "id": "SCENE-03",
+      "order": 3,
+      "durationSec": 6,
+      "type": "STILL",
+      "reason": "속마음을 큰 자막으로 보여주는 장면이라 정지 이미지가 더 또렷하다",
+      "imageFile": "scene-03.png",
+      "narration": "머릿속에 바로 떠오르는 말이 있죠. 이건 제 일이 아닌데요.",
+      "subtitle": "\"이건 제 일이 아닌데요\"",
+      "motion": "static"
+    },
+    {
+      "id": "SCENE-04",
+      "order": 4,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "정보 전달 중심 설명 장면이라 줌만으로 충분하다",
+      "imageFile": "scene-04.png",
+      "narration": "그런데 이 말은 내용보다 태도로 먼저 전달됩니다.",
+      "subtitle": "내용보다 **태도**로 들립니다",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-05",
+      "order": 5,
+      "durationSec": 5,
+      "type": "I2V",
+      "reason": "듣는 사람의 어색한 반응과 시선 이동이 이 씬의 핵심이다",
+      "imageFile": "scene-05.png",
+      "narration": "듣는 사람은 거절이 아니라 선긋기로 받아들여요.",
+      "subtitle": "거절이 아니라 **선긋기**",
+      "videoPrompt": "A colleague's expression cools slightly as he looks away from the young office worker. Keep the original character design and office background unchanged. Add subtle blinking, a small gaze shift to the side, a faint shoulder drop, and a very slow camera push-in."
+    },
+    {
+      "id": "SCENE-06",
+      "order": 6,
+      "durationSec": 6,
+      "type": "STILL",
+      "reason": "대체 문장을 자막으로 읽히게 하는 장면이라 팬으로 충분하다",
+      "imageFile": "scene-06.png",
+      "narration": "대신 이렇게 바꿔보세요. 지금 이것부터 하고 있는데, 순서를 어떻게 할까요.",
+      "subtitle": "순서를 **되묻는** 말로",
+      "motion": "slow_pan_right"
+    },
+    {
+      "id": "SCENE-07",
+      "order": 7,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "적용 결과를 정리하는 설명 장면이라 영상화 효과가 크지 않다",
+      "imageFile": "scene-07.png",
+      "narration": "거절은 똑같이 하는데, 판단은 상대에게 넘어갑니다.",
+      "subtitle": "판단을 **넘기면** 됩니다",
+      "motion": "slow_zoom_out"
+    },
+    {
+      "id": "SCENE-08",
+      "order": 8,
+      "durationSec": 4,
+      "type": "STILL",
+      "reason": "마무리 한 줄을 또렷하게 남기는 장면",
+      "imageFile": "scene-08.png",
+      "narration": "내 일이 아니라는 말, 순서 질문으로 바꿔보세요.",
+      "subtitle": "말만 바꿔도 **덜 손해**",
+      "motion": "slow_zoom_in"
+    }
+  ]
+}
