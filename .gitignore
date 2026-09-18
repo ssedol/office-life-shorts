@@ -1,2 +1,6 @@
 assets/scenes/*/
 !assets/scenes/.gitkeep
+build/*/
+!build/.gitkeep
+token.json
+client_secret.json
