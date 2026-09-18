@@ -6,10 +6,10 @@
   "total_sec": 45.0,
   "voice": {
     "lang": "ko-KR",
-    "style": "30대 직장인, 담담하고 약간 지친 톤. 과장 없이 툭 던지듯",
+    "style": "20대 후반 남자 직장인. 친근하고 툭 던지는 말투. 지친 척하지만 밝은 기운이 남아 있는 톤",
     "speed": 1.05
   },
-  "image_style": "photorealistic, modern Korean office interior, muted desaturated color grade, soft window light, shallow depth of field, no visible faces, no text, vertical 9:16 composition, cinematic",
+  "image_style": "cute Korean webtoon chibi illustration, thick bold navy outlines, bright yellow accent color, clean flat shading with soft gradients, big exaggerated facial expressions, tidy modern Korean office setting, vertical 9:16 composition, clean simple background, high contrast, no text",
   "hook_candidates": [
     {
       "pattern": "손해경고",
@@ -33,7 +33,7 @@
       "end": 4.0,
       "tts": "보고서 계속 반려당하는 대리님, 내용 문제 아니에요.",
       "caption": "반려 또 반려",
-      "image_prompt": "a stack of printed documents on a desk with red pen marks, overhead view",
+      "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge holding up a printed report completely covered in red correction marks, dead hollow eyes, slumped shoulders, soulless blank stare, drooping posture; his desk buried in paper, dim office",
       "motion": "zoom_in"
     },
     {
@@ -43,7 +43,7 @@
       "end": 9.0,
       "tts": "다들 반려당하면 내용을 더 채우려는데, 그럴수록 더 반려당해요.",
       "caption": "더 채우면 더 반려",
-      "image_prompt": "a thick printed report with many dense pages, overwhelming, desk lamp light",
+      "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge hugging an enormously thick stack of documents that towers over his head, wide panicked eyes, flailing hands, spiral motion lines, sweat drops; a red down arrow beside the stack showing it backfires",
       "motion": "zoom_out"
     },
     {
@@ -53,7 +53,7 @@
       "end": 16.0,
       "tts": "첫 줄에 이렇게 박아버리세요. 결론, 이렇게 하겠습니다. 딱 한 문장이면 돼요.",
       "caption": "1줄 · 결론",
-      "image_prompt": "close up of a blank document on a laptop screen with a cursor on the first line",
+      "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge sitting confidently at a laptop, typing the very first line of a blank document, confident smirk, one fist clenched, determined narrowed eyes; a glowing yellow highlight bar on the first line of the screen",
       "motion": "zoom_in"
     },
     {
@@ -63,7 +63,7 @@
       "end": 23.0,
       "tts": "둘째 줄은 이유예요. 왜냐하면 이 세 가지 때문입니다. 네 개 넘어가면 안 읽혀요.",
       "caption": "2줄 · 이유 3개",
-      "image_prompt": "a notebook with three short bullet points written, clean desk, minimal",
+      "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge holding up exactly three fingers while pointing at a notepad with three short bullet points, confident smirk, one fist clenched, determined narrowed eyes; clean desk, three small yellow dots floating",
       "motion": "pan_right"
     },
     {
@@ -73,7 +73,7 @@
       "end": 31.0,
       "tts": "셋째 줄은 확인받을 것 딱 하나예요. 이 부분만 확인해 주시면 바로 진행하겠습니다.",
       "caption": "3줄 · 확인 1개",
-      "image_prompt": "a pen pointing at a single line on a printed page, close up",
+      "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge pointing a pen at a single circled line on a printed page, calm and clear expression; one big green check mark floating above the page",
       "motion": "zoom_in"
     },
     {
@@ -83,7 +83,7 @@
       "end": 40.0,
       "tts": "팀장은 시간이 없어서 반려하는 거지, 내용이 부족해서 반려하는 게 아니거든요. 읽는 시간을 줄여주면 그냥 통과돼요.",
       "caption": "시간이 없는 것뿐",
-      "image_prompt": "a wall clock on an office wall showing late afternoon, blurred desks behind",
+      "image_prompt": "a chibi Korean male team leader in his 40s, big head small body, short slicked black hair with graying sides, thick square glasses, light gray dress shirt with a loosened dark tie, slightly round belly hurrying past with a phone to his ear and a stack of files under his arm, glancing at a wall clock; motion lines showing he has no time; office corridor",
       "motion": "static"
     },
     {
@@ -93,7 +93,7 @@
       "end": 45.0,
       "tts": "이거 쓰고 한 번에 통과되신 분 있어요? 댓글로 자랑해 주세요.",
       "caption": "통과했어요?",
-      "image_prompt": "a clean desk with a closed laptop and a single coffee cup, end of day light",
+      "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge holding an approved document overhead in both hands with sparkling star eyes, wide open happy mouth, both arms raised; confetti sparkles and a big green check mark, bright yellow background",
       "motion": "zoom_out"
     }
   ],
@@ -112,5 +112,7 @@
     "made_for_kids": false,
     "ai_disclosure": true
   },
-  "status": "validated"
+  "status": "validated",
+  "image_negative": "photorealistic, 3d render, realistic face, text, letters, korean text, watermark, logo, extra fingers, deformed hands, cluttered background, dark gloomy tone, western cartoon style, anime teenage style",
+  "character_ref": "assets/ref/main.webp"
 }

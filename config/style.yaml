@@ -1,0 +1,87 @@
+# 「오늘도 출근」 비주얼 규칙.
+# 이미지 프롬프트 = scene.image_prompt + master_style + negative
+# 여기만 고치면 채널 전체 톤이 바뀐다.
+
+channel_name: "오늘도 출근"
+tagline: "직장인 공감 채널"
+
+# 모든 이미지 프롬프트 뒤에 붙는다
+master_style: >-
+  cute Korean webtoon chibi illustration, thick bold navy outlines,
+  bright yellow accent color, clean flat shading with soft gradients,
+  big exaggerated facial expressions, tidy modern Korean office setting,
+  vertical 9:16 composition, clean simple background, high contrast, no text
+
+# 모든 이미지 프롬프트에 네거티브로 넣는다
+negative: >-
+  photorealistic, 3d render, realistic face, text, letters, korean text,
+  watermark, logo, extra fingers, deformed hands, cluttered background,
+  dark gloomy tone, western cartoon style, anime teenage style
+
+# 색 팔레트 — 자막·도형·배경에도 같은 값을 쓴다
+palette:
+  yellow:  "#FFD93B"   # 메인 배경 / 강조
+  navy:    "#1E2A44"   # 외곽선 / 자막 본문
+  white:   "#FFFFFF"   # 자막 / 셔츠
+  blue:    "#2F6FD0"   # 사원증 줄
+  red:     "#E5484D"   # 경고 / X 표시
+  green:   "#3FB950"   # 긍정 / 체크
+
+# ── 등장인물 ──────────────────────────────────────────────────────────
+# 프롬프트에 쓸 때는 각 인물의 `desc` 를 통째로 넣는다.
+characters:
+  main:
+    id: 주인공
+    role: "3~7년차 실무자. 모든 영상의 화자"
+    desc: >-
+      a chibi Korean male office worker in his late 20s, big head small body,
+      messy black hair with one stray ahoge strand, round blush cheeks,
+      white dress shirt with sleeves, navy necktie,
+      blue lanyard with a white ID card badge
+  boss:
+    id: 팀장
+    role: "상사 소재 전담. 주인공의 대척점"
+    desc: >-
+      a chibi Korean male team leader in his 40s, big head small body,
+      short slicked black hair with graying sides, thick square glasses,
+      light gray dress shirt with a loosened dark tie, slightly round belly
+  peer:
+    id: 동료
+    role: "동료·점심·회식 소재"
+    desc: >-
+      a chibi Korean female office worker in her late 20s, big head small body,
+      shoulder length dark brown bob hair, beige blouse,
+      blue lanyard with a white ID card badge
+
+# ── 표정 사전 ─────────────────────────────────────────────────────────
+# 공감 채널의 핵심은 표정이다. 씬마다 여기서 하나를 골라 프롬프트에 넣는다.
+expressions:
+  지침:    "dead hollow eyes, slumped shoulders, soulless blank stare, drooping posture"
+  눈치:    "nervous side-eye glance, single sweat drop, stiff forced smile, hunched shoulders"
+  짜증:    "puffed cheeks, furrowed brows, small anger cross mark on forehead"
+  놀람:    "huge round shocked eyes, dropped jaw, both hands raised, motion lines"
+  체념:    "flat straight line mouth, half lidded eyes, expressionless resignation"
+  안도:    "relieved closed eyes, small soft smile, visible exhale puff"
+  신남:    "sparkling star eyes, wide open happy mouth, both arms raised"
+  당황:    "wide panicked eyes, flailing hands, spiral motion lines, sweat drops"
+  결심:    "confident smirk, one fist clenched, determined narrowed eyes"
+  멍:      "vacant eyes, slightly open mouth, floating soul leaving the body"
+
+# ── 구도 규칙 ─────────────────────────────────────────────────────────
+composition:
+  safe_area: "인물과 핵심 사물을 화면 중앙 55% 안에 둔다. 하단 25%·우측 15%는 유튜브 UI가 덮는다"
+  caption_zone: "자막은 상단 20~35% 구간. 그래서 인물은 화면 중하단에 배치한다"
+  rule: "한 씬에 인물 최대 2명. 셋 이상은 chibi 비율에서 뭉개진다"
+
+# ── 캐릭터 일관성 유지 ────────────────────────────────────────────────
+consistency:
+  method: "레퍼런스 이미지 고정"
+  note: >-
+    같은 캐릭터를 35장에 걸쳐 똑같이 뽑는 것은 프롬프트만으로는 안 된다.
+    프로필 이미지를 캐릭터 레퍼런스로 매번 함께 넣어라
+    (character reference / image-to-image / IP-Adapter — 쓰는 모델의 해당 기능).
+  ref_images:
+    main: "assets/ref/main.webp"      # 채널 프로필 이미지를 여기에 두고 매 생성에 첨부
+  fallback: >-
+    레퍼런스 기능이 없는 모델이면, 얼굴이 크게 나오는 씬만 수동으로 재생성하고
+    나머지는 뒷모습·손·사물 위주 구도로 잡아 흔들림을 숨긴다.

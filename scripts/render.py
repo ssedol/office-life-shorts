@@ -30,7 +30,9 @@ def render(d: dict) -> str:
     for s in d["scenes"]:
         L.append(f"**{s['n']}. {s['role']}**  \n`{s['image_prompt']}`")
         L.append("")
-    L += [f"공통 스타일: `{d['image_style']}`", "",
+    L += [f"**공통 스타일**  \n`{d['image_style']}`", "",
+          f"**네거티브**  \n`{d.get('image_negative','')}`", "",
+          f"**캐릭터 레퍼런스** `{d.get('character_ref','')}` — 매 생성에 함께 넣을 것", "",
           "## 유튜브 업로드", "",
           f"- **제목:** {yt['title']}",
           f"- **태그:** {' '.join(yt['tags'])}",

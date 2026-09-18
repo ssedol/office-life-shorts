@@ -6,10 +6,10 @@
   "total_sec": 45.0,
   "voice": {
     "lang": "ko-KR",
-    "style": "30대 직장인, 담담하고 약간 지친 톤. 과장 없이 툭 던지듯",
+    "style": "20대 후반 남자 직장인. 친근하고 툭 던지는 말투. 지친 척하지만 밝은 기운이 남아 있는 톤",
     "speed": 1.05
   },
-  "image_style": "photorealistic, modern Korean office interior, muted desaturated color grade, soft window light, shallow depth of field, no visible faces, no text, vertical 9:16 composition, cinematic",
+  "image_style": "cute Korean webtoon chibi illustration, thick bold navy outlines, bright yellow accent color, clean flat shading with soft gradients, big exaggerated facial expressions, tidy modern Korean office setting, vertical 9:16 composition, clean simple background, high contrast, no text",
   "hook_candidates": [
     {
       "pattern": "시각고정",
@@ -33,7 +33,7 @@
       "end": 4.0,
       "tts": "월요일 아침, 팀장이 한숨 쉬면 하면 안 되는 게 있어요.",
       "caption": "월요일 아침 팀장 한숨",
-      "image_prompt": "over the shoulder view of a person's back sitting at an office desk facing a monitor, dim monday morning light",
+      "image_prompt": "a chibi Korean male team leader in his 40s, big head small body, short slicked black hair with graying sides, thick square glasses, light gray dress shirt with a loosened dark tie, slightly round belly sitting at an office desk facing a monitor, letting out a heavy sigh with a visible breath puff; behind him a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge peeks from his own desk with nervous side-eye glance, single sweat drop, stiff forced smile, hunched shoulders; monday morning office, wide two-shot",
       "motion": "zoom_in"
     },
     {
@@ -43,7 +43,7 @@
       "end": 9.0,
       "tts": "다들 눈치 보다가 괜찮으세요 하고 물어보잖아요. 그게 제일 위험해요.",
       "caption": "괜찮으세요? ❌",
-      "image_prompt": "a hand hesitating in mid air near a colleague's desk, blurred office background",
+      "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge reaching a hand out as if about to speak, then freezing mid-air, wide panicked eyes, flailing hands, spiral motion lines, sweat drops; a big red X mark floats over his raised hand; office desks blurred behind",
       "motion": "static"
     },
     {
@@ -53,7 +53,7 @@
       "end": 16.0,
       "tts": "1단계는 그냥 한숨이에요. 이건 그냥 피곤한 거라서 말 걸어도 괜찮아요.",
       "caption": "1단계 · 한숨",
-      "image_prompt": "close up of a coffee cup and keyboard on a quiet desk, soft morning light",
+      "image_prompt": "a chibi Korean male team leader in his 40s, big head small body, short slicked black hair with graying sides, thick square glasses, light gray dress shirt with a loosened dark tie, slightly round belly leaning back in his chair with a tired but harmless sigh, flat straight line mouth, half lidded eyes, expressionless resignation; a green check mark floats beside him; a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge gives a small relieved thumbs up in the corner",
       "motion": "zoom_out"
     },
     {
@@ -63,7 +63,7 @@
       "end": 23.0,
       "tts": "2단계는 마우스를 세게 내려놓는 소리예요. 여기서부터는 보고를 미루는 게 맞아요.",
       "caption": "2단계 · 마우스",
-      "image_prompt": "close up of a hand pressing a computer mouse down hard on a desk, tense mood",
+      "image_prompt": "a chibi Korean male team leader in his 40s, big head small body, short slicked black hair with graying sides, thick square glasses, light gray dress shirt with a loosened dark tie, slightly round belly slamming a computer mouse down onto the desk with a sharp impact burst; a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge flinches hard in the foreground with huge round shocked eyes, dropped jaw, both hands raised, motion lines; a yellow warning triangle floats between them",
       "motion": "zoom_in"
     },
     {
@@ -73,7 +73,7 @@
       "end": 31.0,
       "tts": "3단계는 아무 말 없이 자리에서 일어나 나가요. 이때 따라 나가면 그날 하루가 통째로 날아갑니다.",
       "caption": "3단계 · 이탈",
-      "image_prompt": "an empty office chair pushed back from a desk, monitor still glowing",
+      "image_prompt": "an empty office chair spun sideways, the monitor still glowing, the boss gone; a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge stands frozen holding a document with wide panicked eyes, flailing hands, spiral motion lines, sweat drops; red alert lines in the background",
       "motion": "pan_left"
     },
     {
@@ -83,7 +83,7 @@
       "end": 40.0,
       "tts": "근데 웃긴 게, 그 한숨 대부분 우리 때문이 아니에요. 팀장도 위에서 깨지고 내려온 거거든요.",
       "caption": "우리 때문이 아님",
-      "image_prompt": "view through a glass meeting room wall, a blurred standing figure, cold light",
+      "image_prompt": "a chibi Korean male team leader in his 40s, big head small body, short slicked black hair with graying sides, thick square glasses, light gray dress shirt with a loosened dark tie, slightly round belly standing small and scolded inside a glass meeting room, a large faceless suited executive silhouette looming over him; seen from outside through the glass wall, sympathetic mood",
       "motion": "zoom_out"
     },
     {
@@ -93,7 +93,7 @@
       "end": 45.0,
       "tts": "그쪽 팀장은 몇 단계까지 가요? 3단계면 댓글에 3 남겨주세요.",
       "caption": "1 · 2 · 3 ?",
-      "image_prompt": "three identical closed office doors in a row along a corridor",
+      "image_prompt": "a chibi Korean male office worker in his late 20s, big head small body, messy black hair with one stray ahoge strand, round blush cheeks, white dress shirt with sleeves, navy necktie, blue lanyard with a white ID card badge facing the viewer, holding up one two three fingers with sparkling star eyes, wide open happy mouth, both arms raised; three big rounded number bubbles 1 2 3 float around him, bright yellow background",
       "motion": "static"
     }
   ],
@@ -112,5 +112,7 @@
     "made_for_kids": false,
     "ai_disclosure": true
   },
-  "status": "validated"
+  "status": "validated",
+  "image_negative": "photorealistic, 3d render, realistic face, text, letters, korean text, watermark, logo, extra fingers, deformed hands, cluttered background, dark gloomy tone, western cartoon style, anime teenage style",
+  "character_ref": "assets/ref/main.webp"
 }
