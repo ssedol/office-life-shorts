@@ -1,1 +1,5 @@
 PyYAML>=6.0
+
+# 이미지 생성 — 쓰는 쪽만 설치하면 됩니다
+# openai>=1.0
+# google-genai>=1.0

@@ -23,6 +23,9 @@ def build(d: dict) -> list[dict]:
         "negative": neg,
         "reference_image": d.get("character_ref"),
         "aspect_ratio": "9:16",
+        "asset_type": s.get("asset_type", "image"),
+        "video_motion": s.get("video_motion", ""),
+        "out": f"assets/scenes/{d['id']}/{s['n']}_{s['role']}.png",
     } for s in d["scenes"]]
 
 
@@ -41,8 +44,11 @@ def main() -> int:
         print(f"레퍼런스 이미지: {d.get('character_ref')}  (매 생성에 함께 넣을 것)")
         print(f"비율: 9:16\n{'='*70}")
         for it in items:
-            print(f"\n──[ {it['n']}. {it['role']} ]{'─'*45}")
+            mark = "🎬 영상용 첫 프레임" if it["asset_type"] == "video" else "🖼 정지 이미지"
+            print(f"\n──[ {it['n']}. {it['role']} · {mark} ]{'─'*30}")
             print(it["prompt"])
+            if it["video_motion"]:
+                print(f"\n  ▶ 영상 모션(i2v 입력): {it['video_motion']}")
         print(f"\n──[ NEGATIVE (전 씬 공통) ]{'─'*38}\n{items[0]['negative']}\n")
     return 0
 

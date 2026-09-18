@@ -158,6 +158,55 @@
 | 경고 빨강 | `#E5484D` |
 | 긍정 초록 | `#3FB950` |
 
+## 씬 종류 — 이미지 vs 영상
+
+각 씬에 `asset_type` 이 붙어 있습니다.
+
+| 값 | 뜻 | 로컬에서 할 일 |
+|---|---|---|
+| `"image"` | 정지 이미지 + 켄번즈로 충분 | 이미지 1장 만들고 `motion` 대로 움직임 |
+| `"video"` | 동작이 핵심이라 움직여야 사는 씬 | **이미지 1장을 첫 프레임으로 만들고** `video_motion` 을 i2v 모델에 넣기 |
+
+```json
+{
+  "role": "BODY2",
+  "asset_type": "video",
+  "image_prompt": "...첫 프레임으로 쓸 이미지...",
+  "video_motion": "the manager's arm slams the mouse down, sharp single impact, the protagonist's body jolts back once"
+}
+```
+
+**대본 5편 모두 영상 씬을 2개씩 배치했습니다.** 7씬 전부 정지 이미지면 중반부터 늘어지고,
+전부 영상이면 비용과 시간이 감당이 안 됩니다. **동작이 의미를 만드는 씬**에만 넣었습니다 —
+마우스를 내려치는 순간, 빈 의자, 침대에 쓰러지는 동작, 몰래 나가는 뒷모습 같은 것들.
+
+검수기가 영상 씬 0개인 대본에 경고를 냅니다.
+
+## 이미지 생성 — 로컬에서 돌리기
+
+```bash
+pip install PyYAML openai          # 또는 google-genai
+export OPENAI_API_KEY=...
+
+./scripts/genimg.py output/0001.json --dry-run           # 뭘 만들지 먼저 확인
+./scripts/genimg.py output/0001.json --provider openai   # 실제 생성
+./scripts/genimg.py output/*.json --only video           # 영상 씬 첫 프레임만
+```
+
+결과는 `assets/scenes/<대본ID>/<씬번호>_<역할>.png` 로 떨어집니다.
+`assets/ref/main.webp` 를 참조 이미지로 매 호출에 자동으로 넣습니다.
+
+⚠️ **이 스크립트는 제가 실행해서 검증하지 못했습니다.** 이미지 생성 API 키가 없는 환경이라
+`--dry-run` 까지만 확인했습니다. 각 제공자의 파라미터는 버전에 따라 바뀌므로, 안 돌아가면
+`gen_openai` / `gen_gemini` 함수만 고치시면 됩니다. 나머지 구조는 그대로 씁니다.
+
+### 크기 주의
+
+- **OpenAI gpt-image-1**: 9:16 을 직접 지원하지 않습니다. 가장 가까운 `1024x1536`(2:3)으로
+  뽑으니 세로를 늘리거나 좌우를 잘라 1080×1920 으로 맞추세요. 켄번즈로 확대할 거라면
+  어차피 잘리므로 큰 문제는 아닙니다.
+- **Gemini**: `aspect_ratio="9:16"` 을 직접 받습니다.
+
 ## youtube — 업로드 정보
 
 ```json

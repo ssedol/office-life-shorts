@@ -22,13 +22,18 @@ def render(d: dict) -> str:
          f"`{d['axis']}축` · {d.get('category','')} · {d['total_sec']}초 · "
          f"총 {sum(n(s['tts']) for s in d['scenes'])}자",
          "", "> JSON에서 생성된 파일입니다. 고칠 때는 `output/{}.json` 을 고치세요.".format(d["id"]), "",
-         "## 씬", "", "| # | 구간 | 초 | 나레이션(TTS) | 자막 | 움직임 |", "|---|---|---|---|---|---|"]
+         "## 씬", "", "| # | 구간 | 초 | 종류 | 나레이션(TTS) | 자막 | 움직임 |",
+         "|---|---|---|---|---|---|---|"]
     for s in d["scenes"]:
-        L.append(f"| {s['n']} | {s['role']} | {s['start']}–{s['end']} | {s['tts']} "
+        kind = "🎬 영상" if s.get("asset_type") == "video" else "🖼 이미지"
+        L.append(f"| {s['n']} | {s['role']} | {s['start']}–{s['end']} | {kind} | {s['tts']} "
                  f"| {s['caption']} | {s['motion']} |")
     L += ["", "## 이미지 프롬프트", ""]
     for s in d["scenes"]:
-        L.append(f"**{s['n']}. {s['role']}**  \n`{s['image_prompt']}`")
+        kind = "🎬 영상용 첫 프레임" if s.get("asset_type") == "video" else "🖼 정지 이미지"
+        L.append(f"**{s['n']}. {s['role']} · {kind}**  \n`{s['image_prompt']}`")
+        if s.get("video_motion"):
+            L.append(f"  \n▶ 영상 모션: `{s['video_motion']}`")
         L.append("")
     L += [f"**공통 스타일**  \n`{d['image_style']}`", "",
           f"**네거티브**  \n`{d.get('image_negative','')}`", "",

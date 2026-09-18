@@ -58,9 +58,18 @@ def check(s: dict) -> list[tuple[str, str, str]]:
                  f"{sc.get('role')}: {cn}자 / {dur}초 — 상한 {int(dur*C['chars_per_sec'])}자. 말이 빨라진다")
         if not sc.get("image_prompt"):
             fail("scene.no_image", f"{sc.get('role')}: image_prompt 가 비었다")
+        kind = sc.get("asset_type")
+        if kind not in ("image", "video"):
+            fail("scene.asset_type", f"{sc.get('role')}: asset_type 은 image 또는 video 여야 한다")
+        if kind == "video" and not sc.get("video_motion"):
+            fail("scene.no_motion", f"{sc.get('role')}: video 씬인데 video_motion 이 비었다")
         cap = sc.get("caption", "")
         if len(cap.replace(" ", "")) > 14:
             warn("scene.caption_long", f"{sc.get('role')}: 자막 {len(cap)}자 — 못 읽고 넘어간다")
+
+    # 영상 씬이 하나도 없으면 45초가 정지 이미지만으로 흘러간다
+    if scenes and not any(s.get("asset_type") == "video" for s in scenes):
+        warn("scene.no_video", "영상 씬이 0개다. 켄번즈만으로는 중반부터 늘어진다")
 
     # 연속 static 금지 (정지 화면이 이어지면 이탈한다)
     motions = [sc.get("motion", "static") for sc in scenes]

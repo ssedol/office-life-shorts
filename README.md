@@ -46,6 +46,19 @@
 ⚠️ **`assets/ref/main.webp` 를 매 생성에 캐릭터 레퍼런스로 함께 넣으세요.**
 프롬프트만으로는 35장에 걸쳐 같은 캐릭터가 유지되지 않습니다.
 
+## 이미지 생성 (로컬)
+
+```bash
+pip install -r requirements.txt openai      # 또는 google-genai
+export OPENAI_API_KEY=...
+
+./scripts/genimg.py output/0001.json --dry-run      # 확인
+./scripts/genimg.py output/0001.json                # 생성
+```
+
+씬마다 `asset_type` 이 `image`(정지) 또는 `video`(첫 프레임 + 모션)로 표시돼 있습니다.
+영상 씬은 이미지까지만 만들고, 움직이는 건 `video_motion` 을 i2v 모델에 넣으시면 됩니다.
+
 ## 검수 (선택)
 
 대본이 채널 규칙을 지키는지 확인합니다. 제가 만들 때 이미 돌리지만, 로컬에서도 됩니다.
@@ -67,6 +80,7 @@ pip install PyYAML
 | `HANDOFF.md` | **JSON 형식 설명 — 로컬 코드 짤 때 이거 보세요** |
 | `config/style.yaml` | **비주얼 규칙** — 캐릭터 3명, 표정 사전, 색 팔레트, 구도 |
 | `assets/ref/main.webp` | **캐릭터 레퍼런스** — 이미지 생성마다 함께 넣을 것 |
+| `assets/scenes/` | 생성된 씬 이미지가 쌓이는 곳 |
 | `config/channel.yaml` | 금지어, 대본 길이, 목소리 톤 |
 | `config/axes.yaml` | 씬 7개의 시간 배분 |
 | `config/hooks.yaml` | 첫 4초 후킹 패턴 8종 |
