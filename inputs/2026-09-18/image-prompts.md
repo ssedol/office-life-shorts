@@ -12,36 +12,37 @@ ChatGPT에 **한 대화 안에서 순서대로** 넣어야 캐릭터 일관성�
 새 대화를 열고 아래를 **가장 먼저** 붙여넣는다. 이미지를 요청하지 말고 규칙만 인식시킨다.
 
 ```
-You will generate 8 vertical illustrations for a Korean YouTube Shorts channel.
-I will give them to you one at a time. Before that, lock in this style and keep it
-IDENTICAL across all 8 images. Never change the character design between images.
+지금부터 한국 유튜브 쇼츠 채널에 쓸 세로형 일러스트 8장을 만들 거야.
+한 장씩 순서대로 요청할 테니, 아래 설정을 8장 내내 똑같이 유지해.
+중간에 캐릭터 디자인을 절대 바꾸지 마.
 
-STYLE LOCK — apply to every image:
-- Friendly Korean webtoon / chibi character illustration, flat colors, minimal shading
-- Bold navy outlines, consistent line weight throughout
-- Bright warm yellow office atmosphere as the dominant background tone
-- Clean, uncluttered background. Few props. No visual noise.
+[그림체 — 8장 모두 동일]
+- 친근한 한국 웹툰 느낌의 치비(2등신) 캐릭터 일러스트
+- 플랫 컬러, 음영 최소화
+- 굵은 네이비색 외곽선, 선 굵기는 처음부터 끝까지 일정하게
+- 배경 전체 톤은 밝고 따뜻한 노란색 오피스 분위기
+- 배경은 깔끔하고 단순하게. 소품 최소화, 시각적 노이즈 없음
 
-MAIN CHARACTER — identical in every image:
-- Young male office worker, early 30s, chibi proportions (large head, small body)
-- Dark brown / near-black slightly messy hair
-- White dress shirt, navy necktie
-- Blue employee ID badge hanging on a lanyard
-- Simple friendly face, expressive eyes and eyebrows
+[주인공 — 8장 모두 동일 인물]
+- 30대 초반 한국 남자 직장인, 치비 비율 (머리 크고 몸 작게)
+- 짙은 갈색에 가까운 검은 머리, 살짝 헝클어진 스타일
+- 흰색 와이셔츠, 네이비색 넥타이
+- 목에 건 파란색 사원증 (줄에 매달린 형태)
+- 단순하고 친근한 얼굴, 눈과 눈썹으로 감정을 드러냄
 
-COMPOSITION RULES — every image:
-- Vertical 9:16 aspect ratio (1080 x 1920). If 9:16 is unavailable, use the tallest
-  portrait ratio available and keep the character horizontally centered with generous
-  space on the left and right, because the sides will be cropped.
-- Keep the character in the upper-middle of the frame.
-- The bottom 30% of the frame must stay visually EMPTY — it is reserved for burned-in
-  subtitles. No characters, no props, no important detail down there.
-- Keep a 15% margin from all edges free of important detail (the video applies a slow
-  zoom and pan, so edges get cropped).
-- ABSOLUTELY NO text, letters, numbers, signs, or writing anywhere in the image.
-  Speech bubbles and thought clouds are allowed only if they are completely EMPTY.
+[구도 규칙 — 8장 모두 적용]
+- 세로 9:16 비율 (1080 x 1920).
+  9:16이 안 되면 가능한 가장 긴 세로 비율로 만들되, 좌우가 잘려나갈 것이므로
+  캐릭터를 가로 정중앙에 두고 좌우에 여백을 넉넉히 남겨.
+- 캐릭터는 화면의 중간~위쪽에 배치.
+- 화면 아래 30%는 반드시 비워둘 것. 자막이 들어갈 자리다.
+  거기에 인물, 소품, 중요한 요소를 절대 두지 마.
+- 화면 가장자리에서 15% 안쪽까지는 중요한 요소를 두지 마.
+  영상에서 천천히 확대/이동이 들어가 가장자리가 잘린다.
+- 이미지 안에 글자, 문자, 숫자, 간판, 표지판을 절대 넣지 마.
+  말풍선과 생각풍선은 완전히 비어 있을 때만 허용.
 
-Reply "ready" and wait for scene 1.
+이해했으면 "준비됨"이라고만 답하고 1번 씬을 기다려.
 ```
 
 ---
@@ -51,17 +52,16 @@ Reply "ready" and wait for scene 1.
 내레이션: "회사에서 이 말, 먼저 꺼내면 괜히 손해 봅니다."
 
 ```
-Scene 1 of 8. Same style lock, same character.
+8장 중 1번째. 위에서 정한 그림체와 주인공 그대로.
 
-The office worker faces the viewer directly, at desk height in a simple bright yellow
-office. His expression is a knowing, slightly awkward half-smile — the face of someone
-about to warn you about something. One hand is raised to chest height in a small
-"hold on" gesture, palm forward, fingers relaxed and simple.
+주인공이 정면을 바라보고 있다. 단순한 노란색 사무실, 책상 높이 시점.
+표정은 뭔가 알려주려는 듯한, 살짝 난처한 반쪽 미소.
+"잠깐만" 하듯이 한 손을 가슴 높이로 들어 손바닥을 앞으로 보인다.
+손은 단순하게, 손가락 디테일 없이.
 
-Background: a plain yellow office wall with one simple window shape far behind him.
-Nothing else.
+배경: 밋밋한 노란 사무실 벽, 뒤쪽 멀리에 단순한 창문 형태 하나. 그 외엔 아무것도 없음.
 
-Framing: waist-up, character centered in the upper-middle. Bottom 30% empty.
+구도: 상반신(허리 위), 캐릭터는 화면 중간~위쪽 정중앙. 아래 30%는 비움.
 ```
 
 ---
@@ -74,24 +74,26 @@ Framing: waist-up, character centered in the upper-middle. Bottom 30% empty.
 > 서류를 "건네는 중"이 아니라 **이미 건네진 직후** 상태로 그린다.
 
 ```
-Scene 2 of 8. Same style lock, same main character.
+8장 중 2번째. 같은 그림체, 주인공 동일.
 
-Two characters, side by side, facing slightly toward each other.
+두 사람이 나란히 서서 서로를 살짝 마주 본다.
 
-LEFT: a new character — the team leader. Middle-aged Korean man, chibi proportions,
-same art style. Short neat grey-black hair, light grey dress shirt, no tie, simple
-rectangular glasses. Calm, matter-of-fact expression. He holds a small stack of plain
-papers forward with one hand, arm already extended, elbow slightly bent. Simple hand,
-no finger detail.
+[왼쪽] 새 인물 — 팀장.
+같은 그림체의 치비 비율, 중년 한국 남자.
+짧고 단정한 회흑색 머리, 연회색 와이셔츠, 넥타이 없음, 단순한 사각 안경.
+표정은 담담하고 사무적.
+한 손으로 서류 몇 장을 앞으로 내밀고 있다. 팔은 이미 뻗은 상태, 팔꿈치는 살짝 굽힘.
+손은 단순하게, 손가락 디테일 없이.
 
-RIGHT: the main office worker (unchanged design). He has just been handed the papers.
-His eyebrows are raised, mouth slightly open — mildly surprised and awkward. Both his
-arms hang naturally at his sides; he has NOT taken the papers yet. Keep his hands
-simple and relaxed, no gripping, no complex finger poses.
+[오른쪽] 주인공 (디자인 그대로).
+방금 서류를 건네받은 참이다.
+눈썹이 올라가고 입이 살짝 벌어진, 가볍게 놀라고 어색한 표정.
+두 팔은 자연스럽게 몸 옆에 내린 상태 — 아직 서류를 받지 않았다.
+손은 편하게 펴둔 채로, 뭔가를 쥐거나 복잡한 손 모양은 만들지 마.
 
-Background: plain bright yellow office, one simple desk edge at the bottom.
+배경: 밋밋한 밝은 노란 사무실, 화면 아래쪽에 단순한 책상 모서리 하나.
 
-Framing: both characters waist-up, centered as a pair. Bottom 30% empty.
+구도: 두 인물 모두 상반신, 둘을 한 덩어리로 화면 중앙에. 아래 30%는 비움.
 ```
 
 ---
@@ -101,21 +103,22 @@ Framing: both characters waist-up, centered as a pair. Bottom 30% empty.
 내레이션: "머릿속에 바로 떠오르는 말이 있죠. 이건 제 일이 아닌데요."
 
 ```
-Scene 3 of 8. Same style lock, same character.
+8장 중 3번째. 같은 그림체, 주인공 동일.
 
-The main office worker alone, facing the viewer. His lips are pressed flat in a tight
-closed-mouth line and his eyes look slightly off to the side — visibly holding
-something back. Shoulders slightly raised.
+주인공 혼자, 정면을 바라본다.
+입술은 일자로 꾹 다물었고 눈은 살짝 옆을 본다 — 할 말을 참고 있는 게 눈에 보인다.
+어깨는 약간 올라간 상태.
 
-Above and to the right of his head, draw a COMPLETELY EMPTY thought cloud — a rounded
-cartoon thought bubble with two small trailing circles, outlined in navy, filled with
-plain white. The bubble must contain NO text and NO symbols at all. Keep the bubble in
-the upper third of the frame.
+머리 위 오른쪽에 **완전히 비어 있는 생각풍선**을 그려.
+동그란 만화식 생각구름에 작은 동그라미 두 개가 꼬리처럼 달린 형태,
+네이비색 외곽선에 흰색으로 채움.
+풍선 안에는 글자도 기호도 절대 넣지 마. 완전히 비워둬.
+풍선은 화면 위쪽 1/3 안에 들어오게.
 
-Background: plain bright yellow, nothing else.
+배경: 밋밋한 밝은 노란색. 그 외엔 아무것도 없음.
 
-Framing: chest-up, character centered slightly left so the thought cloud fits on the
-right. Bottom 30% empty.
+구도: 가슴 위, 캐릭터를 살짝 왼쪽으로 두어 오른쪽에 생각풍선 자리를 만든다.
+아래 30%는 비움.
 ```
 
 ---
@@ -125,20 +128,21 @@ right. Bottom 30% empty.
 내레이션: "그런데 이 말은 내용보다 태도로 먼저 전달됩니다."
 
 ```
-Scene 4 of 8. Same style lock, same character.
+8장 중 4번째. 같은 그림체, 주인공 동일.
 
-The main office worker in three-quarter view, mouth open mid-sentence, speaking.
+주인공이 3/4 측면으로 서서, 입을 벌리고 말하는 중이다.
 
-Next to his mouth, draw a single EMPTY speech bubble — but make its shape spiky and
-angular, with sharp jagged edges instead of a soft rounded outline, and give it a cool
-pale blue-grey fill instead of white. This is a visual metaphor for a cold tone of
-voice. The bubble must be completely empty: no text, no symbols, no punctuation.
+입 옆에 **비어 있는 말풍선**을 하나 그리되, 모양을 이렇게 바꿔:
+부드러운 둥근 형태가 아니라 **뾰족하고 각진 형태**, 가장자리가 날카롭게 삐죽삐죽.
+흰색 대신 **차가운 연한 청회색**으로 채움.
+말투가 차갑게 들린다는 걸 시각적으로 표현한 것이다.
+풍선 안은 완전히 비워둘 것 — 글자, 기호, 문장부호 전부 금지.
 
-His own expression stays neutral and unaware — he does not realize how it sounds.
+정작 주인공의 표정은 평범하고 무심하다 — 자기 말이 어떻게 들리는지 모르는 상태.
 
-Background: plain bright yellow, one simple window shape far behind.
+배경: 밋밋한 밝은 노란색, 뒤쪽 멀리에 단순한 창문 형태 하나.
 
-Framing: chest-up, centered. Bottom 30% empty.
+구도: 가슴 위, 정중앙. 아래 30%는 비움.
 ```
 
 ---
@@ -150,24 +154,26 @@ Framing: chest-up, centered. Bottom 30% empty.
 > I2V 대상. 두 인물 모두 **정적인 상반신 포즈**로, 표정과 시선만 의미를 갖게 한다.
 
 ```
-Scene 5 of 8. Same style lock, same main character.
+8장 중 5번째. 같은 그림체, 주인공 동일.
 
-Two characters facing each other in profile-ish three-quarter view.
+두 사람이 서로를 마주 본 3/4 측면 구도.
 
-RIGHT: the main office worker (unchanged design), mouth closed, expression flat and
-slightly defensive. Arms relaxed at his sides.
+[오른쪽] 주인공 (디자인 그대로).
+입은 다물었고 표정은 무덤덤하면서 약간 방어적.
+두 팔은 편하게 몸 옆에.
 
-LEFT: the same team leader character from scene 2 (grey-black hair, light grey shirt,
-rectangular glasses, no tie). His expression has cooled — eyebrows lowered flat, mouth
-a small straight line, and his eyes are turned AWAY from the office worker, looking off
-to the left. Shoulders very slightly dropped. No papers in his hands this time; arms
-relaxed at his sides.
+[왼쪽] 2번 씬에 나왔던 팀장과 동일 인물
+(회흑색 머리, 연회색 와이셔츠, 사각 안경, 넥타이 없음).
+표정이 식었다 — 눈썹은 평평하게 내려갔고 입은 작은 일자.
+시선은 주인공에게서 **돌려서** 왼쪽 바깥을 본다.
+어깨는 아주 살짝 내려감.
+이번엔 손에 서류 없음. 두 팔은 편하게 몸 옆에.
 
-Leave a noticeable empty gap between the two characters to suggest distance.
+두 사람 사이에 **눈에 띄는 빈 간격**을 두어 거리감을 표현할 것.
 
-Background: plain bright yellow office, very simple.
+배경: 밋밋한 밝은 노란 사무실, 아주 단순하게.
 
-Framing: both characters chest-up. Bottom 30% empty.
+구도: 두 인물 모두 가슴 위. 아래 30%는 비움.
 ```
 
 ---
@@ -179,24 +185,25 @@ Framing: both characters chest-up. Bottom 30% empty.
 > `slow_pan_right` 이라 **가로로 넓게 퍼진 구도**가 좋다.
 
 ```
-Scene 6 of 8. Same style lock, same character.
+8장 중 6번째. 같은 그림체, 주인공 동일.
 
-The main office worker stands on the LEFT side of the frame, turned toward the right.
-His expression is bright and cooperative — light smile, eyebrows relaxed, one hand
-raised in a small open-palm "asking" gesture. Simple hand, no finger detail.
+주인공은 화면 **왼쪽**에 서서 오른쪽을 향하고 있다.
+표정은 밝고 협조적 — 가벼운 미소, 눈썹은 편안하게.
+한 손을 들어 손바닥을 펴고 뭔가를 묻는 제스처. 손은 단순하게, 손가락 디테일 없이.
 
-On the RIGHT side of the frame, at the same height as his head and shoulders, draw a
-simple navy-outlined whiteboard or task board in flat white. On it, draw exactly three
-short horizontal lines stacked vertically, each with a small empty square checkbox at
-its left end. The lines represent text but must be PLAIN LINES — no letters, no words,
-no numbers anywhere.
+화면 **오른쪽**, 주인공의 머리와 어깨 높이에 맞춰
+네이비색 외곽선의 단순한 화이트보드(또는 업무 보드)를 흰색 면으로 그려.
+보드 위에는 **짧은 가로선 정확히 3개**를 위아래로 나란히 그리고,
+각 선의 왼쪽 끝에 작은 빈 네모 체크박스를 하나씩 붙여.
+이 선들은 글자를 대신하는 것이므로 **그냥 선이어야 한다** —
+알파벳, 한글, 숫자 전부 절대 금지.
 
-Spread the composition horizontally: character on the left, board on the right, with
-clear yellow space between them.
+구도를 가로로 넓게 펼칠 것: 왼쪽에 캐릭터, 오른쪽에 보드,
+그 사이에 노란 여백을 시원하게.
 
-Background: plain bright yellow office.
+배경: 밋밋한 밝은 노란 사무실.
 
-Framing: waist-up. Bottom 30% empty.
+구도: 상반신(허리 위). 아래 30%는 비움.
 ```
 
 ---
@@ -208,25 +215,27 @@ Framing: waist-up. Bottom 30% empty.
 > `slow_zoom_out` — 시작이 확대 상태이므로 **중앙에 두 인물을 모아** 배치.
 
 ```
-Scene 7 of 8. Same style lock, same main character.
+8장 중 7번째. 같은 그림체, 주인공 동일.
 
-Two characters facing each other, centered together in the middle of the frame with
-generous yellow space around them.
+두 사람이 마주 보고 서 있고, 둘을 한 덩어리로 화면 정중앙에 모은다.
+주변에는 노란 여백을 넉넉하게.
 
-LEFT: the main office worker (unchanged design), calm and relaxed, a small polite
-smile, hands at his sides. He is done speaking.
+[왼쪽] 주인공 (디자인 그대로).
+차분하고 편안하게, 작고 예의 바른 미소. 두 손은 몸 옆에.
+할 말을 다 끝낸 상태.
 
-RIGHT: the same team leader character (grey-black hair, light grey shirt, rectangular
-glasses). Now HE is the one thinking — one hand raised to his chin, head tilted
-slightly, eyes looking upward, eyebrows raised in consideration. The decision has moved
-to him.
+[오른쪽] 2번·5번 씬과 동일한 팀장
+(회흑색 머리, 연회색 와이셔츠, 사각 안경).
+이번엔 **팀장이 고민하는 쪽**이다 —
+한 손을 턱에 갖다 대고, 고개를 살짝 기울이고, 시선은 위쪽을 향하고,
+눈썹은 생각하듯 올라간 상태. 판단이 이 사람에게 넘어갔다.
 
-Above the team leader's head, a small COMPLETELY EMPTY thought cloud, navy outline,
-white fill, no text or symbols.
+팀장 머리 위에 작은 **완전히 비어 있는 생각풍선**.
+네이비 외곽선, 흰색 채움, 글자와 기호 없음.
 
-Background: plain bright yellow office, one simple desk edge.
+배경: 밋밋한 밝은 노란 사무실, 단순한 책상 모서리 하나.
 
-Framing: both characters waist-up, grouped in the center. Bottom 30% empty.
+구도: 두 인물 모두 상반신, 중앙에 모아서. 아래 30%는 비움.
 ```
 
 ---
@@ -236,17 +245,18 @@ Framing: both characters waist-up, grouped in the center. Bottom 30% empty.
 내레이션: "내 일이 아니라는 말, 순서 질문으로 바꿔보세요."
 
 ```
-Scene 8 of 8. Same style lock, same character.
+8장 중 8번째. 같은 그림체, 주인공 동일.
 
-The main office worker alone, facing the viewer straight on, relaxed and confident.
-Warm genuine smile, eyes slightly curved, shoulders down and easy. One hand gives a
-small, simple thumbs-up at chest height — keep the hand chunky and simple, chibi style.
+주인공 혼자, 정면을 똑바로 보며 여유롭고 자신 있는 모습.
+따뜻하고 진심 어린 미소, 눈은 살짝 휘어지게, 어깨는 내려가 편안하게.
+한 손으로 가슴 높이에서 작게 엄지척.
+손은 치비 스타일로 뭉툭하고 단순하게.
 
-Background: the simplest of all eight — plain bright warm yellow, no window, no desk,
-no props. Just the character.
+배경: 8장 중 가장 단순하게 — 밋밋한 밝고 따뜻한 노란색만.
+창문 없음, 책상 없음, 소품 없음. 캐릭터만.
 
-Framing: chest-up, character centered, with MORE empty space below him than in the
-other scenes. Bottom 35% empty.
+구도: 가슴 위, 정중앙. 다른 씬들보다 **캐릭터 아래 여백을 더 많이** 둘 것.
+아래 35%는 비움.
 ```
 
 ---
