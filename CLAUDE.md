@@ -1,0 +1,75 @@
+# 오늘도출근 Shorts Factory — 작업 지침
+
+## 브랜치
+
+**작업과 푸시는 `main`에서 한다.** 운영자가 정한 규칙이다 (2026-09-19).
+
+세션 시작 시 `claude/...` 같은 작업 브랜치가 지정되더라도, **최종 결과물은 `main`에 올린다.**
+작업 브랜치에서 작업했다면 끝에 `main`으로 합쳐 푸시한다.
+
+```bash
+git checkout main
+git merge --ff-only <작업브랜치>   # 또는 애초에 main에서 작업
+git push origin main
+```
+
+별도 요청이 없으면 PR은 만들지 않는다.
+
+## 이 저장소가 하는 일
+
+직장인 공감형 YouTube Shorts 채널 **오늘도출근**의 반자동 제작 시스템.
+`TODAY_TO_WORK_PROJECT_SPEC.md`(명세서 v1.0)가 SSOT다. 구조를 바꿀 땐 먼저 명세서를 확인한다.
+
+ChatGPT가 만든 이미지 8장 + `scene-plan.json`을 넣으면
+I2V / TTS / 자막 / 타임라인 / 렌더를 자동 처리한다.
+
+## 자주 쓰는 명령
+
+```bash
+python main.py --input ./inputs/YYYY-MM-DD --validate-only   # 입력 검증만
+python main.py --input ./inputs/YYYY-MM-DD --skip-i2v        # LTX 없이 preview
+python main.py --input ./inputs/YYYY-MM-DD --mode final      # 검수 후 final
+python main.py --input ./inputs/YYYY-MM-DD --tts-engine offline  # 네트워크 없을 때(무음)
+
+pytest                                   # 전체 (약 2분)
+pytest -m "not slow" -q                  # 1080×1920 실렌더 제외
+ruff check --select F,E9,B,UP,SIM .      # lint
+```
+
+## 바꾸면 안 되는 전제 (명세서 §33)
+
+1. 로컬에서 이미지를 생성하지 않는다 — 이미지는 ChatGPT 담당.
+2. STILL/I2V를 로컬에서 재판단하지 않는다 — `scene-plan.json`을 그대로 따른다.
+3. 씬 수는 **항상 8개**.
+4. I2V 실패는 전체 실패가 아니다 — 원본 이미지 + `slow_zoom_in`으로 대체하고 로그에 남긴다.
+5. Preview → 사람 검수 → Final 순서를 유지한다.
+6. 자동 YouTube 업로드는 MVP 범위 밖.
+
+## 판단이 갈렸던 지점
+
+작업하다 마주칠 수 있는, 이미 결론이 난 사안들이다.
+
+- **씬 길이**는 `durationSec`이 아니라 **실제 내레이션 길이**로 정해진다
+  (`config/app.json`의 `timeline.fitToNarration`, 기본 켜짐).
+  `durationSec`을 하한으로 쓰면 말이 끝난 뒤 정지 화면이 남아 영상이 늘어진다.
+  실측에서 40초 영상의 22%가 그런 빈 시간이었다.
+- **실행 순서**는 명세서 §3.1과 한 군데 다르다. 씬 길이가 TTS 길이에 의존하므로
+  TTS → 타임라인 → I2V 순으로 돈다. 입력이 같으면 결과도 같다.
+- **자막은 `.ass`로 번인**한다. `.srt`는 외곽선 색·강조색·안전영역을 표현할 수 없어서
+  명세서가 요구한 `.srt`는 그대로 내보내되 렌더에는 `.ass`를 쓴다.
+- **댓글 유도**는 훅과 마무리 두 군데에 넣는다. 검증이 없으면 경고한다.
+  훅에서는 자막을 건드리지 않고 내레이션에만 붙인다 — 훅이 약해진다.
+- **`workflows/ltx25_i2v.json`은 자리표시자**다. 운영자가 ComfyUI에서
+  `Export (API)`로 저장한 실제 워크플로우로 교체해야 I2V가 동작한다.
+
+## 검증되지 않은 부분
+
+- **edge-tts 실제 음성** — 개발 컨테이너에서 `speech.platform.bing.com`이
+  egress 정책으로 막혀 있다. 어댑터 코드는 있지만 실제 한국어 음성 출력은 미검증.
+  운영자 PC에서 확인해야 한다.
+- **LTX 2.5 실제 생성** — 커넥터는 가짜 ComfyUI 서버로 HTTP 프로토콜 전 구간을
+  검증했지만, 실제 LTX 워크플로우로는 돌려본 적이 없다.
+
+## 문서 쓸 때
+
+설명과 주석은 한국어로 쓴다. 커밋 메시지도 한국어다.
