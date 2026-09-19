@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+from pathlib import Path
 
 import pytest
 
@@ -328,3 +329,72 @@ def test_no_subtitles_at_all_is_an_error(tmp_path, default_config):
 def test_scene_without_subtitle_is_skipped_not_fatal(tmp_path, default_config):
     result = build_subtitles(make_timeline(["A", "", "C"]), tmp_path, default_config.subtitle, width=1080, height=1920, fps=30)
     assert [cue.scene_id for cue in result.cues] == ["SCENE-01", "SCENE-03"]
+
+
+# ---------------------------------------------------------------------------
+# 폰트 해석 — ASS의 폰트 이름과 실제 파일이 같은 것을 가리켜야 한다
+# ---------------------------------------------------------------------------
+
+def test_ass_font_name_comes_from_the_actual_file(tmp_path, default_config):
+    """설정의 fontName이 실제 파일과 달라도 ASS에는 파일의 이름이 들어가야 한다.
+
+    Windows에서 흔한 상황이다. 설정은 NanumGothic인데 잡히는 파일은 맑은 고딕이라,
+    설정값을 그대로 쓰면 libass가 폰트를 못 찾아 한글이 깨진다.
+    """
+    from src.subtitle.fonts import read_family_name, resolve_font
+
+    cfg = dict(default_config.subtitle)
+    real_path = next(p for p in cfg["fontCandidates"] if Path(p).is_file())
+    real_family = read_family_name(Path(real_path))
+    assert real_family, "테스트 환경에 읽을 수 있는 폰트가 있어야 한다"
+
+    # 설정에는 일부러 엉뚱한 이름을 넣는다.
+    cfg["fontName"] = "없는폰트이름"
+    cfg["fontFile"] = real_path
+
+    assert resolve_font(cfg).family == real_family
+
+    result = build_subtitles(make_timeline(["자막 확인"]), tmp_path, cfg, width=1080, height=1920, fps=30)
+    style = next(line for line in result.ass_path.read_text(encoding="utf-8").splitlines()
+                 if line.startswith("Style: Main,"))
+
+    assert style.split(",")[1] == real_family
+    assert "없는폰트이름" not in style
+
+
+def test_resolved_cfg_points_at_the_font_that_was_found(tmp_path, default_config):
+    """렌더러가 쓸 설정에도 확정된 폰트 이름과 경로가 담겨야 한다."""
+    cfg = dict(default_config.subtitle)
+    cfg["fontName"] = "없는폰트이름"
+
+    result = build_subtitles(make_timeline(["자막 확인"]), tmp_path, cfg, width=1080, height=1920, fps=30)
+
+    from src.subtitle.fonts import resolve_font
+
+    assert result.resolved_cfg["fontName"] != "없는폰트이름"
+    assert Path(result.resolved_cfg["fontFile"]).is_file()
+
+    # 렌더러는 resolved_cfg로 fontsdir를 구한다. 그때 나오는 폰트가
+    # ASS Style에 적힌 이름과 같은 파일이어야 libass가 찾을 수 있다.
+    refetched = resolve_font(result.resolved_cfg)
+    assert refetched.family == result.resolved_cfg["fontName"]
+    assert refetched.path == Path(result.resolved_cfg["fontFile"])
+    assert refetched.directory == Path(result.resolved_cfg["fontFile"]).parent
+
+
+def test_font_falls_back_to_configured_name_when_nothing_is_found(tmp_path):
+    """폰트 파일을 하나도 못 찾으면 설정의 이름으로 시스템에 맡긴다."""
+    from src.subtitle.fonts import resolve_font
+
+    font = resolve_font({"fontName": "Malgun Gothic", "fontFile": None, "fontCandidates": ["/없는/경로.ttf"]})
+
+    assert font.family == "Malgun Gothic"
+    assert font.directory is None
+    assert not font.found
+
+
+def test_windows_font_candidates_are_listed(default_config):
+    """Windows에서 쓸 맑은 고딕 경로가 후보에 있어야 한다."""
+    candidates = [str(c).lower() for c in default_config.subtitle["fontCandidates"]]
+
+    assert any("malgun" in c for c in candidates), "Windows용 한글 폰트 후보가 없습니다"

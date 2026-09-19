@@ -197,7 +197,9 @@ def run(cfg: AppConfig, options: RunOptions) -> RunResult:
             work_dir=work_dir / "render",
             mode=options.mode,
             render_cfg=render_cfg,
-            subtitle_cfg=cfg.subtitle,
+            # 자막 생성 단계에서 폰트가 확정된 설정을 쓴다. 그래야 ASS의 폰트 이름과
+            # libass에 넘기는 fontsdir가 같은 파일을 가리킨다.
+            subtitle_cfg=subtitle_result.resolved_cfg or cfg.subtitle,
         )
         result = renderer.render(job)
 

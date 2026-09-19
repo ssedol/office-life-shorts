@@ -18,6 +18,7 @@ from pathlib import Path
 
 from ..errors import SubtitleError
 from ..scene.timeline import Timeline
+from .fonts import resolve_font
 from .wrap import Layout, layout_text
 
 log = logging.getLogger(__name__)
@@ -49,6 +50,8 @@ class SubtitleResult:
     timeline_path: Path
     cues: list[Cue]
     warnings: list[str] = field(default_factory=list)
+    #: 폰트가 확정된 subtitle 설정. 렌더러는 이 값을 써야 ASS와 fontsdir가 맞는다.
+    resolved_cfg: dict = field(default_factory=dict)
 
 
 # ---------------------------------------------------------------------------
@@ -334,14 +337,23 @@ def build_subtitles(
 ) -> SubtitleResult:
     """자막 3종 파일을 만든다. 실패하면 SubtitleError로 중단한다(명세서 §25)."""
     out_dir.mkdir(parents=True, exist_ok=True)
-    cues, warnings = build_cues(timeline, subtitle_cfg, width)
+
+    # ASS Style에 적는 폰트 이름은 실제로 찾은 파일에서 읽는다.
+    # 설정의 fontName을 그대로 쓰면 운영체제마다 어긋나 한글이 깨진다.
+    font = resolve_font(subtitle_cfg)
+    resolved_cfg = dict(subtitle_cfg)
+    resolved_cfg["fontName"] = font.family
+    if font.path is not None:
+        resolved_cfg["fontFile"] = str(font.path)
+
+    cues, warnings = build_cues(timeline, resolved_cfg, width)
 
     srt_path = write_srt(cues, out_dir / "subtitles.srt")
-    ass_path = write_ass(cues, out_dir / "subtitles.ass", subtitle_cfg, width, height)
-    timeline_path = write_timeline_json(cues, out_dir / "subtitle-timeline.json", subtitle_cfg, width, height, fps)
+    ass_path = write_ass(cues, out_dir / "subtitles.ass", resolved_cfg, width, height)
+    timeline_path = write_timeline_json(cues, out_dir / "subtitle-timeline.json", resolved_cfg, width, height, fps)
 
     for warning in warnings:
         log.warning("%s", warning)
-    log.info("자막 %d개 생성 (%s)", len(cues), srt_path.name)
+    log.info("자막 %d개 생성 (%s, 폰트 %s)", len(cues), srt_path.name, font.family)
 
-    return SubtitleResult(srt_path, ass_path, timeline_path, cues, warnings)
+    return SubtitleResult(srt_path, ass_path, timeline_path, cues, warnings, resolved_cfg)
