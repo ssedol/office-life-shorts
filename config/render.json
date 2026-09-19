@@ -5,35 +5,31 @@
     "superSample: zoompan 계단 현상을 줄이는 내부 배율. profiles에서 덮어쓴다.",
     "resolution/fps는 project.json에 값이 있으면 그쪽이 우선한다."
   ],
-
   "renderer": "ffmpeg",
-
   "resolution": {
     "width": 1080,
     "height": 1920
   },
   "fps": 30,
-
   "fitMode": "cover",
   "backgroundColor": "#101828",
   "superSample": 2.0,
-
   "still": {
-    "$comment": "명세서 §15 — 확대/팬 과도 금지. 전체 구간에 걸쳐 12%만 움직인다.",
-    "zoomAmount": 0.12,
-    "panAmount": 0.12
+    "$comment": [
+      "명세서 §15 '확대/팬 과도 금지'. 다만 12%를 5초에 걸쳐 움직이면 초당 2.4%라",
+      "정지 화면처럼 보인다. 씬이 3~4초로 짧아진 만큼 이동량을 키워 움직임이 보이게 했다."
+    ],
+    "zoomAmount": 0.18,
+    "panAmount": 0.2
   },
-
   "audio": {
     "codec": "aac",
     "bitrate": "192k",
     "sampleRate": 48000,
     "channels": 1
   },
-
   "h264Profile": "high",
   "h264Level": "4.1",
-
   "profiles": {
     "preview": {
       "$comment": "명세서 §21 검수용. 해상도는 그대로 두어야 자막 안전영역을 실제 크기로 볼 수 있다.",
@@ -47,7 +43,6 @@
       "superSample": 2.0
     }
   },
-
   "bgm": {
     "$comment": "명세서 §35-4 — MVP에서는 제외. 음원 파일을 넣고 enabled를 true로 바꾸면 동작한다.",
     "enabled": false,

@@ -1,11 +1,18 @@
 """타임라인 구성 (명세서 §3.1, §31 RISK-3).
 
-씬 길이는 scene-plan.json의 durationSec를 하한으로 삼되,
-실제 TTS 길이가 그보다 길면 TTS 쪽에 맞춘다. 그래야 음성이 잘리지 않고
-씬/자막/음성 싱크가 어긋나지 않는다.
+씬 길이를 정하는 방식은 config/app.json의 timeline.fitToNarration이 가른다.
 
-    scene_duration = max(durationSec, leadIn + ttsLength + tailPad, minSceneSec)
+fitToNarration = true (기본)
+    scene_duration = leadIn + ttsLength + tailPad
+    내레이션이 끝나면 바로 다음 씬으로 넘어간다. durationSec은 참고값이 된다.
+    durationSec을 하한으로 쓰면 내레이션이 끝난 뒤 정지 화면이 남아 영상이 늘어진다.
+    실측에서 40초 중 9초(22%)가 이런 빈 시간이었다.
 
+fitToNarration = false
+    scene_duration = max(durationSec, leadIn + ttsLength + tailPad)
+    scene-plan.json이 정한 길이를 하한으로 존중한다.
+
+어느 쪽이든 minSceneSec을 밑돌지 않고, maxSceneSec을 넘지 않는다(음성이 잘릴 때는 예외).
 계산된 길이는 항상 프레임 경계로 올림해서 concat 시 드리프트가 생기지 않게 한다.
 """
 
@@ -122,6 +129,8 @@ def build_timeline(
     lead_in_cfg = float(timeline_cfg.get("leadInSec", 0.15))
     tail_pad = float(timeline_cfg.get("tailPadSec", 0.35))
     min_scene = float(timeline_cfg.get("minSceneSec", 1.0))
+    max_scene = float(timeline_cfg.get("maxSceneSec", 0) or 0)
+    fit_to_narration = bool(timeline_cfg.get("fitToNarration", False))
     effective_fps = int(fps or cfg.fps)
 
     items: list[TimelineScene] = []
@@ -131,7 +140,18 @@ def build_timeline(
     for index, (scene, audio) in enumerate(zip(scenes, scene_audios, strict=True)):
         lead_in = lead_in_cfg if audio.duration > 0 else 0.0
         needed = lead_in + audio.duration + tail_pad if audio.duration > 0 else min_scene
-        duration = quantize(max(scene.duration_sec, needed, min_scene), effective_fps)
+
+        if fit_to_narration:
+            # 내레이션이 끝나면 바로 다음 씬으로 넘어간다. durationSec은 참고값이 된다.
+            duration = max(needed, min_scene)
+        else:
+            duration = max(scene.duration_sec, needed, min_scene)
+
+        if max_scene:
+            # 상한을 걸되 음성이 잘리면 안 되므로 needed는 항상 보장한다.
+            duration = max(min(duration, max_scene), needed)
+
+        duration = quantize(duration, effective_fps)
 
         item = TimelineScene(
             scene=scene,
@@ -143,13 +163,20 @@ def build_timeline(
             source=SOURCE_I2V if scene.is_i2v else SOURCE_STILL,
         )
 
-        if duration > scene.duration_sec + 1e-3:
+        gap = duration - scene.duration_sec
+        if gap > 1e-3:
             note = (
                 f"{scene.id}: 계획 {scene.duration_sec:.2f}초 → 실제 {duration:.2f}초 "
                 f"(TTS {audio.duration:.2f}초에 맞춰 확장)"
             )
             item.notes.append(note)
             warnings.append(note)
+        elif gap < -1e-3:
+            # fitToNarration에서 흔한 경우다. 늘어짐을 줄인 것이므로 경고까지는 아니다.
+            item.notes.append(
+                f"계획 {scene.duration_sec:.2f}초 → 실제 {duration:.2f}초 "
+                f"(TTS {audio.duration:.2f}초에 맞춰 단축)"
+            )
 
         items.append(item)
         cursor += duration

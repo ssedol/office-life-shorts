@@ -1,27 +1,31 @@
 {
   "$comment": "전역 실행 설정 (명세서 §8, §14, §23)",
-
   "sceneCount": 8,
-
   "durationRange": {
     "$comment": "명세서 §8.1 — 최소 35초 / 권장 40초 / 최대 45초. 벗어나면 경고만 낸다.",
     "minSec": 35,
     "maxSec": 45
   },
-
   "timeline": {
-    "$comment": "씬 길이는 max(durationSec, leadIn + TTS길이 + tailPad, minSceneSec)로 정해진다 (명세서 §31 RISK-3)",
-    "leadInSec": 0.15,
-    "tailPadSec": 0.35,
-    "minSceneSec": 1.0
+    "$comment": [
+      "fitToNarration=true: 내레이션이 끝나면 바로 다음 씬으로 넘어간다.",
+      "  durationSec을 하한으로 쓰면 말이 끝난 뒤 정지 화면이 남아 영상이 늘어진다.",
+      "  실측에서 40초짜리 영상의 22%(9초)가 그런 빈 시간이었다.",
+      "false로 두면 scene-plan.json의 durationSec을 하한으로 존중한다.",
+      "leadIn: 씬이 바뀌고 말이 시작되기까지의 여유.",
+      "tailPad: 말이 끝나고 다음 씬으로 넘어가기까지의 여유. 늘리면 늘어진다."
+    ],
+    "fitToNarration": true,
+    "leadInSec": 0.12,
+    "tailPadSec": 0.25,
+    "minSceneSec": 1.5,
+    "maxSceneSec": 6.0
   },
-
   "paths": {
     "inputsDir": "inputs",
     "outputsDir": "outputs",
     "workflowsDir": "workflows"
   },
-
   "ffmpeg": {
     "bin": "ffmpeg",
     "probeBin": "ffprobe",

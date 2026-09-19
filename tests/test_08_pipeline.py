@@ -204,9 +204,12 @@ def test_scene_start_times_are_contiguous(tmp_path, fast_config):
     run_pipeline(fast_config, package, out_dir)
 
     scenes = json.loads((out_dir / "render-log.json").read_text(encoding="utf-8"))["scenes"]
+    # render-log.json은 초를 소수점 3자리로 반올림해 적는다. 그 값을 더해 나가면
+    # 씬마다 최대 0.0005초씩 오차가 쌓이므로, 허용 오차를 씬 수에 비례해 잡는다.
+    tolerance = 0.001 * len(scenes)
     cursor = 0.0
     for scene in scenes:
-        assert scene["startSec"] == pytest.approx(cursor, abs=1e-3)
+        assert scene["startSec"] == pytest.approx(cursor, abs=tolerance), scene["id"]
         cursor += scene["durationSec"]
 
 
@@ -248,16 +251,26 @@ def test_i2v_failure_still_produces_a_complete_video(tmp_path, fast_config):
 
 
 def test_i2v_clip_shorter_than_scene_is_padded(tmp_path, fast_config):
-    """명세서 §16 — I2V는 3~5초. 씬이 더 길면 마지막 프레임으로 채운다."""
+    """명세서 §16 — I2V는 3~5초. 씬이 더 길면 마지막 프레임으로 채운다.
+
+    씬이 I2V 클립보다 길어야 의미가 있는 테스트이므로, 내레이션 길이에 맞추지 않고
+    scene-plan.json의 durationSec을 그대로 쓰도록 fitToNarration을 끈다.
+    """
+    from src.config import deep_merge
+
     ffmpeg = FFmpeg()
     video_bytes = make_test_video(ffmpeg, tmp_path / "ltx.mp4", seconds=3.0, width=270, height=480)
     package = make_package(tmp_path / "in", duration_sec=8.0)
     out_dir = tmp_path / "out"
+    fast_config.app = deep_merge(fast_config.app, {"timeline": {"fitToNarration": False, "maxSceneSec": 0}})
 
     with FakeComfyUI(video_bytes) as server:
-        from src.config import deep_merge
         fast_config.i2v = deep_merge(fast_config.i2v, {"comfyui": {"baseUrl": server.base_url}})
         run_pipeline(fast_config, package, out_dir, skip_i2v=False)
+
+    log = json.loads((out_dir / "render-log.json").read_text(encoding="utf-8"))
+    scene = next(s for s in log["scenes"] if s["id"] == "SCENE-02")
+    assert scene["durationSec"] == pytest.approx(8.0, abs=0.05), "durationSec이 그대로 쓰여야 한다"
 
     clip = out_dir / "scenes" / "scene-02.mp4"
     assert ffmpeg.duration(clip) == pytest.approx(8.0, abs=0.05)
@@ -391,3 +404,66 @@ def test_missing_bgm_file_is_skipped_not_fatal(tmp_path, fast_config):
     package = make_package(tmp_path / "in", duration_sec=1.0)
     result = run_pipeline(fast_config, package, tmp_path / "out")
     assert result.output_path.is_file()
+
+
+# ---------------------------------------------------------------------------
+# fitToNarration — 내레이션이 끝나면 바로 다음 씬 (늘어짐 방지)
+# ---------------------------------------------------------------------------
+
+def test_fit_to_narration_leaves_no_idle_time(tmp_path, fast_config):
+    """말이 끝난 뒤 정지 화면이 남지 않아야 한다."""
+
+    timeline_cfg = fast_config.app["timeline"]
+    lead, tail = timeline_cfg["leadInSec"], timeline_cfg["tailPadSec"]
+
+    # durationSec을 일부러 크게 잡아도 내레이션 길이에 맞춰 줄어들어야 한다.
+    package = make_package(tmp_path / "in", duration_sec=8.0)
+    out_dir = tmp_path / "out"
+    run_pipeline(fast_config, package, out_dir)
+
+    log = json.loads((out_dir / "render-log.json").read_text(encoding="utf-8"))
+    for scene in log["scenes"]:
+        speaking = lead + scene["audioDurationSec"] + tail
+        idle = scene["durationSec"] - speaking
+        assert idle < 1 / 30 + 1e-6, f"{scene['id']}: 빈 시간 {idle:.2f}초"
+        assert scene["durationSec"] < scene["plannedDurationSec"], scene["id"]
+
+
+def test_fit_to_narration_still_never_cuts_audio(tmp_path, fast_config):
+    """씬을 줄이더라도 음성이 잘리면 안 된다."""
+    package = make_package(tmp_path / "in", duration_sec=0.5)
+    out_dir = tmp_path / "out"
+    run_pipeline(fast_config, package, out_dir)
+
+    log = json.loads((out_dir / "render-log.json").read_text(encoding="utf-8"))
+    lead = fast_config.app["timeline"]["leadInSec"]
+    for scene in log["scenes"]:
+        assert scene["durationSec"] >= lead + scene["audioDurationSec"], scene["id"]
+
+
+def test_max_scene_sec_caps_silent_scenes(tmp_path, fast_config):
+    """내레이션이 없는 씬이 durationSec만 믿고 길어지지 않는다."""
+    from src.config import deep_merge
+
+    fast_config.app = deep_merge(fast_config.app, {"timeline": {"fitToNarration": False, "maxSceneSec": 3.0}})
+    package = make_package(tmp_path / "in", duration_sec=10.0)
+    out_dir = tmp_path / "out"
+    run_pipeline(fast_config, package, out_dir)
+
+    log = json.loads((out_dir / "render-log.json").read_text(encoding="utf-8"))
+    for scene in log["scenes"]:
+        assert scene["durationSec"] <= 3.0 + 1 / 30, scene["id"]
+
+
+def test_fit_disabled_respects_planned_duration(tmp_path, fast_config):
+    """fitToNarration=false면 기존처럼 durationSec을 하한으로 존중한다."""
+    from src.config import deep_merge
+
+    fast_config.app = deep_merge(fast_config.app, {"timeline": {"fitToNarration": False, "maxSceneSec": 0}})
+    package = make_package(tmp_path / "in", duration_sec=5.0)
+    out_dir = tmp_path / "out"
+    run_pipeline(fast_config, package, out_dir)
+
+    log = json.loads((out_dir / "render-log.json").read_text(encoding="utf-8"))
+    for scene in log["scenes"]:
+        assert scene["durationSec"] >= 5.0 - 1e-6, scene["id"]
