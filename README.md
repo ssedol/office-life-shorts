@@ -25,19 +25,44 @@ SSOT는 `TODAY_TO_WORK_PROJECT_SPEC.md` (명세서 v1.0)이고, 이 저장소는
 
 ## 설치
 
+Python 3.10 이상, ffmpeg, 한글 폰트가 필요합니다.
+
+### Windows
+
+```powershell
+winget install Python.Python.3.12
+winget install Gyan.FFmpeg
+winget install Git.Git
+```
+
+**설치 후 PowerShell을 닫았다 새로 여세요.** PATH가 새 창에서만 반영됩니다.
+
+```powershell
+py --version
+ffmpeg -version
+py -m pip install -r requirements.txt
+py main.py --input ./inputs/2026-09-18 --validate-only
+```
+
+한글 폰트는 따로 설치할 필요가 없습니다. 맑은 고딕(`C:\Windows\Fonts\malgunbd.ttf`)을
+자동으로 찾아 쓰고, ASS 자막에 적는 폰트 이름도 그 파일에서 읽습니다.
+
+winget이 없는 구버전 Windows라면 직접 받으세요.
+[Python](https://www.python.org/downloads/) 설치 시 **"Add python.exe to PATH"를 반드시 체크**하고,
+[ffmpeg](https://www.gyan.dev/ffmpeg/builds/)는 `release essentials`를 받아 `bin` 폴더를 PATH에 넣습니다.
+Microsoft Store 버전 파이썬은 경로가 꼬이는 경우가 있어 권하지 않습니다.
+
+### Linux / macOS
+
 ```bash
-# 1. 시스템 의존성
 sudo apt-get install ffmpeg fonts-nanum      # Ubuntu/Debian
 # brew install ffmpeg                         # macOS (한글 폰트는 기본 내장)
 
-# 2. 파이썬 패키지
 pip install -r requirements.txt
-
-# 3. 설치 확인
 python main.py --input ./inputs/2026-09-18 --validate-only
 ```
 
-Python 3.10 이상이 필요합니다.
+> 아래 예시는 `python`으로 적었습니다. Windows에서는 `py`로 바꿔 쓰세요.
 
 ---
 
