@@ -196,15 +196,42 @@ def test_i2v_ratio_outside_recommendation_only_warns(tmp_path, fast_config):
 # 댓글 유도 문구 (config/app.json cta)
 # ---------------------------------------------------------------------------
 
-def test_missing_cta_in_last_scene_warns(tmp_path, fast_config):
-    """마지막 씬에 댓글 유도 문구가 없으면 경고한다. 실패는 아니다."""
-    root = make_package(tmp_path / "in", scene_overrides={8: {
-        "narration": "오늘은 여기까지입니다.", "subtitle": "끝",
-    }})
+def _cta_warnings(report, scene_id: str) -> list[str]:
+    return [w for w in report.warnings if w.startswith(f"{scene_id}:") and "댓글 유도" in w]
+
+
+def test_missing_cta_warns_for_both_hook_and_last_scene(tmp_path, fast_config):
+    """기본 설정은 훅과 마무리 두 군데를 본다. 둘 다 없으면 경고도 둘이다."""
+    root = make_package(tmp_path / "in", scene_overrides={
+        1: {"narration": "오늘 얘기할 건요.", "subtitle": "시작"},
+        8: {"narration": "오늘은 여기까지입니다.", "subtitle": "끝"},
+    })
     report = validate(load_input_package(root), fast_config)
 
     assert report.ok, "댓글 유도는 권고지 필수가 아니다"
-    assert any("댓글 유도" in w for w in report.warnings)
+    assert _cta_warnings(report, "SCENE-01")
+    assert _cta_warnings(report, "SCENE-08")
+
+
+def test_cta_in_hook_only_still_warns_for_the_last_scene(tmp_path, fast_config):
+    root = make_package(tmp_path / "in", scene_overrides={
+        1: {"narration": "여러분도 해보셨죠?"},
+        8: {"narration": "오늘은 여기까지입니다.", "subtitle": "끝"},
+    })
+    report = validate(load_input_package(root), fast_config)
+
+    assert not _cta_warnings(report, "SCENE-01")
+    assert _cta_warnings(report, "SCENE-08")
+
+
+def test_cta_in_both_places_passes_clean(tmp_path, fast_config):
+    root = make_package(tmp_path / "in", scene_overrides={
+        1: {"narration": "이 말 해보셨죠?"},
+        8: {"narration": "여러분은 어떻게 말하세요?"},
+    })
+    report = validate(load_input_package(root), fast_config)
+
+    assert not [w for w in report.warnings if "댓글 유도" in w]
 
 
 @pytest.mark.parametrize("narration,subtitle", [
@@ -213,38 +240,66 @@ def test_missing_cta_in_last_scene_warns(tmp_path, fast_config):
     ("비슷한 경험 있나요?", "끝"),
     ("저만 그런가요?", "끝"),
     ("댓글로 알려주세요.", "끝"),
+    ("이 말 해보셨죠?", "끝"),
 ])
 def test_cta_is_detected_in_narration_or_subtitle(tmp_path, fast_config, narration, subtitle):
     root = make_package(tmp_path / "in", scene_overrides={8: {"narration": narration, "subtitle": subtitle}})
     report = validate(load_input_package(root), fast_config)
 
-    assert not any("댓글 유도" in w for w in report.warnings), f"{narration!r} / {subtitle!r}"
+    assert not _cta_warnings(report, "SCENE-08"), f"{narration!r} / {subtitle!r}"
 
 
-def test_cta_check_only_looks_at_the_last_scene(tmp_path, fast_config):
-    """중간 씬에 있는 질문은 마무리 CTA로 치지 않는다."""
+def test_cta_check_ignores_middle_scenes(tmp_path, fast_config):
+    """중간 씬에 있는 질문은 훅/마무리 CTA로 치지 않는다."""
     root = make_package(tmp_path / "in", scene_overrides={
+        1: {"narration": "시작합니다.", "subtitle": "시작"},
         4: {"narration": "여러분은 어떻게 하세요?"},
         8: {"narration": "오늘은 여기까지입니다.", "subtitle": "끝"},
     })
     report = validate(load_input_package(root), fast_config)
 
-    assert any("댓글 유도" in w for w in report.warnings)
+    assert _cta_warnings(report, "SCENE-01")
+    assert _cta_warnings(report, "SCENE-08")
+    assert not _cta_warnings(report, "SCENE-04")
+
+
+def test_cta_scenes_can_target_the_last_scene_only(tmp_path, fast_config):
+    from src.config import deep_merge
+
+    fast_config.app = deep_merge(fast_config.app, {"cta": {"scenes": ["last"]}})
+    root = make_package(tmp_path / "in", scene_overrides={
+        1: {"narration": "시작합니다.", "subtitle": "시작"},
+        8: {"narration": "여러분은 어떻게 하세요?"},
+    })
+    report = validate(load_input_package(root), fast_config)
+
+    assert not [w for w in report.warnings if "댓글 유도" in w]
 
 
 def test_cta_check_can_be_disabled(tmp_path, fast_config):
     from src.config import deep_merge
 
     fast_config.app = deep_merge(fast_config.app, {"cta": {"required": False}})
-    root = make_package(tmp_path / "in", scene_overrides={8: {"narration": "끝.", "subtitle": "끝"}})
+    root = make_package(tmp_path / "in", scene_overrides={
+        1: {"narration": "시작.", "subtitle": "시작"},
+        8: {"narration": "끝.", "subtitle": "끝"},
+    })
     report = validate(load_input_package(root), fast_config)
 
-    assert not any("댓글 유도" in w for w in report.warnings)
+    assert not [w for w in report.warnings if "댓글 유도" in w]
 
 
-def test_bundled_sample_has_a_cta(repo_root, default_config):
-    """저장소 샘플은 댓글 유도 문구를 갖춰야 한다."""
+def test_hook_hint_mentions_keeping_the_subtitle(tmp_path, fast_config):
+    """훅 경고는 '자막은 그대로 두라'는 조언을 담아야 한다."""
+    root = make_package(tmp_path / "in", scene_overrides={1: {"narration": "시작.", "subtitle": "시작"}})
+    report = validate(load_input_package(root), fast_config)
+
+    assert any("자막은 훅 그대로" in w for w in _cta_warnings(report, "SCENE-01"))
+
+
+def test_bundled_sample_has_cta_in_both_places(repo_root, default_config):
+    """저장소 샘플은 훅과 마무리 양쪽에 댓글 유도를 갖춰야 한다."""
     package = load_input_package(repo_root / "inputs" / "2026-09-18")
     report = validate(package, default_config)
 
-    assert not any("댓글 유도" in w for w in report.warnings), report.warnings
+    assert not [w for w in report.warnings if "댓글 유도" in w], report.warnings

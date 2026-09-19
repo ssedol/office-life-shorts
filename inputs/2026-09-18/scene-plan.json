@@ -5,9 +5,9 @@
       "order": 1,
       "durationSec": 5,
       "type": "STILL",
-      "reason": "훅 자막과 표정 전달이 핵심이라 정지 이미지로 충분하다",
+      "reason": "훅 자막과 표정이 핵심. 내레이션 끝에 질문을 붙여 초반 댓글을 유도한다",
       "imageFile": "scene-01.png",
-      "narration": "회사에서 이 말, 먼저 꺼내면 괜히 손해 봅니다.",
+      "narration": "회사에서 이 말, 먼저 꺼내면 괜히 손해 봅니다. 여러분도 해보셨죠?",
       "subtitle": "먼저 꺼내면 **손해** 보는 말",
       "motion": "slow_zoom_in"
     },

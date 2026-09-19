@@ -246,10 +246,40 @@ def _check_script(package: InputPackage, report: ValidationReport) -> None:
         report.error("ERR_INPUT_MISSING", "script.txt가 비어 있습니다")
 
 
+#: cta.scenes가 가리키는 위치별 안내 문구
+_CTA_HINTS = {
+    "first": (
+        "훅에 시청자에게 던지는 질문을 넣으면, 끝까지 보지 않은 사람도 댓글을 답니다 "
+        '(예: "여러분도 해보셨죠?"). 자막은 훅 그대로 두고 내레이션에만 붙이면 훅이 약해지지 않습니다'
+    ),
+    "last": (
+        "마지막 씬에 시청자에게 던지는 질문을 넣으면 댓글이 붙습니다 "
+        '(예: "여러분은 어떻게 하세요?")'
+    ),
+}
+
+
+def _resolve_cta_scenes(package: InputPackage, targets: list) -> list[tuple[str, object]]:
+    """cta.scenes 설정을 (위치이름, 씬) 목록으로 바꾼다.
+
+    'first' / 'last' 또는 1부터 시작하는 씬 번호를 받는다.
+    """
+    resolved: list[tuple[str, object]] = []
+    for target in targets:
+        if target == "first":
+            resolved.append(("first", package.scenes[0]))
+        elif target == "last":
+            resolved.append(("last", package.scenes[-1]))
+        elif isinstance(target, int) and 1 <= target <= len(package.scenes):
+            resolved.append(("last", package.scenes[target - 1]))
+    return resolved
+
+
 def _check_cta(package: InputPackage, cfg: AppConfig, report: ValidationReport) -> None:
-    """마지막 씬에 댓글 유도 문구가 있는지 확인한다.
+    """댓글 유도 문구가 있는지 확인한다 (기본: 훅과 마지막 씬 두 군데).
 
     쇼츠에서 댓글은 노출에 직접 영향을 주는데, 대본을 쓰다 보면 가장 빠뜨리기 쉬운 항목이다.
+    훅과 마무리 두 군데에 심으면, 끝까지 본 사람과 중간에 이탈한 사람 양쪽에서 댓글이 나온다.
     강제하면 콘텐츠에 개입하는 셈이라 경고로만 알린다(명세서 §33-4: scene-plan 우선).
     """
     cta_cfg = cfg.app.get("cta", {})
@@ -260,13 +290,11 @@ def _check_cta(package: InputPackage, cfg: AppConfig, report: ValidationReport) 
     if not patterns:
         return
 
-    last = package.scenes[-1]
-    haystack = f"{last.narration} {last.subtitle}"
-    if any(pattern in haystack for pattern in patterns):
-        return
-
-    report.warn(
-        f"{last.id}: 댓글 유도 문구가 없습니다. 마지막 씬에 시청자에게 던지는 질문을 넣으면 "
-        f"댓글이 붙습니다 (예: \"여러분은 어떻게 하세요?\"). "
-        f"config/app.json의 cta.patterns에서 인식 기준을 조정할 수 있습니다"
-    )
+    for position, scene in _resolve_cta_scenes(package, list(cta_cfg.get("scenes", ["last"]))):
+        haystack = f"{scene.narration} {scene.subtitle}"
+        if any(pattern in haystack for pattern in patterns):
+            continue
+        report.warn(
+            f"{scene.id}: 댓글 유도 문구가 없습니다. {_CTA_HINTS[position]}. "
+            f"config/app.json의 cta.patterns에서 인식 기준을 조정할 수 있습니다"
+        )
