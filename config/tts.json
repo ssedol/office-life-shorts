@@ -58,8 +58,12 @@
       "timeoutSec": 120
     },
     "offline": {
-      "$comment": "글자 수로 길이만 추정해 같은 길이의 무음을 만든다.",
-      "charsPerSec": 7.0,
+      "$comment": [
+        "글자 수로 길이만 추정해 같은 길이의 무음을 만든다.",
+        "charsPerSec는 ko-KR-SunHiNeural(speed 1.0) 실측으로 맞춘 값이다.",
+        "보이스나 speed를 바꾸면 실제 합성 결과와 비교해 다시 조정한다."
+      ],
+      "charsPerSec": 5.2,
       "minSec": 0.8
     }
   }

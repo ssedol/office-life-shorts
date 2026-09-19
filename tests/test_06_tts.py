@@ -120,6 +120,31 @@ def test_faster_speed_shortens_duration():
     assert estimate_duration("같은 문장입니다", 7.0, 0.1, speed=1.5) < estimate_duration("같은 문장입니다", 7.0, 0.1, speed=1.0)
 
 
+def test_default_rate_matches_measured_edge_tts():
+    """기본 추정치가 실제 edge-tts 길이와 크게 어긋나면 안 된다.
+
+    2026-09-18 에피소드 8씬을 ko-KR-SunHiNeural(speed 1.0)로 합성한 실측값이 41.93초다.
+    오프라인 미리보기의 길이 경고가 쓸모 있으려면 추정치가 이 값 근처여야 한다.
+    추정 모델을 바꿀 때 이 테스트가 깨지면 DEFAULT_CHARS_PER_SEC를 다시 맞춘다.
+    """
+    import json
+    from pathlib import Path
+
+    from src.tts.offline_adapter import DEFAULT_CHARS_PER_SEC, DEFAULT_MIN_SEC
+
+    plan_path = Path(__file__).resolve().parent.parent / "inputs/2026-09-18/scene-plan.json"
+    plan = json.loads(plan_path.read_text(encoding="utf-8"))
+    estimated = sum(
+        estimate_duration(s["narration"], DEFAULT_CHARS_PER_SEC, DEFAULT_MIN_SEC)
+        for s in plan["scenes"]
+    )
+
+    measured = 41.93
+    assert abs(estimated - measured) / measured < 0.10, (
+        f"추정 {estimated:.2f}초 vs 실측 {measured}초 — 오차 10%를 넘습니다"
+    )
+
+
 @needs_ffmpeg
 def test_synthesize_scenes_produces_wav_per_scene(tmp_path, default_config):
     ffmpeg = FFmpeg()

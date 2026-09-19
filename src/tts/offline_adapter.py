@@ -16,12 +16,20 @@ from pathlib import Path
 from ..errors import TTSError
 from .base import SynthesisRequest, TTSProvider
 
-DEFAULT_CHARS_PER_SEC = 7.0
+#: 실측 보정값. ko-KR-SunHiNeural(speed 1.0)로 2026-09-18 에피소드 8씬을 합성한 결과,
+#: 공백 제외 204자가 41.93초였다. 부호당 0.18초 숨을 빼면 초당 5.2자다.
+#: 처음 쓰던 7.0은 34% 빠른 값이라 오프라인 미리보기가 실제보다 11초 짧게 나왔다.
+DEFAULT_CHARS_PER_SEC = 5.2
 DEFAULT_MIN_SEC = 0.8
 
 
 def estimate_duration(text: str, chars_per_sec: float, min_sec: float, speed: float = 1.0) -> float:
-    """한국어 내레이션 길이를 글자 수로 대충 추정한다."""
+    """한국어 내레이션 길이를 글자 수로 대충 추정한다.
+
+    오프라인 미리보기의 씬 길이가 실제 음성과 비슷해야 길이 경고가 쓸모 있다.
+    기본값은 edge-tts 실측으로 맞춰 두었다(DEFAULT_CHARS_PER_SEC 주석 참고).
+    다른 보이스나 speed를 쓰면 config/tts.json의 engines.offline.charsPerSec를 조정한다.
+    """
     stripped = re.sub(r"\s+", "", text)
     if not stripped:
         return 0.0
