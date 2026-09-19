@@ -398,3 +398,65 @@ def test_windows_font_candidates_are_listed(default_config):
     candidates = [str(c).lower() for c in default_config.subtitle["fontCandidates"]]
 
     assert any("malgun" in c for c in candidates), "Windows용 한글 폰트 후보가 없습니다"
+
+
+# ---- 자막 필터 경로 (Windows 회귀) -----------------------------------------
+
+
+def _subtitle_job(tmp_path: Path, subtitle_cfg: dict):
+    """_prepare_subtitle_filter만 시험하기 위한 최소 RenderJob."""
+    from src.render.base import MODE_PREVIEW, RenderJob
+
+    ass_path = tmp_path / "subtitles.ass"
+    ass_path.write_text("[Script Info]\n", encoding="utf-8")
+    return RenderJob(
+        timeline=make_timeline(["자막"]),
+        narration_path=tmp_path / "narration.wav",
+        subtitle_path=ass_path,
+        out_path=tmp_path / "preview.mp4",
+        scenes_dir=tmp_path / "scenes",
+        work_dir=tmp_path / "work",
+        mode=MODE_PREVIEW,
+        render_cfg={},
+        subtitle_cfg=subtitle_cfg,
+    )
+
+
+def test_subtitle_filter_carries_no_path(tmp_path, default_config):
+    """ass 필터에는 경로가 아니라 파일 이름만 들어가야 한다.
+
+    필터그래프 파서는 ':'를 옵션 구분자로, '\\'를 이스케이프로 읽는다.
+    Windows 절대 경로(C:\\...)를 그대로 넣으면 필터체인 파싱이 통째로 깨진다
+    (ERR_RENDER_FAILED). 그래서 파일을 작업 폴더로 복사하고 이름만 쓴다.
+    """
+    from src.media.ffmpeg import FFmpeg
+    from src.render.ffmpeg_renderer import FFmpegRenderer
+
+    job = _subtitle_job(tmp_path, default_config.subtitle)
+
+    filter_str = FFmpegRenderer(FFmpeg())._prepare_subtitle_filter(job)
+
+    assert filter_str.startswith("ass=filename=subtitles.ass")
+    assert "\\" not in filter_str
+    assert "/" not in filter_str
+    # 드라이브 문자의 ':'가 남으면 안 된다. 옵션 구분용 ':'만 허용한다.
+    for option in filter_str.removeprefix("ass=").split(":"):
+        assert "=" in option, f"옵션이 아닌 조각이 있습니다: {option}"
+
+    # 필터가 가리키는 파일이 작업 폴더에 실제로 있어야 한다.
+    assert (job.work_dir / "subtitles.ass").is_file()
+    if "fontsdir=fonts" in filter_str:
+        assert any((job.work_dir / "fonts").iterdir())
+
+
+def test_subtitle_filter_omits_fontsdir_when_font_is_missing(tmp_path):
+    """폰트 파일을 못 찾으면 fontsdir 없이 시스템 폰트에 맡긴다."""
+    from src.media.ffmpeg import FFmpeg
+    from src.render.ffmpeg_renderer import FFmpegRenderer
+
+    job = _subtitle_job(tmp_path, {"fontName": "Malgun Gothic", "fontFile": None, "fontCandidates": []})
+
+    filter_str = FFmpegRenderer(FFmpeg())._prepare_subtitle_filter(job)
+
+    assert filter_str == "ass=filename=subtitles.ass"
+    assert not (job.work_dir / "fonts").exists()

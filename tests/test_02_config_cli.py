@@ -108,10 +108,18 @@ def test_missing_ffmpeg_is_reported_with_install_hint():
     ("/a/b.ass", "/a/b.ass"),
     ("C:/x/y.ass", "C\\:/x/y.ass"),
     ("/a/it's.ass", "/a/it\\'s.ass"),
-    ("C:\\x\\y.ass", "C\\:\\\\x\\\\y.ass"),
+    # Windows 경로: 백슬래시를 슬래시로 바꾼 뒤 콜론만 이스케이프한다.
+    # 백슬래시를 겹쳐 이스케이프하면 필터그래프 파서가 값을 망가뜨린다.
+    ("C:\\x\\y.ass", "C\\:/x/y.ass"),
+    ("C:\\Windows\\Fonts", "C\\:/Windows/Fonts"),
 ])
 def test_filter_path_escaping(raw, expected):
     assert escape_filter_path(raw) == expected
+
+
+def test_escaped_windows_path_has_no_backslashes():
+    """필터그래프에 백슬래시가 남으면 Windows에서 파싱이 깨진다."""
+    assert "\\" not in escape_filter_path("C:\\office-life-shorts\\outputs\\subtitles.ass").replace("\\:", ":")
 
 
 # ---------------------------------------------------------------------------

@@ -227,6 +227,12 @@ class FFmpeg:
 def escape_filter_path(path: str) -> str:
     """ffmpeg 필터 인자에 파일 경로를 넣을 때 필요한 이스케이프.
 
-    ass=/subtitles= 필터는 ':'를 옵션 구분자로 쓰기 때문에 반드시 이스케이프해야 한다.
+    Windows 경로의 백슬래시는 필터그래프 파서가 이스케이프 문자로 읽어서,
+    이스케이프를 겹쳐 봐야 값이 망가진다. ffmpeg은 Windows에서도 슬래시 경로를
+    받으므로 먼저 슬래시로 바꾼 뒤 ':'와 작은따옴표만 처리한다.
+
+    그래도 드라이브 문자의 ':'는 남으므로 완전히 안전하지는 않다.
+    자막처럼 확실해야 하는 경로는 파일을 작업 폴더로 옮기고 이름만 쓰는 편이 낫다
+    (src/render/ffmpeg_renderer.py의 _prepare_subtitle_filter 참고).
     """
-    return path.replace("\\", "\\\\").replace(":", "\\:").replace("'", "\\'")
+    return path.replace("\\", "/").replace(":", "\\:").replace("'", "\\'")

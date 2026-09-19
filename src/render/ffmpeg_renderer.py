@@ -13,13 +13,14 @@
 from __future__ import annotations
 
 import logging
+import shutil
 from pathlib import Path
 
 from ..errors import PipelineError, RenderError
-from ..media.ffmpeg import FFmpeg, escape_filter_path
+from ..media.ffmpeg import FFmpeg
 from ..scene.still import build_fit_chain, build_still_filter
 from ..scene.timeline import SOURCE_I2V, TimelineScene, frames_for
-from ..subtitle.fonts import resolve_font_dir
+from ..subtitle.fonts import resolve_font
 from .base import RenderJob, Renderer, RenderResult
 
 log = logging.getLogger(__name__)
@@ -160,7 +161,11 @@ class FFmpegRenderer(Renderer):
             encoding="utf-8",
         )
 
-        subtitle_filter = self._subtitle_filter(job)
+        # ffmpeg 필터에 경로를 직접 넣으면 Windows에서 깨진다. 필터그래프 파서는
+        # ':'를 옵션 구분자로, '\\'를 이스케이프로 읽기 때문에 C:\경로\파일 같은 값이
+        # 여러 단계 이스케이프를 거치며 망가진다. 그래서 자막과 폰트를 작업 폴더로
+        # 복사하고 그 폴더를 cwd로 삼아 파일 이름만 넘긴다. 이스케이프가 아예 필요 없어진다.
+        subtitle_filter = self._prepare_subtitle_filter(job)
         audio_cfg = cfg.get("audio", {})
 
         args = [
@@ -197,16 +202,35 @@ class FFmpegRenderer(Renderer):
             "-shortest",
             str(job.out_path),
         ]
-        self.ffmpeg.run(args)
+        # 입력과 출력은 모두 절대 경로라 cwd를 바꿔도 안전하다.
+        self.ffmpeg.run(args, cwd=job.work_dir)
 
-    def _subtitle_filter(self, job: RenderJob) -> str:
+    def _prepare_subtitle_filter(self, job: RenderJob) -> str:
+        """자막과 폰트를 작업 폴더에 모으고, 파일 이름만 쓰는 필터 문자열을 만든다.
+
+        ffmpeg 필터에 절대 경로를 넣으면 Windows에서 필터그래프 파싱이 깨진다.
+        작업 폴더를 cwd로 실행할 것이므로 여기서는 이름만 쓴다.
+        """
         if not job.subtitle_path.is_file():
             raise RenderError(f"자막 파일이 없습니다: {job.subtitle_path}")
 
-        options = [f"filename={escape_filter_path(str(job.subtitle_path.resolve()))}"]
-        font_dir = resolve_font_dir(job.subtitle_cfg)
-        if font_dir is not None:
-            options.append(f"fontsdir={escape_filter_path(str(font_dir.resolve()))}")
+        job.work_dir.mkdir(parents=True, exist_ok=True)
+
+        local_subtitle = job.work_dir / job.subtitle_path.name
+        if local_subtitle.resolve() != job.subtitle_path.resolve():
+            shutil.copy2(job.subtitle_path, local_subtitle)
+
+        options = [f"filename={local_subtitle.name}"]
+
+        font = resolve_font(job.subtitle_cfg)
+        if font.path is not None:
+            fonts_dir = job.work_dir / "fonts"
+            fonts_dir.mkdir(exist_ok=True)
+            local_font = fonts_dir / font.path.name
+            if not local_font.exists():
+                shutil.copy2(font.path, local_font)
+            options.append("fontsdir=fonts")
+
         return "ass=" + ":".join(options)
 
     def _bgm_path(self, bgm_cfg: dict) -> Path | None:
