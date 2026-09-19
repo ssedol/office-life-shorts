@@ -5,18 +5,27 @@ from __future__ import annotations
 from ..errors import TTSError
 from ..scene.models import TTSSettings
 from .base import TTSProvider
+from .clova_adapter import ClovaVoiceAdapter
 from .edge_adapter import EdgeTTSAdapter
+from .elevenlabs_adapter import ElevenLabsAdapter
 from .local_cli_adapter import LocalCliAdapter, SupertonicAdapter
 from .offline_adapter import OfflineAdapter
+from .typecast_adapter import TypecastAdapter
 
 #: engine 이름 → Provider 클래스
 REGISTRY: dict[str, type[TTSProvider]] = {
     "edge": EdgeTTSAdapter,
     "edge-tts": EdgeTTSAdapter,
+    "elevenlabs": ElevenLabsAdapter,
+    "clova": ClovaVoiceAdapter,
+    "typecast": TypecastAdapter,
     "supertonic": SupertonicAdapter,
     "cli": LocalCliAdapter,
     "offline": OfflineAdapter,
 }
+
+#: 유료 API를 쓰는 엔진. 비용이 드는 곳이라 비교 도구에서 따로 알려준다.
+PAID_ENGINES = frozenset({"elevenlabs", "clova", "typecast"})
 
 
 class ResolvedTTSSettings:
@@ -71,9 +80,23 @@ def resolve_settings(
         )
 
     options = dict(tts_config.get("engines", {}).get(engine, {}))
+
+    # 보이스 이름은 엔진마다 형식이 완전히 다르다.
+    #   edge       ko-KR-SunHiNeural
+    #   clova      nara
+    #   elevenlabs 21m00Tcm4TlvDq8ikWAM  (이름이 아니라 ID)
+    # 그래서 '다른 엔진을 위해 적어 둔 보이스'는 물려받으면 안 된다.
+    # 예전에는 최상위 voice를 무조건 뒤로 물렸는데, --tts-engine elevenlabs로 바꾸면
+    # edge용 이름이 그대로 넘어가 엉뚱한 요청이 나갔다.
+    # 명시적으로 지정한 CLI 값과 해당 엔진 블록의 값만 항상 유효하다.
+    inherited = [
+        _voice_for_engine(project_tts.voice, project_tts.engine, engine),
+        options.get("voice"),
+        _voice_for_engine(tts_config.get("voice"), tts_config.get("engine"), engine),
+    ]
     # 'UNDECIDED'는 명세서 §11 예시의 자리표시자다(§35-2 미확정). 해당 출처만 건너뛰고
     # 다음 우선순위로 넘어가야지, 전체 체인을 None으로 만들면 안 된다.
-    voice = _first_voice(voice_override, project_tts.voice, options.get("voice"), tts_config.get("voice"))
+    voice = _first_voice(voice_override, *inherited)
 
     speed = project_tts.speed if project_tts.speed is not None else tts_config.get("speed", 1.0)
     speed = float(speed)
@@ -81,6 +104,22 @@ def resolve_settings(
         raise TTSError(f"tts.speed는 0.5~2.0 범위여야 합니다 (현재 {speed})")
 
     return ResolvedTTSSettings(engine, voice, speed, options, tts_config)
+
+
+def _voice_for_engine(voice: str | None, declared_engine: str | None, engine: str) -> str | None:
+    """그 보이스가 지금 쓰는 엔진을 위해 적힌 값일 때만 돌려준다.
+
+    엔진을 안 적어 둔 곳(declared_engine이 None)은 기본 엔진을 뜻하므로 그대로 쓴다.
+    """
+    if not voice:
+        return None
+    if declared_engine is None:
+        return voice
+    declared = str(declared_engine).strip().lower()
+    # edge와 edge-tts처럼 같은 Provider를 가리키는 별칭은 같은 엔진으로 본다.
+    if REGISTRY.get(declared) is REGISTRY.get(engine):
+        return voice
+    return None
 
 
 def _first_voice(*candidates: str | None) -> str | None:

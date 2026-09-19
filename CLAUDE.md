@@ -31,6 +31,9 @@ python main.py --input ./inputs/YYYY-MM-DD --skip-i2v        # LTX 없이 previe
 python main.py --input ./inputs/YYYY-MM-DD --mode final      # 검수 후 final
 python main.py --input ./inputs/YYYY-MM-DD --tts-engine offline  # 네트워크 없을 때(무음)
 
+python tools/tts_compare.py --engines edge,clova,typecast,elevenlabs --scripts original,spoken
+                                         # 같은 대본을 엔진별로 뽑아 비교 (합본.wav를 듣는다)
+
 pytest                                   # 전체 (약 2분)
 pytest -m "not slow" -q                  # 1080×1920 실렌더 제외
 ruff check --select F,E9,B,UP,SIM .      # lint
@@ -61,6 +64,13 @@ ruff check --select F,E9,B,UP,SIM .      # lint
   훅에서는 자막을 건드리지 않고 내레이션에만 붙인다 — 훅이 약해진다.
 - **`workflows/ltx25_i2v.json`은 자리표시자**다. 운영자가 ComfyUI에서
   `Export (API)`로 저장한 실제 워크플로우로 교체해야 I2V가 동작한다.
+- **보이스 이름은 엔진 사이에서 물려받지 않는다.** 형식이 서로 다르기 때문이다
+  (edge `ko-KR-SunHiNeural` / clova `nara` / elevenlabs는 이름이 아닌 ID).
+  최상위 `voice`는 최상위 `engine`의 값으로만 쓰고, `--tts-voice`로 준 값만 항상 이긴다.
+- **오프라인 TTS의 `charsPerSec`는 실측 보정값**이다(초당 5.2자, edge-tts ko-KR-SunHiNeural).
+  추정 모델을 바꾸면 `test_default_rate_matches_measured_edge_tts`가 깨진다. 값을 다시 맞춘다.
+- **ffmpeg 필터에는 경로를 넣지 않는다.** 필터그래프 파서가 `:`와 `\`를 특수문자로 읽어
+  Windows 절대 경로에서 깨진다. 자막·폰트는 작업 폴더로 복사하고 파일 이름만 넘긴다.
 
 ## 검증되지 않은 부분
 
@@ -69,6 +79,12 @@ ruff check --select F,E9,B,UP,SIM .      # lint
   운영자 PC에서 확인해야 한다.
 - **LTX 2.5 실제 생성** — 커넥터는 가짜 ComfyUI 서버로 HTTP 프로토콜 전 구간을
   검증했지만, 실제 LTX 워크플로우로는 돌려본 적이 없다.
+- **유료 TTS 3종(elevenlabs / clova / typecast)** — 세 도메인 모두 개발 컨테이너의
+  egress 정책에 막혀 실제 API로 돌려본 적이 없다. 가짜 서버(`tests/fake_tts_api.py`)로
+  요청 형식과 오류 처리는 검증했다. **특히 typecast는 공식 문서조차 열지 못해
+  요청 형식에 추측이 섞여 있다** — 그래서 엔드포인트와 필드를 `config/tts.json`에서
+  고칠 수 있게 했다(`baseUrl` / `speakPath` / `extraFields` / `authHeader`).
+  응답이 오디오든 작업 ID든 모두 처리하므로 둘 중 어느 쪽이어도 동작한다.
 
 ## 문서 쓸 때
 

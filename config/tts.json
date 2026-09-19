@@ -1,8 +1,11 @@
 {
   "$comment": [
     "TTS 설정 (명세서 §18). Provider 교체 가능 구조 — engine 값만 바꾸면 어댑터가 교체된다.",
-    "engine 후보: edge / supertonic / cli / offline",
+    "engine 후보: edge / elevenlabs / clova / typecast / supertonic / cli / offline",
     "  edge      — 무료 한국어 뉴럴 보이스. 인터넷 연결 필요. 기본값.",
+    "  elevenlabs— 유료. 글로벌 최상위 품질. 한국어는 들어보고 판단할 것.",
+    "  clova     — 유료. 네이버. 한국어 억양 안정성이 높다는 평.",
+    "  typecast  — 유료. 한국 회사. 감정·연기 톤 조절 가능.",
     "  supertonic— 명세서 §18이 지목한 로컬 엔진 자리. engines.supertonic을 채우면 붙는다.",
     "  cli       — 임의의 로컬 TTS 실행 파일 브리지.",
     "  offline   — 무음 자리표시자. 네트워크 없는 환경에서 파이프라인 점검용. 실제 제작에는 쓰지 않는다.",
@@ -39,6 +42,64 @@
       "voice": "ko-KR-SunHiNeural",
       "pitchHz": 0,
       "proxy": null
+    },
+    "elevenlabs": {
+      "$comment": [
+        "API 키는 .env의 ELEVENLABS_API_KEY에서 읽는다. config에 적지 않는다 (명세서 §26).",
+        "voice는 이름이 아니라 ID다. https://elevenlabs.io/app/voice-library 에서 확인한다.",
+        "model: eleven_multilingual_v2 / eleven_v3 는 $0.10 per 1000자,",
+        "       eleven_flash_v2_5 / eleven_turbo_v2_5 는 $0.05 per 1000자 (2026-09 기준).",
+        "stability 낮을수록 표현이 풍부하고 높을수록 일정하다. style은 과하면 부자연스러워진다."
+      ],
+      "voice": null,
+      "model": "eleven_multilingual_v2",
+      "outputFormat": "mp3_44100_128",
+      "languageCode": "ko",
+      "stability": 0.45,
+      "similarityBoost": 0.75,
+      "style": 0.0,
+      "speakerBoost": true,
+      "timeoutSec": 60
+    },
+    "clova": {
+      "$comment": [
+        "키는 .env의 CLOVA_CLIENT_ID / CLOVA_CLIENT_SECRET에서 읽는다.",
+        "화자 예시: nara(밝은 여성) nminyoung(차분한 여성) nyejin njinho(차분한 남성) nsinu(친근한 남성).",
+        "emotion은 지원 화자에서만 동작한다. null로 두면 아예 보내지 않는다.",
+        "speed는 파이프라인 배속(1.0)을 클로바 값(-5~5, 음수가 빠름)으로 자동 변환한다."
+      ],
+      "voice": "nara",
+      "format": "mp3",
+      "volume": 0,
+      "pitch": 0,
+      "alpha": 0,
+      "emotion": null,
+      "emotionStrength": 1,
+      "timeoutSec": 60
+    },
+    "typecast": {
+      "$comment": [
+        "키는 .env의 TYPECAST_API_KEY에서 읽는다.",
+        "⚠️ 실제 API로 검증하지 못했다. 개발 컨테이너에서 typecast.ai가 막혀 문서를 못 열었다.",
+        "요청 형식이 문서와 다르면 코드가 아니라 아래 값만 고치면 된다.",
+        "baseUrl/speakPath는 엔드포인트, extraFields는 본문에 그대로 합쳐진다.",
+        "응답이 오디오든 작업 ID든 어댑터가 알아서 처리한다."
+      ],
+      "voice": null,
+      "model": "ssfm-v21",
+      "language": "kor",
+      "emotion": null,
+      "emotionIntensity": 1.0,
+      "volume": 100,
+      "pitch": 0,
+      "baseUrl": "https://api.typecast.ai",
+      "speakPath": "/v1/text-to-speech",
+      "authHeader": "Authorization",
+      "authScheme": "Bearer",
+      "extraFields": {},
+      "pollIntervalSec": 1.0,
+      "pollTimeoutSec": 120,
+      "timeoutSec": 60
     },
     "supertonic": {
       "$comment": "명세서 §35-2 미확정. cliPath와 args를 채우면 바로 동작한다. 자리표시자: {text} {voice} {speed} {out} {sampleRate}",
