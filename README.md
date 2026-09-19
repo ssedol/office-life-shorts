@@ -55,8 +55,8 @@ python main.py --input ./inputs/2026-09-18 --mode final
 
 결과는 `outputs/2026-09-18/` 에 생깁니다.
 
-> 샘플 이미지는 파이프라인 확인용 **자리표시자**입니다. 캐릭터 일관성 검수에는 쓸 수 없습니다.
-> `python tools/make_sample_images.py <폴더>` 로 다시 만들 수 있습니다.
+> 샘플 이미지는 `inputs/2026-09-18/image-prompts.md`의 프롬프트로 만든 실제 생성본입니다.
+> 도형만 있는 자리표시자가 필요하면 `python tools/make_sample_images.py <폴더>` 로 만들 수 있습니다.
 
 ---
 
@@ -72,7 +72,7 @@ inputs/YYYY-MM-DD/
   ② TTS              씬별 한국어 내레이션 합성 + 실제 길이 측정
         │
         ▼
-  ③ 타임라인 구성     씬 길이 = max(durationSec, leadIn + TTS길이 + tailPad)
+  ③ 타임라인 구성     씬 길이 = leadIn + TTS길이 + tailPad (말이 끝나면 다음 씬)
         │
         ▼
   ④ STILL / I2V 분기  I2V 씬만 LTX 2.5 호출, 실패하면 STILL fallback
@@ -86,6 +86,10 @@ inputs/YYYY-MM-DD/
         ▼
   ⑦ Preview 렌더  →  사람 검수  →  Final 렌더
 ```
+
+③에서 씬 길이는 **실제 내레이션 길이**로 정해집니다 (`timeline.fitToNarration`, 기본 켜짐).
+`scene-plan.json`의 `durationSec`을 하한으로 쓰면 말이 끝난 뒤 정지 화면이 남아 영상이 늘어집니다.
+실측에서 40초 영상의 22%(9초)가 그런 빈 시간이었습니다. `false`로 두면 종전 동작입니다.
 
 **명세서 §3.1과 순서가 한 군데 다릅니다.** 명세서는 I2V → TTS 순이지만,
 씬 길이가 실제 TTS 길이에 의존하기 때문에(명세서 §31 RISK-3) TTS를 먼저 돌리고
@@ -137,6 +141,28 @@ JSON 형식은 `schema/project.schema.json`, `schema/scene-plan.schema.json` 에
 마크업이 없으면 전부 흰색으로 나오므로, 기존 입력과도 호환됩니다.
 항상 강조할 단어는 `config/subtitle.json`의 `emphasisKeywords`에 넣어두면 됩니다.
 
+### 마지막 씬은 댓글 유도로
+
+쇼츠에서 댓글은 노출에 직접 영향을 주는데, 대본을 쓰다 보면 가장 빠뜨리기 쉽습니다.
+**SCENE-08의 narration 또는 subtitle에 시청자에게 던지는 질문**을 넣으세요.
+없으면 검증 단계에서 경고합니다 (실패는 아닙니다).
+
+```json
+"narration": "내 일이 아니라는 말, 순서 질문으로 바꿔보세요. 여러분은 이럴 때 어떻게 말하세요?",
+"subtitle": "여러분은 **어떻게** 말하세요?"
+```
+
+명세서 §1.2의 "가볍고 재밌는 공감형" 톤에 맞춰, 딱딱한 "구독 좋아요"보다
+질문형이 이 채널에 맞습니다.
+
+- "여러분은 이럴 때 어떻게 말하세요?"
+- "여러분 회사에도 이런 분 있나요?"
+- "저만 그런가요?"
+- "다들 어떻게 넘기시는지 궁금하네요."
+
+인식 기준은 `config/app.json`의 `cta.patterns`에서 조정하고,
+`cta.required`를 `false`로 두면 검사를 끕니다.
+
 ---
 
 ## CLI (명세서 §24)
@@ -183,7 +209,7 @@ outputs/2026-09-18/
 
 | 파일 | 내용 |
 |---|---|
-| `app.json` | 씬 수, 길이 범위, 타임라인 여백, ffmpeg 경로 |
+| `app.json` | 씬 수, 길이 범위, 타임라인(`fitToNarration`), 댓글 유도 검사, ffmpeg 경로 |
 | `render.json` | 해상도/fps, 모션 강도, preview·final 프로파일, BGM |
 | `tts.json` | 엔진 선택, 보이스, 속도, 음량 정규화, 재시도 |
 | `subtitle.json` | 폰트, 색상, 줄 수, 안전영역, 강조 마크업 |

@@ -80,12 +80,12 @@
     {
       "id": "SCENE-08",
       "order": 8,
-      "durationSec": 4,
+      "durationSec": 6,
       "type": "STILL",
-      "reason": "마무리 한 줄을 또렷하게 남기는 장면",
+      "reason": "마무리 한 줄과 댓글 유도 질문을 함께 남기는 장면",
       "imageFile": "scene-08.png",
-      "narration": "내 일이 아니라는 말, 순서 질문으로 바꿔보세요.",
-      "subtitle": "말만 바꿔도 **덜 손해**",
+      "narration": "내 일이 아니라는 말, 순서 질문으로 바꿔보세요. 여러분은 이럴 때 어떻게 말하세요?",
+      "subtitle": "여러분은 **어떻게** 말하세요?",
       "motion": "slow_zoom_in"
     }
   ]

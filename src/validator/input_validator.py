@@ -59,6 +59,7 @@ def validate(package: InputPackage, cfg: AppConfig, *, strict: bool = False) -> 
     _check_scene_count(package, expected_count, report)
     _check_scenes(package, cfg, report)
     _check_script(package, report)
+    _check_cta(package, cfg, report)
 
     if strict and report.warnings:
         for message in report.warnings:
@@ -243,3 +244,29 @@ def _check_scene_image(scene, label: str, report: ValidationReport) -> None:
 def _check_script(package: InputPackage, report: ValidationReport) -> None:
     if not package.script.strip():
         report.error("ERR_INPUT_MISSING", "script.txt가 비어 있습니다")
+
+
+def _check_cta(package: InputPackage, cfg: AppConfig, report: ValidationReport) -> None:
+    """마지막 씬에 댓글 유도 문구가 있는지 확인한다.
+
+    쇼츠에서 댓글은 노출에 직접 영향을 주는데, 대본을 쓰다 보면 가장 빠뜨리기 쉬운 항목이다.
+    강제하면 콘텐츠에 개입하는 셈이라 경고로만 알린다(명세서 §33-4: scene-plan 우선).
+    """
+    cta_cfg = cfg.app.get("cta", {})
+    if not cta_cfg.get("required", False) or not package.scenes:
+        return
+
+    patterns = [str(p) for p in cta_cfg.get("patterns", []) if str(p).strip()]
+    if not patterns:
+        return
+
+    last = package.scenes[-1]
+    haystack = f"{last.narration} {last.subtitle}"
+    if any(pattern in haystack for pattern in patterns):
+        return
+
+    report.warn(
+        f"{last.id}: 댓글 유도 문구가 없습니다. 마지막 씬에 시청자에게 던지는 질문을 넣으면 "
+        f"댓글이 붙습니다 (예: \"여러분은 어떻게 하세요?\"). "
+        f"config/app.json의 cta.patterns에서 인식 기준을 조정할 수 있습니다"
+    )

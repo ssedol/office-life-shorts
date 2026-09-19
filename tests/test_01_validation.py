@@ -190,3 +190,61 @@ def test_i2v_ratio_outside_recommendation_only_warns(tmp_path, fast_config):
 
     assert report.ok, report.error_messages()
     assert any("§9.3" in w or "권장" in w for w in report.warnings)
+
+
+# ---------------------------------------------------------------------------
+# 댓글 유도 문구 (config/app.json cta)
+# ---------------------------------------------------------------------------
+
+def test_missing_cta_in_last_scene_warns(tmp_path, fast_config):
+    """마지막 씬에 댓글 유도 문구가 없으면 경고한다. 실패는 아니다."""
+    root = make_package(tmp_path / "in", scene_overrides={8: {
+        "narration": "오늘은 여기까지입니다.", "subtitle": "끝",
+    }})
+    report = validate(load_input_package(root), fast_config)
+
+    assert report.ok, "댓글 유도는 권고지 필수가 아니다"
+    assert any("댓글 유도" in w for w in report.warnings)
+
+
+@pytest.mark.parametrize("narration,subtitle", [
+    ("여러분은 이럴 때 어떻게 말하세요?", "끝"),
+    ("오늘은 여기까지입니다.", "**여러분은** 어떠세요?"),
+    ("비슷한 경험 있나요?", "끝"),
+    ("저만 그런가요?", "끝"),
+    ("댓글로 알려주세요.", "끝"),
+])
+def test_cta_is_detected_in_narration_or_subtitle(tmp_path, fast_config, narration, subtitle):
+    root = make_package(tmp_path / "in", scene_overrides={8: {"narration": narration, "subtitle": subtitle}})
+    report = validate(load_input_package(root), fast_config)
+
+    assert not any("댓글 유도" in w for w in report.warnings), f"{narration!r} / {subtitle!r}"
+
+
+def test_cta_check_only_looks_at_the_last_scene(tmp_path, fast_config):
+    """중간 씬에 있는 질문은 마무리 CTA로 치지 않는다."""
+    root = make_package(tmp_path / "in", scene_overrides={
+        4: {"narration": "여러분은 어떻게 하세요?"},
+        8: {"narration": "오늘은 여기까지입니다.", "subtitle": "끝"},
+    })
+    report = validate(load_input_package(root), fast_config)
+
+    assert any("댓글 유도" in w for w in report.warnings)
+
+
+def test_cta_check_can_be_disabled(tmp_path, fast_config):
+    from src.config import deep_merge
+
+    fast_config.app = deep_merge(fast_config.app, {"cta": {"required": False}})
+    root = make_package(tmp_path / "in", scene_overrides={8: {"narration": "끝.", "subtitle": "끝"}})
+    report = validate(load_input_package(root), fast_config)
+
+    assert not any("댓글 유도" in w for w in report.warnings)
+
+
+def test_bundled_sample_has_a_cta(repo_root, default_config):
+    """저장소 샘플은 댓글 유도 문구를 갖춰야 한다."""
+    package = load_input_package(repo_root / "inputs" / "2026-09-18")
+    report = validate(package, default_config)
+
+    assert not any("댓글 유도" in w for w in report.warnings), report.warnings
