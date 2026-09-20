@@ -14,8 +14,8 @@
   ],
 
   "engine": "elevenlabs",
-  "voice": "ko-KR-SunHiNeural",
-  "speed": 1.0,
+  "voice": "UNDECIDED",
+  "speed": 0.85,
 
   "sampleRate": 48000,
   "channels": 1,

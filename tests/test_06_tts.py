@@ -67,16 +67,13 @@ def test_cli_override_beats_project_json(default_config):
 def test_undecided_voice_falls_back_to_config(default_config):
     """명세서 §11 예시의 'UNDECIDED'는 자리표시자다 (§35-2 미확정).
 
-    기대값을 특정 보이스 이름으로 박아 두면 엔진을 바꿀 때마다 깨진다.
-    확인할 것은 'UNDECIDED가 설정값으로 대체되는가'이므로 설정에서 읽어 비교한다.
+    기본 엔진과 보이스는 운영자가 바꾸는 값이라 여기에 박아두지 않는다.
+    확인할 것은 '자리표시자를 건너뛰고 config 기본값으로 떨어지는가'이다.
     """
-    engine = default_config.tts["engine"]
-    expected = default_config.tts["engines"][engine].get("voice") or default_config.tts["voice"]
-
+    기본값 = resolve_settings(default_config.tts)
     settings = resolve_settings(default_config.tts, TTSSettings(voice="UNDECIDED"))
-
-    assert settings.voice == expected
-    assert settings.voice != "UNDECIDED"
+    assert settings.voice == 기본값.voice
+    assert settings.voice, "자리표시자가 보이스 전체를 None으로 만들면 안 된다"
 
 
 @pytest.mark.parametrize("speed", [0.4, 2.5, 0.0, -1])
