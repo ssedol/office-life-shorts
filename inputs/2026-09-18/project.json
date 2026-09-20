@@ -11,8 +11,7 @@
   },
   "fps": 30,
   "tts": {
-    "engine": "edge",
-    "voice": "ko-KR-SunHiNeural",
+    "$comment": "engine과 voice를 여기 적으면 config/tts.json보다 우선합니다. 채널 공통 설정을 쓰려면 비워 둡니다.",
     "speed": 1.05
   },
   "renderMode": "preview"

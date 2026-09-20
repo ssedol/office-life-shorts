@@ -13,7 +13,7 @@
     "project.json의 tts 블록이 이 값보다 우선하고, CLI 옵션이 그보다 우선한다."
   ],
 
-  "engine": "edge",
+  "engine": "elevenlabs",
   "voice": "ko-KR-SunHiNeural",
   "speed": 1.0,
 
@@ -51,7 +51,7 @@
         "       eleven_flash_v2_5 / eleven_turbo_v2_5 는 $0.05 per 1000자 (2026-09 기준).",
         "stability 낮을수록 표현이 풍부하고 높을수록 일정하다. style은 과하면 부자연스러워진다."
       ],
-      "voice": null,
+      "voice": "sQ3a15DhENXU8pKTHlcc",
       "model": "eleven_multilingual_v2",
       "outputFormat": "mp3_44100_128",
       "languageCode": "ko",

@@ -64,6 +64,11 @@ ruff check --select F,E9,B,UP,SIM .      # lint
   훅에서는 자막을 건드리지 않고 내레이션에만 붙인다 — 훅이 약해진다.
 - **`workflows/ltx25_i2v.json`은 자리표시자**다. 운영자가 ComfyUI에서
   `Export (API)`로 저장한 실제 워크플로우로 교체해야 I2V가 동작한다.
+- **TTS 설정 우선순위는 CLI > `project.json` > `config/tts.json`이다.**
+  `project.json`의 `tts.engine`을 적어 두면 채널 기본값을 바꿔도 안 먹힌다.
+  그래서 에피소드 입력에서는 engine/voice를 비워 두고 speed만 둔다.
+  엔진 목록은 `schema/project.schema.json`에도 있어 어긋나기 쉽다 —
+  `test_schema_engine_list_matches_registry`가 막아 준다.
 - **보이스 이름은 엔진 사이에서 물려받지 않는다.** 형식이 서로 다르기 때문이다
   (edge `ko-KR-SunHiNeural` / clova `nara` / elevenlabs는 이름이 아닌 ID).
   최상위 `voice`는 최상위 `engine`의 값으로만 쓰고, `--tts-voice`로 준 값만 항상 이긴다.

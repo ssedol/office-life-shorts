@@ -45,7 +45,7 @@
       "properties": {
         "engine": {
           "type": "string",
-          "enum": ["edge", "edge-tts", "supertonic", "cli", "offline"]
+          "enum": ["edge", "edge-tts", "elevenlabs", "clova", "typecast", "supertonic", "cli", "offline"]
         },
         "voice": {
           "type": "string",

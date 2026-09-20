@@ -47,6 +47,26 @@ def test_engines_are_registered(engine):
     assert engine in REGISTRY
 
 
+def test_schema_engine_list_matches_registry():
+    """schema/project.schema.json의 engine 목록은 REGISTRY와 같아야 한다.
+
+    같은 목록이 두 군데 있어서 엔진을 추가할 때 한쪽만 고치기 쉽다.
+    실제로 유료 엔진 3종을 추가했을 때 스키마를 빠뜨려, project.json에
+    engine을 적으면 검증이 실패하는 상태였다.
+    """
+    import json
+    from pathlib import Path
+
+    schema_path = Path(__file__).resolve().parent.parent / "schema/project.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    listed = set(schema["properties"]["tts"]["properties"]["engine"]["enum"])
+
+    assert listed == set(REGISTRY), (
+        f"스키마에만 있음: {sorted(listed - set(REGISTRY))} / "
+        f"REGISTRY에만 있음: {sorted(set(REGISTRY) - listed)}"
+    )
+
+
 # ---- ElevenLabs -------------------------------------------------------------
 
 
