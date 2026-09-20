@@ -216,7 +216,10 @@ def test_ass_style_matches_spec(tmp_path, default_config):
     assert fields[5] == "&H00462015", "외곽선은 짙은 네이비"
     assert fields[7] == "-1", "굵은 고딕"
     assert fields[18] == "2", "가운데 하단 정렬"
-    assert int(fields[-2]) == 360, "안전영역 하단 여백"
+    # 여백은 조정 가능한 값이다(쇼츠 UI가 바뀌면 따라 바뀐다). 숫자를 박아두면
+    # 조정할 때마다 테스트가 깨지므로, config가 ASS까지 전달되는지만 확인한다.
+    expected_margin = default_config.subtitle["safeArea"]["marginBottom"]
+    assert int(fields[-2]) == expected_margin, "안전영역 하단 여백이 config와 다릅니다"
 
 
 def test_ass_emphasis_uses_yellow(tmp_path, default_config):

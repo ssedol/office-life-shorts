@@ -33,10 +33,14 @@
   "maxCharsPerLine": 12,
   "alignment": "bottom_center",
   "safeArea": {
-    "$comment": "1080×1920 기준. marginBottom은 YouTube Shorts 하단 UI를 피하는 값이다 (명세서 §27).",
+    "$comment": [
+      "1080×1920 기준. marginBottom은 YouTube Shorts 하단 UI를 피하는 값이다 (명세서 §27).",
+      "360은 부족했다. 실제 업로드본을 폰에서 확인하니 채널 핸들·설명·해시태그와 자막이 겹쳤다.",
+      "쇼츠 UI 블록의 윗변은 영상 좌표로 하단에서 약 563px 지점이다. 600은 거기에 여유를 둔 값이다."
+    ],
     "marginLeft": 80,
     "marginRight": 80,
-    "marginBottom": 360
+    "marginBottom": 600
   },
   "emphasisMarkup": "**",
   "emphasisKeywords": []
