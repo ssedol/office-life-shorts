@@ -13,6 +13,10 @@
     # 대본 문체까지 같이 비교 (2x2 = 4가지)
     python tools/tts_compare.py --engines edge,clova --scripts original,spoken
 
+    # 보이스 후보 고르기 — Voice Library에서 복사한 ID를 그대로 늘어놓는다
+    python tools/tts_compare.py --engines elevenlabs \
+        --voices EXAVITQu4vr4xnSDxMaL,onwK4e9ZLuTAKqWW03F9,pNInz6obpgDQGcFmaJgB
+
 결과:
 
     outputs/tts-compare/
@@ -76,6 +80,12 @@ class Outcome:
         return self.error is None
 
 
+def _safe_name(value: str) -> str:
+    """보이스 ID를 폴더 이름에 쓸 수 있게 다듬는다."""
+    cleaned = "".join(ch if ch.isalnum() or ch in "-_" else "_" for ch in value)
+    return cleaned[:24] or "voice"
+
+
 def load_scripts(input_dir: Path, names: list[str]) -> dict[str, dict[str, str]]:
     """대본 버전별로 {씬 ID: 내레이션} 맵을 만든다."""
     plan = json.loads((input_dir / "scene-plan.json").read_text(encoding="utf-8"))
@@ -109,10 +119,13 @@ def synthesize_one(
     narrations: dict[str, str],
     engine: str,
     out_root: Path,
+    voice: str | None = None,
 ) -> Outcome:
-    """엔진 하나 × 대본 하나를 뽑는다. 실패해도 예외를 밖으로 던지지 않는다."""
-    out_dir = out_root / f"{script_name}-{engine}"
-    settings = resolve_settings(cfg.tts, engine_override=engine)
+    """엔진 하나 × 대본 하나 × 보이스 하나를 뽑는다. 실패해도 예외를 밖으로 던지지 않는다."""
+    settings = resolve_settings(cfg.tts, engine_override=engine, voice_override=voice)
+    # 보이스를 여러 개 비교할 때 폴더가 겹치지 않게 이름에 보이스를 넣는다.
+    suffix = f"-{_safe_name(voice)}" if voice else ""
+    out_dir = out_root / f"{script_name}-{engine}{suffix}"
     outcome = Outcome(script_name, engine, settings.voice, out_dir)
 
     try:
@@ -224,6 +237,8 @@ def main(argv: list[str] | None = None) -> int:
                         help=f"쉼표로 구분. 사용 가능: {', '.join(sorted(set(REGISTRY)))}")
     parser.add_argument("--scripts", default="original",
                         help="쉼표로 구분. original 또는 narration-<이름>.json의 <이름>")
+    parser.add_argument("--voices", default="",
+                        help="쉼표로 구분한 보이스 ID/이름. 주면 보이스마다 한 벌씩 뽑는다")
     parser.add_argument("--out", default="outputs/tts-compare", help="결과 폴더")
     args = parser.parse_args(argv)
 
@@ -256,20 +271,26 @@ def main(argv: list[str] | None = None) -> int:
         chars = sum(len(t) for m in scripts.values() for t in m.values())
         log.info("유료 엔진 %s — 이번 실행에서 %d자를 합성합니다", ", ".join(paid), chars * len(paid) // len(engines))
 
+    # --voices를 주면 보이스마다 한 벌씩 뽑는다. 안 주면 설정대로 한 벌.
+    voices: list[str | None] = [v.strip() for v in args.voices.split(",") if v.strip()] or [None]
+
     outcomes: list[Outcome] = []
     for script_name, narrations in scripts.items():
         for engine in engines:
-            log.info("=== %s / %s ===", script_name, engine)
-            outcomes.append(synthesize_one(cfg, ffmpeg, script_name, narrations, engine, out_root))
+            for voice in voices:
+                log.info("=== %s / %s%s ===", script_name, engine, f" / {voice}" if voice else "")
+                outcomes.append(
+                    synthesize_one(cfg, ffmpeg, script_name, narrations, engine, out_root, voice=voice)
+                )
 
     report = write_report(outcomes, scripts, cfg, out_root)
 
     print()
     ok = [o for o in outcomes if o.ok]
     for item in ok:
-        print(f"  {item.script}-{item.engine}: {item.total:.2f}초 → {item.combined}")
+        print(f"  {item.out_dir.name}: {item.total:.2f}초 → {item.combined}")
     for item in (o for o in outcomes if not o.ok):
-        print(f"  {item.script}-{item.engine}: 실패 — {item.error}")
+        print(f"  {item.out_dir.name}: 실패 — {item.error}")
     print(f"\n비교표: {report}")
     if ok:
         print("각 폴더의 '합본.wav'를 들어보고 고르세요.")
