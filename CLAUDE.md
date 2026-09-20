@@ -34,6 +34,11 @@ python main.py --input ./inputs/YYYY-MM-DD --tts-engine offline  # 네트워크 
 python tools/tts_compare.py --engines edge,clova,typecast,elevenlabs --scripts original,spoken
                                          # 같은 대본을 엔진별로 뽑아 비교 (합본.wav를 듣는다)
 
+python tools/upload.py --input ./inputs/YYYY-MM-DD --dry-run
+                                         # 무엇이 올라갈지만 확인 (네트워크 안 씀)
+python tools/upload.py --input ./inputs/YYYY-MM-DD
+                                         # 실제 업로드 (기본 비공개)
+
 pytest                                   # 전체 (약 2분)
 pytest -m "not slow" -q                  # 1080×1920 실렌더 제외
 ruff check --select F,E9,B,UP,SIM .      # lint
@@ -46,7 +51,9 @@ ruff check --select F,E9,B,UP,SIM .      # lint
 3. 씬 수는 **항상 8개**.
 4. I2V 실패는 전체 실패가 아니다 — 원본 이미지 + `slow_zoom_in`으로 대체하고 로그에 남긴다.
 5. Preview → 사람 검수 → Final 순서를 유지한다.
-6. 자동 YouTube 업로드는 MVP 범위 밖.
+6. ~~자동 YouTube 업로드는 MVP 범위 밖.~~ **2026-09-21 운영자 결정으로 범위에 들어왔다** (DEC-012).
+   다만 **감사를 통과하지 않은 API 프로젝트의 업로드는 유튜브가 비공개로 잠근다.**
+   그래서 `tools/upload.py`의 기본 공개 설정은 `private`이고, 공개 전환은 사람이 누른다.
 
 ## 판단이 갈렸던 지점
 
@@ -76,6 +83,18 @@ ruff check --select F,E9,B,UP,SIM .      # lint
   추정 모델을 바꾸면 `test_default_rate_matches_measured_edge_tts`가 깨진다. 값을 다시 맞춘다.
 - **ffmpeg 필터에는 경로를 넣지 않는다.** 필터그래프 파서가 `:`와 `\`를 특수문자로 읽어
   Windows 절대 경로에서 깨진다. 자막·폰트는 작업 폴더로 복사하고 파일 이름만 넘긴다.
+
+## 업로드 자동화에서 확인된 사실
+
+- **감사 전에는 비공개로 잠긴다.** 2020-07-28 이후 만든 API 프로젝트에서
+  `videos.insert`로 올린 영상은 유튜브가 비공개로 잠그고 채널 주인에게 메일을 보낸다.
+  감사를 신청해 통과해야 공개 발행까지 자동이 된다.
+- **댓글 고정은 API에 없다.** `commentThreads.insert`로 댓글은 달리지만
+  고정 엔드포인트가 없어 유튜브 앱이나 스튜디오에서 직접 눌러야 한다.
+- **할당량은 하루 10,000 유닛, 업로드 1건이 1,600 유닛**이라 하루 6편이 상한이다.
+  실패한 시도도 깎이므로 `--dry-run`으로 먼저 확인한다.
+- **AI 공시를 API로 설정할 수 있는지는 미확인.** 지금은 사람이 체크해야 한다고 보고
+  업로드가 끝나면 안내만 출력한다.
 
 ## 검증되지 않은 부분
 

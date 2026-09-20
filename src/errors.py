@@ -26,6 +26,7 @@ class ErrorCode:
     # 아래 두 개는 위 코드로 표현할 수 없는 상황을 위해 추가했다.
     CONFIG_INVALID = "ERR_CONFIG_INVALID"
     DEPENDENCY_MISSING = "ERR_DEPENDENCY_MISSING"
+    UPLOAD_FAILED = "ERR_UPLOAD_FAILED"
 
 
 class PipelineError(Exception):
@@ -87,3 +88,9 @@ class ConfigError(PipelineError):
 
 class DependencyMissingError(PipelineError):
     code = ErrorCode.DEPENDENCY_MISSING
+
+
+class UploadError(PipelineError):
+    """YouTube 업로드 실패. 렌더 결과물은 그대로 남으므로 다시 올리면 된다."""
+
+    code = ErrorCode.UPLOAD_FAILED

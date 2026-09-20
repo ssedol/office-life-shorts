@@ -25,6 +25,7 @@ CONFIG_FILES = {
     "tts": "tts.json",
     "subtitle": "subtitle.json",
     "i2v": "i2v.json",
+    "upload": "upload.json",
 }
 
 
@@ -66,6 +67,8 @@ class AppConfig:
     tts: dict[str, Any] = field(default_factory=dict)
     subtitle: dict[str, Any] = field(default_factory=dict)
     i2v: dict[str, Any] = field(default_factory=dict)
+    # 업로드는 렌더 파이프라인이 쓰지 않는다. 파일이 없어도 빈 dict로 둔다.
+    upload: dict[str, Any] = field(default_factory=dict)
     repo_root: Path = REPO_ROOT
 
     # ---- 자주 쓰는 값 접근자 -------------------------------------------------

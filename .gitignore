@@ -1,5 +1,7 @@
 # 비밀 값
 .env
+client_secret.json
+token.json
 
 # 파이썬
 __pycache__/
