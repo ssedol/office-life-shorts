@@ -78,8 +78,17 @@ def _render_description(episode: dict, config: dict) -> str:
 
     hashtags = episode.get("hashtags") or config.get("hashtags") or []
     extra = episode.get("extraHashtags") or []
-    template = str(config.get("descriptionTemplate") or "{hashtags}\n\n{body}\n\n{extraHashtags}")
+    # 머리말은 프로필 링크 모음으로 보내는 자리다. 모든 회차에 같은 값이 붙지만
+    # 회차별 upload.json에 descriptionHeader를 적으면 그 회차만 갈아끼울 수 있다.
+    header = episode.get("descriptionHeader")
+    if header is None:
+        header = config.get("descriptionHeader") or ""
+    template = str(
+        config.get("descriptionTemplate")
+        or "{header}\n\n{hashtags}\n\n{body}\n\n{extraHashtags}"
+    )
     text = template.format(
+        header=str(header),
         hashtags=" ".join(hashtags),
         body=body,
         extraHashtags=" ".join(extra),

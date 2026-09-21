@@ -47,7 +47,16 @@
     "shorts"
   ],
 
-  "descriptionTemplate": "{hashtags}\n\n{body}\n\n{extraHashtags}",
+  "$comment_header": [
+    "descriptionHeader는 모든 회차 설명란 맨 위에 붙는다 (2026-09-21 추가).",
+    "프로필 링크 모음으로 보내는 자리다. 쿠팡 파트너스 링크가 거기 걸려 있다.",
+    "유튜브 설명란은 모바일에서 폭이 좁아 긴 박스 선을 쓰면 줄바꿈으로 깨진다.",
+    "장식 선은 16자 안쪽으로 유지하고, URL은 단독 줄에 둔다(그래야 링크로 잡힌다).",
+    "회차별 upload.json에 descriptionHeader를 적으면 그 회차만 다른 머리말을 쓴다."
+  ],
+  "descriptionHeader": "🔗 직장인 버티기 아이템 모음\nhttps://litt.ly/shorts.market\n━━━━━━━━━━━━━━━━",
+
+  "descriptionTemplate": "{header}\n\n{hashtags}\n\n{body}\n\n{extraHashtags}",
   "hashtags": ["#직장생활", "#직장인공감", "#오늘도출근"],
 
   "timeoutSec": 600,

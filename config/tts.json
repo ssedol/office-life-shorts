@@ -15,7 +15,7 @@
 
   "engine": "elevenlabs",
   "voice": "UNDECIDED",
-  "speed": 0.85,
+  "speed": 1.0,
 
   "sampleRate": 48000,
   "channels": 1,
@@ -49,10 +49,16 @@
         "voice는 이름이 아니라 ID다. https://elevenlabs.io/app/voice-library 에서 확인한다.",
         "model: eleven_multilingual_v2 / eleven_v3 는 $0.10 per 1000자,",
         "       eleven_flash_v2_5 / eleven_turbo_v2_5 는 $0.05 per 1000자 (2026-09 기준).",
-        "stability 낮을수록 표현이 풍부하고 높을수록 일정하다. style은 과하면 부자연스러워진다."
+        "stability 낮을수록 표현이 풍부하고 높을수록 일정하다. style은 과하면 부자연스러워진다.",
+      "",
+      "speed는 1.0에 두고 건드리지 않는다 (2026-09-21).",
+      "  ElevenLabs의 speed는 녹음을 배속하는 게 아니라 모델이 말하는 속도를 다시 만드는 값이라,",
+      "  원래 느린 보이스를 빠르게 밀면 중간중간 확 빨라졌다 돌아오는 구간이 생긴다.",
+      "  0.85에서는 멀쩡했지만 0.95 이상에서 전부 튀었다. 모델을 v3로 바꿔도 마찬가지였다.",
+      "  낭독 느낌이 나면 speed를 만지지 말고 보이스를 바꾼다 — 원본 호흡이 빠른 보이스를 고른다."
       ],
-      "voice": "sQ3a15DhENXU8pKTHlcc",
-      "model": "eleven_multilingual_v2",
+      "voice": "m3gJBS8OofDJfycyA2Ip",
+      "model": "eleven_v3",
       "outputFormat": "mp3_44100_128",
       "languageCode": "ko",
       "stability": 0.45,

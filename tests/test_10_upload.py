@@ -45,6 +45,37 @@ def test_제목이_없으면_project_json에서_가져온다(tmp_path):
     assert meta.title == "프로젝트 제목"
 
 
+def test_설명란_맨_위에_링크_머리말이_붙는다(tmp_path):
+    """프로필 링크 모음으로 보내는 자리라 모든 회차에 자동으로 붙어야 한다."""
+    cfg = dict(CONFIG)
+    cfg["descriptionHeader"] = "🔗 모음\nhttps://litt.ly/shorts.market"
+    cfg["descriptionTemplate"] = "{header}\n\n{hashtags}\n\n{body}\n\n{extraHashtags}"
+    _write(tmp_path, "upload.json", {"title": "t", "body": "본문"})
+    meta = load_metadata(tmp_path, cfg, {})
+    assert meta.description.startswith("🔗 모음")
+    assert "https://litt.ly/shorts.market" in meta.description
+    assert "본문" in meta.description
+
+
+def test_회차가_머리말을_덮어쓸_수_있다(tmp_path):
+    cfg = dict(CONFIG)
+    cfg["descriptionHeader"] = "공통 머리말"
+    cfg["descriptionTemplate"] = "{header}\n\n{body}"
+    _write(tmp_path, "upload.json", {"title": "t", "body": "본문", "descriptionHeader": "이번만 다름"})
+    meta = load_metadata(tmp_path, cfg, {})
+    assert meta.description.startswith("이번만 다름")
+    assert "공통 머리말" not in meta.description
+
+
+def test_머리말이_없어도_동작한다(tmp_path):
+    """머리말은 선택이다. 비어 있으면 빈 줄만 남고 정리돼야 한다."""
+    cfg = dict(CONFIG)
+    cfg["descriptionTemplate"] = "{header}\n\n{hashtags}\n\n{body}\n\n{extraHashtags}"
+    _write(tmp_path, "upload.json", {"title": "t", "body": "본문"})
+    meta = load_metadata(tmp_path, cfg, {})
+    assert meta.description.startswith("#직장생활")
+
+
 def test_body만_있으면_템플릿으로_조립한다(tmp_path):
     _write(tmp_path, "upload.json", {"title": "t", "body": "본문", "extraHashtags": ["#a"]})
     meta = load_metadata(tmp_path, CONFIG, {})
