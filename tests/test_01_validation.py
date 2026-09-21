@@ -200,8 +200,12 @@ def _cta_warnings(report, scene_id: str) -> list[str]:
     return [w for w in report.warnings if w.startswith(f"{scene_id}:") and "댓글 유도" in w]
 
 
-def test_missing_cta_warns_for_both_hook_and_last_scene(tmp_path, fast_config):
-    """기본 설정은 훅과 마무리 두 군데를 본다. 둘 다 없으면 경고도 둘이다."""
+def test_missing_cta_warns_for_last_scene_and_early_range(tmp_path, fast_config):
+    """마지막 씬은 반드시, 앞쪽은 '범위 안 어딘가'로 본다 (2026-09-21 개정).
+
+    예전에는 1번 씬을 콕 집어 요구했는데, 사건을 꺼내기도 전에 공감을 물으면
+    가리킬 대상이 없는 빈 질문이 된다. 그래서 앞쪽은 범위로만 확인한다.
+    """
     root = make_package(tmp_path / "in", scene_overrides={
         1: {"narration": "오늘 얘기할 건요.", "subtitle": "시작"},
         8: {"narration": "오늘은 여기까지입니다.", "subtitle": "끝"},
@@ -209,8 +213,9 @@ def test_missing_cta_warns_for_both_hook_and_last_scene(tmp_path, fast_config):
     report = validate(load_input_package(root), fast_config)
 
     assert report.ok, "댓글 유도는 권고지 필수가 아니다"
-    assert _cta_warnings(report, "SCENE-01")
     assert _cta_warnings(report, "SCENE-08")
+    assert any("앞쪽" in w for w in report.warnings)
+    assert not _cta_warnings(report, "SCENE-01"), "1번 씬을 콕 집어 요구하지 않는다"
 
 
 def test_cta_in_hook_only_still_warns_for_the_last_scene(tmp_path, fast_config):
@@ -249,8 +254,12 @@ def test_cta_is_detected_in_narration_or_subtitle(tmp_path, fast_config, narrati
     assert not _cta_warnings(report, "SCENE-08"), f"{narration!r} / {subtitle!r}"
 
 
-def test_cta_check_ignores_middle_scenes(tmp_path, fast_config):
-    """중간 씬에 있는 질문은 훅/마무리 CTA로 치지 않는다."""
+def test_middle_scene_cta_satisfies_the_early_requirement(tmp_path, fast_config):
+    """중간 씬의 질문이 앞쪽 요구를 채운다 (2026-09-21 개정).
+
+    예전에는 중간 씬을 무시하고 1번 씬만 인정했다. 3편에서 사건이 끝나는
+    6번 씬에 댓글 유도를 넣는 게 자연스럽다는 게 확인돼 범위 방식으로 바꿨다.
+    """
     root = make_package(tmp_path / "in", scene_overrides={
         1: {"narration": "시작합니다.", "subtitle": "시작"},
         4: {"narration": "여러분은 어떻게 하세요?"},
@@ -258,15 +267,17 @@ def test_cta_check_ignores_middle_scenes(tmp_path, fast_config):
     })
     report = validate(load_input_package(root), fast_config)
 
-    assert _cta_warnings(report, "SCENE-01")
-    assert _cta_warnings(report, "SCENE-08")
-    assert not _cta_warnings(report, "SCENE-04")
+    assert not any("앞쪽" in w for w in report.warnings), "4번 씬이 앞쪽 요구를 채운다"
+    assert _cta_warnings(report, "SCENE-08"), "마지막 씬은 여전히 필요하다"
 
 
 def test_cta_scenes_can_target_the_last_scene_only(tmp_path, fast_config):
     from src.config import deep_merge
 
-    fast_config.app = deep_merge(fast_config.app, {"cta": {"scenes": ["last"]}})
+    # earlyWithin까지 꺼야 마지막 씬만 보는 설정이 된다.
+    fast_config.app = deep_merge(
+        fast_config.app, {"cta": {"scenes": ["last"], "earlyWithin": 0}}
+    )
     root = make_package(tmp_path / "in", scene_overrides={
         1: {"narration": "시작합니다.", "subtitle": "시작"},
         8: {"narration": "여러분은 어떻게 하세요?"},
@@ -289,12 +300,20 @@ def test_cta_check_can_be_disabled(tmp_path, fast_config):
     assert not [w for w in report.warnings if "댓글 유도" in w]
 
 
-def test_hook_hint_mentions_keeping_the_subtitle(tmp_path, fast_config):
-    """훅 경고는 '자막은 그대로 두라'는 조언을 담아야 한다."""
-    root = make_package(tmp_path / "in", scene_overrides={1: {"narration": "시작.", "subtitle": "시작"}})
+def test_early_cta_hint_mentions_keeping_the_subtitle(tmp_path, fast_config):
+    """앞쪽 경고는 '자막은 그대로 두라'는 조언을 담아야 한다.
+
+    훅에 댓글 유도를 넣을 때 자막까지 질문으로 바꾸면 훅이 약해진다.
+    예전에는 1번 씬 경고가 이 조언을 달았는데, 범위 방식으로 바뀌면서 옮겼다.
+    """
+    root = make_package(tmp_path / "in", scene_overrides={
+        i: {"narration": "그냥 진행합니다.", "subtitle": "진행"} for i in range(1, 7)
+    })
     report = validate(load_input_package(root), fast_config)
 
-    assert any("자막은 훅 그대로" in w for w in _cta_warnings(report, "SCENE-01"))
+    early = [w for w in report.warnings if "앞쪽" in w]
+    assert early, "앞쪽 6개 씬에 댓글 유도가 없으면 경고해야 한다"
+    assert any("자막은 그대로" in w for w in early)
 
 
 def test_bundled_sample_has_cta_in_both_places(repo_root, default_config):

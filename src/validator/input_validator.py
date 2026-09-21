@@ -60,6 +60,7 @@ def validate(package: InputPackage, cfg: AppConfig, *, strict: bool = False) -> 
     _check_scenes(package, cfg, report)
     _check_script(package, report)
     _check_cta(package, cfg, report)
+    _check_script_style(package, cfg, report)
 
     if strict and report.warnings:
         for message in report.warnings:
@@ -275,6 +276,68 @@ def _resolve_cta_scenes(package: InputPackage, targets: list) -> list[tuple[str,
     return resolved
 
 
+def _check_script_style(package: InputPackage, cfg: AppConfig, report: ValidationReport) -> None:
+    """내레이션이 '말'인지 '설명문'인지 살펴 경고한다 (2026-09-21 추가).
+
+    1편과 2편을 만들고 나서 '귀에 안 들어온다'는 문제가 나왔다. 세어 보니 두 대본 모두
+    실제 대사가 0/8씬이었고, 주어가 거의 전부 생략돼 있었으며, 지시어가 가리키는 대상이
+    나오기 전에 먼저 쓰였다. 글로 읽으면 넘어가는 것들이 TTS로 들으면 잡히지 않는다.
+
+    대본은 사람이 쓰는 것이라 강제하지 않는다. cta 검사와 같이 경고로만 알린다.
+    """
+    style = cfg.app.get("script", {})
+    if not style.get("required", False) or not package.scenes:
+        return
+
+    scenes = package.scenes
+
+    # 1) 실제 대사가 있는가
+    marks = [str(m) for m in style.get("quoteMarks", []) if str(m)]
+    min_quoted = int(style.get("minQuotedScenes", 0))
+    if marks and min_quoted:
+        quoted = sum(1 for sc in scenes if any(m in sc.narration for m in marks))
+        if quoted < min_quoted:
+            report.warn(
+                f"대본에 실제 대사가 {quoted}개 씬에만 있습니다 (권장 {min_quoted}개 이상). "
+                f"해설만 이어지면 장면이 보이지 않아 귀에 남지 않습니다. "
+                f'예: 상대가 한 말을 "..." 안에 그대로 넣기'
+            )
+
+    # 2) 지시어가 가리키는 대상보다 먼저 나오지 않는가
+    words = [str(w) for w in style.get("demonstratives", []) if str(w)]
+    max_scenes = int(style.get("maxDemonstrativeScenes", len(scenes)))
+    if words:
+        hit_scenes = [sc for sc in scenes if any(w in sc.narration for w in words)]
+        if len(hit_scenes) > max_scenes:
+            ids = ", ".join(sc.id for sc in hit_scenes)
+            report.warn(
+                f"지시어('이 말', '이것' 등)가 {len(hit_scenes)}개 씬에 있습니다 "
+                f"(권장 {max_scenes}개 이하): {ids}. "
+                f"음성은 되돌려 들을 수 없어, 가리키는 대상을 그때그때 말해 주는 편이 낫습니다"
+            )
+
+    # 3) 낭독체 어미를 쓰지 않는가
+    endings = [str(e) for e in style.get("writtenEndings", []) if str(e)]
+    for sc in scenes:
+        found = [e for e in endings if e in sc.narration]
+        if found:
+            report.warn(
+                f"{sc.id}: 문어체 표현이 있습니다 ({', '.join(found)}). "
+                f"TTS가 그대로 읽으면 낭독하는 느낌이 납니다"
+            )
+
+    # 4) 한 씬이 너무 길지 않은가
+    limit = int(style.get("maxNarrationChars", 0))
+    if limit:
+        for sc in scenes:
+            length = len(sc.narration.strip())
+            if length > limit:
+                report.warn(
+                    f"{sc.id}: 내레이션이 {length}자입니다 (권장 {limit}자 이하). "
+                    f"한 씬이 길면 자막이 넘치고 화면이 정체됩니다"
+                )
+
+
 def _check_cta(package: InputPackage, cfg: AppConfig, report: ValidationReport) -> None:
     """댓글 유도 문구가 있는지 확인한다 (기본: 훅과 마지막 씬 두 군데).
 
@@ -290,11 +353,30 @@ def _check_cta(package: InputPackage, cfg: AppConfig, report: ValidationReport) 
     if not patterns:
         return
 
-    for position, scene in _resolve_cta_scenes(package, list(cta_cfg.get("scenes", ["last"]))):
+    def _has_cta(scene) -> bool:
         haystack = f"{scene.narration} {scene.subtitle}"
-        if any(pattern in haystack for pattern in patterns):
+        return any(pattern in haystack for pattern in patterns)
+
+    for position, scene in _resolve_cta_scenes(package, list(cta_cfg.get("scenes", ["last"]))):
+        if _has_cta(scene):
             continue
         report.warn(
             f"{scene.id}: 댓글 유도 문구가 없습니다. {_CTA_HINTS[position]}. "
             f"config/app.json의 cta.patterns에서 인식 기준을 조정할 수 있습니다"
         )
+
+    # 앞쪽에도 하나 더 있어야 중간 이탈자에게서 댓글이 나온다.
+    # 다만 '1번 씬에 반드시'로 못 박으면, 사건을 꺼내기도 전에 공감을 묻는
+    # 빈 질문이 된다(3편 초안이 그랬다). 그래서 범위로만 확인한다.
+    early_within = int(cta_cfg.get("earlyWithin", 0))
+    if early_within > 0:
+        head = package.scenes[:early_within]
+        if head and not any(_has_cta(sc) for sc in head):
+            report.warn(
+                f"앞쪽 {early_within}개 씬에 댓글 유도 문구가 없습니다. "
+                f"끝까지 보지 않는 사람에게서도 댓글이 나오려면 중간에 한 번 물어야 합니다 "
+                f'(예: "여러분도 해보셨죠?"). '
+                f"사건을 다 보여준 뒤에 물어야 가리킬 대상이 생깁니다 — "
+                f"1번 씬에서 물으면 무슨 얘긴지 모르는 채로 공감을 요구하게 됩니다. "
+                f"자막은 그대로 두고 내레이션에만 붙이면 화면이 약해지지 않습니다"
+            )
