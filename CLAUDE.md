@@ -20,8 +20,8 @@ git push origin main
 직장인 공감형 YouTube Shorts 채널 **오늘도출근**의 반자동 제작 시스템.
 `TODAY_TO_WORK_PROJECT_SPEC.md`(명세서 v1.0)가 SSOT다. 구조를 바꿀 땐 먼저 명세서를 확인한다.
 
-ChatGPT가 만든 이미지 8장 + `scene-plan.json`을 넣으면
-I2V / TTS / 자막 / 타임라인 / 렌더를 자동 처리한다.
+대본과 `scene-plan.json`은 이쪽에서 쓰고, 그에 맞춘 이미지 8장만 ChatGPT에서 받는다.
+이미지를 `inputs/<날짜>/`에 넣으면 I2V / TTS / 자막 / 타임라인 / 렌더를 자동 처리한다.
 
 ## 자주 쓰는 명령
 
@@ -46,12 +46,16 @@ ruff check --select F,E9,B,UP,SIM .      # lint
 
 ## 바꾸면 안 되는 전제 (명세서 §33)
 
-1. 로컬에서 이미지를 생성하지 않는다 — 이미지는 ChatGPT 담당.
+1. 로컬에서 이미지를 생성하지 않는다 — **이미지 생성만** ChatGPT 담당.
+   주제·제목·대본·8씬 구성·`scene-plan.json`·`script.txt`·`upload.json`은 **전부 이쪽에서 만든다.**
+   명세서 §1에 "주제/대본/8씬 구성은 외부 AI가 담당한다"고 적혀 있으나 **그 문장은 현재 운영 방식과 다르다.**
+   ChatGPT에 기획을 넘기는 게 아니라, 이미지를 만들지 못해서 그 부분만 맡기는 것이다.
+   ChatGPT에는 `image-prompts.md`만 넘긴다.
 2. STILL/I2V를 로컬에서 재판단하지 않는다 — `scene-plan.json`을 그대로 따른다.
 3. 씬 수는 **항상 8개**.
 4. I2V 실패는 전체 실패가 아니다 — 원본 이미지 + `slow_zoom_in`으로 대체하고 로그에 남긴다.
 5. Preview → 사람 검수 → Final 순서를 유지한다.
-6. ~~자동 YouTube 업로드는 MVP 범위 밖.~~ **2026-09-21 운영자 결정으로 범위에 들어왔다** (DEC-012).
+6. ~~자동 YouTube 업로드는 MVP 범위 밖.~~ **2026-09-21 운영자 결정으로 범위에 들어왔다** (DEC-017).
    다만 **감사를 통과하지 않은 API 프로젝트의 업로드는 유튜브가 비공개로 잠근다.**
    그래서 `tools/upload.py`의 기본 공개 설정은 `private`이고, 공개 전환은 사람이 누른다.
 
