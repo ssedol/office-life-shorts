@@ -1,0 +1,17 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-09-21",
+  "topic": "네 알겠습니다만 하면 나중에 다 뒤집어쓴다",
+  "title": "\"네, 알겠습니다\"만 하면 나중에 다 뒤집어씁니다",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+  "tts": {
+    "$comment": "engine과 voice를 적으면 config/tts.json보다 우선합니다. 채널 공통 설정을 쓰려면 비워 둡니다."
+  },
+  "renderMode": "preview"
+}

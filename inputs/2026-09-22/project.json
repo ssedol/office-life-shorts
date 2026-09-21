@@ -1,0 +1,17 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-09-22",
+  "topic": "모르면서 아는 척했다가 사흘 날린 이야기",
+  "title": "\"신규 가입자 뽑아줘\" 한마디에 사흘 날렸습니다",
+  "durationTargetSec": 45,
+  "sceneCount": 8,
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+  "tts": {
+    "$comment": "engine과 voice를 적으면 config/tts.json보다 우선합니다. 채널 공통 설정을 쓰려면 비워 둡니다."
+  },
+  "renderMode": "preview"
+}

@@ -1,0 +1,92 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01",
+      "order": 1,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "훅 자막과 표정이 핵심. 내레이션 끝에 질문을 붙여 초반 댓글을 유도한다",
+      "imageFile": "scene-01.png",
+      "narration": "회사에서 이 말만 하고 끝내면, 야근은 확정입니다. 여러분도 해보셨죠?",
+      "subtitle": "이 말만 하면 **야근** 확정",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02",
+      "order": 2,
+      "durationSec": 4,
+      "type": "I2V",
+      "reason": "퇴근 직전에 일이 넘어오는 순간의 표정 변화가 의미를 가진다",
+      "imageFile": "scene-02.png",
+      "narration": "퇴근 30분 전, 일이 하나 떨어집니다.",
+      "subtitle": "퇴근 **30분** 전에",
+      "videoPrompt": "A young office worker sitting at a desk with a shoulder bag still on, looking deflated and startled as a hand from off-screen holds out a stack of documents. Keep the original character design, clothing and office layout unchanged. Add subtle blinking, a small shoulder drop, and a very slow camera push-in."
+    },
+    {
+      "id": "SCENE-03",
+      "order": 3,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "반사적으로 대답하는 순간을 또렷하게 보여줘야 해서 정지 이미지가 낫다",
+      "imageFile": "scene-03.png",
+      "narration": "그때 자동으로 나오는 말이 있죠. 네, 알겠습니다.",
+      "subtitle": "\"네, 알겠습니다\"",
+      "motion": "static"
+    },
+    {
+      "id": "SCENE-04",
+      "order": 4,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "정보 전달 중심 설명 장면이라 줌만으로 충분하다",
+      "imageFile": "scene-04.png",
+      "narration": "그런데 이 말에는 언제까지인지가 빠져 있습니다.",
+      "subtitle": "**언제까지**가 빠졌다",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-05",
+      "order": 5,
+      "durationSec": 4,
+      "type": "I2V",
+      "reason": "상대가 오해한 채 자리를 뜨는 흐름이라 미세한 움직임이 의미를 만든다",
+      "imageFile": "scene-05.png",
+      "narration": "넘긴 사람은 오늘 안에 된다고 생각해요.",
+      "subtitle": "상대는 **오늘**로 듣는다",
+      "videoPrompt": "A young office worker stands stiffly while a colleague, seen only from behind, walks away. Keep the original character design, clothing and office layout unchanged. Add subtle blinking, a slight shoulder tension, and a very slow camera pull-back."
+    },
+    {
+      "id": "SCENE-06",
+      "order": 6,
+      "durationSec": 6,
+      "type": "STILL",
+      "reason": "해결 화법을 달력과 함께 보여주는 장면이라 가로 이동이 어울린다",
+      "imageFile": "scene-06.png",
+      "narration": "받을 때 이것만 물으세요. 언제까지 필요하세요?",
+      "subtitle": "**언제까지** 필요하세요?",
+      "motion": "slow_pan_right"
+    },
+    {
+      "id": "SCENE-07",
+      "order": 7,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "여백을 살려 판단을 넘기는 느낌을 준다",
+      "imageFile": "scene-07.png",
+      "narration": "하나만 더. 지금 이걸 하고 있는데, 뒤로 밀어도 될까요.",
+      "subtitle": "순서를 **되묻는다**",
+      "motion": "slow_zoom_out"
+    },
+    {
+      "id": "SCENE-08",
+      "order": 8,
+      "durationSec": 6,
+      "type": "STILL",
+      "reason": "마무리 정리와 댓글 유도를 또렷한 자막으로 남긴다",
+      "imageFile": "scene-08.png",
+      "narration": "알겠습니다 뒤에, 질문 하나만 붙이세요. 여러분은 일 받을 때 뭘 먼저 물어보세요?",
+      "subtitle": "여러분은 **뭘** 물어보세요?",
+      "motion": "slow_zoom_in"
+    }
+  ]
+}
