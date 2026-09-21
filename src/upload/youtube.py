@@ -110,6 +110,52 @@ class YouTubeUploader:
             self._service = build("youtube", "v3", credentials=self._credentials())
         return self._service
 
+    # --- 채널 확인 ----------------------------------------------------
+
+    def current_channel(self) -> tuple[str, str]:
+        """지금 토큰이 붙은 채널의 (id, 제목)을 돌려준다."""
+        _, _, _, _, HttpError, _ = _import_google()
+        try:
+            response = self._client().channels().list(part="snippet", mine=True).execute()
+        except HttpError as exc:
+            raise UploadError("채널 정보를 읽지 못했습니다", details=_http_error_details(exc)) from exc
+        items = response.get("items") or []
+        if not items:
+            raise UploadError(
+                "이 계정에 연결된 YouTube 채널이 없습니다",
+                details=["로그인한 Google 계정에 채널이 있는지 확인하세요"],
+            )
+        return items[0]["id"], items[0]["snippet"]["title"]
+
+    def assert_expected_channel(self) -> tuple[str, str]:
+        """config의 expectedChannelId와 다르면 업로드 전에 멈춘다.
+
+        Google 계정에 채널이 여러 개면 OAuth 동의 때 고른 채널로 업로드된다.
+        로그인 화면에서 채널을 잘못 고르면 엉뚱한 채널에 올라가는데,
+        올라간 뒤에는 옮길 방법이 없어 지우고 다시 올리는 수밖에 없다.
+        2026-09-21에 실제로 그 일이 있었다.
+        """
+        channel_id, title = self.current_channel()
+        expected = str(self.config.get("expectedChannelId") or "").strip()
+        if not expected:
+            log.warning(
+                "업로드 대상 채널: %s (%s) — config의 expectedChannelId가 비어 있어 확인만 합니다",
+                title, channel_id,
+            )
+            return channel_id, title
+        if channel_id != expected:
+            raise UploadError(
+                "로그인한 채널이 설정과 다릅니다. 업로드를 중단했습니다",
+                details=[
+                    f"지금 토큰의 채널: {title} ({channel_id})",
+                    f"config/upload.json의 expectedChannelId: {expected}",
+                    "token.json을 지우고 다시 실행한 뒤,",
+                    "Google 로그인 화면에서 올바른 채널을 고르세요.",
+                ],
+            )
+        log.info("업로드 대상 채널 확인: %s (%s)", title, channel_id)
+        return channel_id, title
+
     # --- 업로드 -------------------------------------------------------
 
     def upload(self, video_path: Path, metadata) -> str:
@@ -165,11 +211,15 @@ class YouTubeUploader:
 
     # --- 첫 댓글 ------------------------------------------------------
 
-    def comment(self, video_id: str, text: str) -> str | None:
+    def comment(self, video_id: str, text: str, *, raise_on_error: bool = False) -> str | None:
         """영상에 최상위 댓글을 단다.
 
         '고정'은 YouTube Data API에 엔드포인트가 없어 여기서 못 한다.
         업로드 후 유튜브 앱이나 스튜디오에서 직접 눌러야 한다.
+
+        비공개 영상은 댓글이 막혀 있어 항상 실패한다(commentsDisabled).
+        업로드 직후에는 경고만 남기고, --comment-only로 따로 부를 때는
+        raise_on_error=True로 실패를 드러낸다.
         """
         _, _, _, _, HttpError, _ = _import_google()
         body = {
@@ -183,10 +233,25 @@ class YouTubeUploader:
                 self._client().commentThreads().insert(part="snippet", body=body).execute()
             )
         except HttpError as exc:
-            # 댓글 실패로 업로드까지 되돌릴 이유는 없다. 경고만 남긴다.
-            log.warning("첫 댓글을 달지 못했습니다: %s", "; ".join(_http_error_details(exc)))
+            details = _http_error_details(exc)
+            if raise_on_error:
+                raise UploadError("첫 댓글을 달지 못했습니다", details=details) from exc
+            # 업로드 자체는 끝났다. 댓글 실패로 되돌릴 이유는 없다.
+            log.warning("첫 댓글을 달지 못했습니다: %s", "; ".join(details))
             return None
         return response.get("id")
+
+    def privacy_status(self, video_id: str) -> str | None:
+        """영상의 현재 공개 상태를 읽는다. 못 읽으면 None."""
+        _, _, _, _, HttpError, _ = _import_google()
+        try:
+            response = self._client().videos().list(part="status", id=video_id).execute()
+        except HttpError:
+            return None
+        items = response.get("items") or []
+        if not items:
+            return None
+        return items[0].get("status", {}).get("privacyStatus")
 
 
 def _http_error_details(exc) -> list[str]:
@@ -204,4 +269,7 @@ def _http_error_details(exc) -> list[str]:
         details.append("할당량을 다 썼습니다. 업로드 1건이 1600 유닛이고 하루 10000 유닛입니다.")
     if status == 401:
         details.append("토큰이 만료됐습니다. token.json을 지우고 다시 실행하면 재인증합니다.")
+    if "commentsDisabled" in content:
+        details.append("비공개 영상은 댓글을 달 수 없습니다.")
+        details.append("스튜디오에서 공개로 바꾼 뒤 --comment-only로 다시 실행하세요.")
     return details

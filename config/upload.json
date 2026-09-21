@@ -1,7 +1,7 @@
 {
   "$comment": [
     "YouTube 업로드 설정 (명세서 §35-5). 명세서 §33-6은 자동 업로드를 MVP 범위 밖으로 뒀으나",
-    "운영자 결정으로 범위에 넣었다 (2026-09-21). DEC-012 참고.",
+    "운영자 결정으로 범위에 넣었다 (2026-09-21). DEC-017 참고.",
     "",
     "privacyStatus는 기본값이 private이다. 감사(audit)를 통과하지 않은 API 프로젝트에서",
     "  videos.insert로 올린 영상은 유튜브가 어차피 비공개로 잠근다.",
@@ -19,6 +19,15 @@
 
   "clientSecretFile": "client_secret.json",
   "tokenFile": "token.json",
+
+  "$comment_channel": [
+    "Google 계정에 채널이 여러 개면 OAuth 동의 때 고른 채널로 업로드된다.",
+    "로그인 화면에서 채널을 잘못 고르면 엉뚱한 채널에 올라가고, 올라간 뒤에는 옮길 수 없다.",
+    "2026-09-21에 '오늘도출근' 대신 개인 채널로 올라가 지우고 다시 올린 일이 있었다.",
+    "여기에 채널ID를 적어두면 다르면 업로드 전에 멈춘다. 비워 두면 경고만 낸다.",
+    "채널ID는 업로드 실행 시 출력되고, 스튜디오 설정 > 채널 > 고급설정에서도 볼 수 있다."
+  ],
+  "expectedChannelId": "UCqDo_mr233pJ32KhTBClUHw",
 
   "privacyStatus": "private",
   "categoryId": "22",

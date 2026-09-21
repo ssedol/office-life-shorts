@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""렌더가 끝난 영상을 YouTube에 올린다 (명세서 §35-5, DEC-012).
+"""렌더가 끝난 영상을 YouTube에 올린다 (명세서 §35-5, DEC-017).
 
     # 무엇이 올라갈지 먼저 확인 (네트워크를 쓰지 않는다)
     python tools/upload.py --input ./inputs/2026-09-18 --dry-run
@@ -9,6 +9,9 @@
 
     # 감사를 통과한 뒤 공개로 바로 발행
     python tools/upload.py --input ./inputs/2026-09-18 --privacy public
+
+    # 공개로 바꾼 뒤 첫 댓글만 따로 달기 (영상은 다시 올리지 않는다)
+    python tools/upload.py --input ./inputs/2026-09-18 --comment-only
 
 제목·설명·태그·첫 댓글은 inputs/<날짜>/upload.json에 쓴다.
 없는 값은 config/upload.json의 기본값을 쓰고, 제목은 project.json의 title로 넘어간다.
@@ -20,6 +23,13 @@
 
 댓글 '고정'은 API에 엔드포인트가 없다. 댓글은 자동으로 달리지만
 고정은 유튜브 앱이나 스튜디오에서 직접 눌러야 한다.
+
+비공개 영상은 댓글 자체가 막혀 있다. 그래서 업로드가 private로 끝나면
+댓글을 시도하지 않고 건너뛴다. 스튜디오에서 공개로 바꾼 뒤
+--comment-only로 다시 부르면 그때 댓글을 단다.
+
+업로드 결과(videoId)는 outputs/<날짜>/upload-result.json에 남는다.
+--comment-only는 그 파일에서 videoId를 읽으므로 따로 붙여넣지 않아도 된다.
 """
 
 from __future__ import annotations
@@ -28,6 +38,7 @@ import argparse
 import json
 import logging
 import sys
+from datetime import datetime
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -82,6 +93,16 @@ def build_parser() -> argparse.ArgumentParser:
         help="무엇이 올라갈지만 출력하고 업로드하지 않습니다",
     )
     parser.add_argument("--no-comment", action="store_true", help="첫 댓글을 달지 않습니다")
+    parser.add_argument(
+        "--comment-only",
+        action="store_true",
+        help="영상은 올리지 않고 첫 댓글만 답니다 (공개 전환 후에 씁니다)",
+    )
+    parser.add_argument(
+        "--video-id",
+        metavar="ID",
+        help="--comment-only에서 쓸 영상 ID. 기본은 upload-result.json에서 읽습니다",
+    )
     parser.add_argument("--config", metavar="DIR", help="config 폴더 경로")
     parser.add_argument("--verbose", "-v", action="store_true", help="상세 로그")
     return parser
@@ -93,6 +114,52 @@ def _resolve_video(args, input_dir: Path, cfg) -> Path:
     if args.output:
         return Path(args.output) / "final.mp4"
     return cfg.repo_root / "outputs" / input_dir.name / "final.mp4"
+
+
+RESULT_FILE = "upload-result.json"
+
+
+def _result_path(args, input_dir: Path, cfg) -> Path:
+    """업로드 결과(videoId 등)를 남길 위치. 렌더 결과 폴더 옆에 둔다."""
+    if args.output:
+        return Path(args.output) / RESULT_FILE
+    return cfg.repo_root / "outputs" / input_dir.name / RESULT_FILE
+
+
+def _save_result(path: Path, data: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    existing = {}
+    if path.exists():
+        try:
+            existing = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            existing = {}
+    existing.update(data)
+    path.write_text(
+        json.dumps(existing, ensure_ascii=False, indent=2) + chr(10), encoding="utf-8"
+    )
+
+
+def _load_video_id(args, path: Path) -> str:
+    """--comment-only가 쓸 영상 ID를 찾는다."""
+    if args.video_id:
+        return args.video_id.strip()
+    if not path.exists():
+        raise UploadError(
+            "어느 영상에 댓글을 달지 알 수 없습니다",
+            details=[
+                f"{path}가 없습니다.",
+                "이 폴더를 먼저 업로드했거나, --video-id로 직접 지정해야 합니다.",
+            ],
+        )
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise UploadError(f"{path.name}을 읽을 수 없습니다: {exc}") from exc
+    video_id = str(data.get("videoId") or "").strip()
+    if not video_id:
+        raise UploadError(f"{path.name}에 videoId가 없습니다")
+    return video_id
 
 
 def _print_plan(meta, video: Path) -> None:
@@ -133,6 +200,38 @@ def main(argv: list[str] | None = None) -> int:
             input_dir, cfg.upload, project, privacy_override=args.privacy
         )
         video = _resolve_video(args, input_dir, cfg)
+        result_path = _result_path(args, input_dir, cfg)
+
+        # --- 댓글만 달기 --------------------------------------------------
+        if args.comment_only:
+            if not meta.comment:
+                raise UploadError(
+                    "달 댓글이 없습니다",
+                    details=[f"{input_dir / 'upload.json'}의 comment를 채우세요"],
+                )
+            video_id = _load_video_id(args, result_path)
+            uploader = YouTubeUploader(cfg.upload, root=cfg.repo_root)
+            uploader.assert_expected_channel()
+
+            status = uploader.privacy_status(video_id)
+            if status and status != "public":
+                print()
+                print(f"이 영상은 아직 {status} 상태입니다.")
+                print("비공개·미등록 영상은 댓글이 막혀 있습니다.")
+                print(f"먼저 공개로 바꾸세요 → {STUDIO_URL.format(video_id)}")
+                return 1
+
+            print()
+            print(f"영상: {WATCH_URL.format(video_id)}")
+            print("첫 댓글:")
+            print(meta.comment)
+            comment_id = uploader.comment(video_id, meta.comment, raise_on_error=True)
+            _save_result(result_path, {"commentId": comment_id})
+            print()
+            print("첫 댓글을 달았습니다.")
+            print("댓글 고정은 API에 엔드포인트가 없어 직접 눌러야 합니다.")
+            print(f"  → {WATCH_URL.format(video_id)}")
+            return 0
 
         _print_plan(meta, video)
 
@@ -147,22 +246,55 @@ def main(argv: list[str] | None = None) -> int:
             )
 
         uploader = YouTubeUploader(cfg.upload, root=cfg.repo_root)
+
+        # 업로드 전에 어느 채널인지 확인한다. 잘못 올라가면 옮길 방법이 없다.
+        channel_id, channel_title = uploader.assert_expected_channel()
+        print(f"업로드 채널  {channel_title} ({channel_id})")
+        if not str(cfg.upload.get("expectedChannelId") or "").strip():
+            print("  ↑ config/upload.json의 expectedChannelId가 비어 있습니다.")
+            print("    이 채널이 맞으면 그 값에 위 채널ID를 적어두세요. 다음부터 자동으로 막아 줍니다.")
+
         video_id = uploader.upload(video, meta)
 
         print()
         print(f"업로드 완료: {WATCH_URL.format(video_id)}")
 
+        _save_result(result_path, {
+            "videoId": video_id,
+            "channelId": channel_id,
+            "channelTitle": channel_title,
+            "privacyStatus": meta.privacy_status,
+            "title": meta.title,
+            "uploadedAt": datetime.now().astimezone().isoformat(timespec="seconds"),
+        })
+
+        # 비공개 영상은 댓글이 막혀 있다. 실패할 요청을 보내 할당량을 쓰지 않는다.
+        commented = False
+        comment_pending = False
         if meta.comment and not args.no_comment:
-            if uploader.comment(video_id, meta.comment):
-                print("첫 댓글을 달았습니다.")
+            if meta.privacy_status == "public":
+                if uploader.comment(video_id, meta.comment):
+                    commented = True
+                    print("첫 댓글을 달았습니다.")
+            else:
+                comment_pending = True
+                print(f"첫 댓글은 건너뛰었습니다 — {meta.privacy_status} 영상은 댓글이 막혀 있습니다.")
 
         print()
-        print("남은 것 — 직접 하셔야 합니다:")
-        if meta.comment and not args.no_comment:
-            print("  1. 댓글 고정 (API에 엔드포인트가 없습니다)")
-        print("  2. 'AI 생성 콘텐츠' 공시 체크")
-        if meta.privacy_status == "private":
-            print("  3. 공개 전환")
+        print("남은 것:")
+        step = 1
+        if meta.privacy_status != "public":
+            print(f"  {step}. 공개 전환 (감사 전에는 유튜브가 비공개로 잠급니다)")
+            step += 1
+        print(f"  {step}. 'AI 생성 콘텐츠' 공시 체크")
+        step += 1
+        if comment_pending:
+            print(f"  {step}. 공개로 바꾼 뒤 아래를 실행하면 첫 댓글이 달립니다:")
+            print(f"       python tools/upload.py --input {input_dir} --comment-only")
+            step += 1
+        if commented:
+            print(f"  {step}. 댓글 고정 (API에 엔드포인트가 없습니다)")
+            step += 1
         print(f"  → {STUDIO_URL.format(video_id)}")
         return 0
 
