@@ -1,0 +1,92 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01",
+      "order": 1,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "훅. 뭘 인쇄했는지 먼저 밝히고, 안 나왔다는 문제로 끌고 간다",
+      "imageFile": "scene-01.png",
+      "narration": "급여명세서를 뽑으려고 회사 프린터에 인쇄를 눌렀어요. 근데 아무것도 안 나왔어요.",
+      "subtitle": "급여명세서 **인쇄**했는데",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02",
+      "order": 2,
+      "durationSec": 5,
+      "type": "I2V",
+      "reason": "버튼을 연타하는 손동작이 초조함을 만든다",
+      "imageFile": "scene-02.png",
+      "narration": "\"고장인가?\" 싶어서 인쇄 버튼을 세 번 더 눌렀어요.",
+      "subtitle": "\"고장인가?\" **세 번** 더",
+      "videoPrompt": "A young office worker at a desk nervously taps a laptop key several times with one finger. Keep the original character design, clothing and office layout unchanged. Add subtle blinking, small repeated finger taps, and a very slow camera push-in."
+    },
+    {
+      "id": "SCENE-03",
+      "order": 3,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "원인을 깨닫는 순간. 위층을 올려다보는 얼굴로 7층을 암시한다",
+      "imageFile": "scene-03.png",
+      "narration": "알고 보니 기본 프린터가 7층 프린터로 잡혀 있었더라고요.",
+      "subtitle": "알고 보니 **7층** 프린터",
+      "motion": "static"
+    },
+    {
+      "id": "SCENE-04",
+      "order": 4,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "네 번 누른 게 네 부로 돌아온다. 민망함의 규모",
+      "imageFile": "scene-04.png",
+      "narration": "30분 뒤에 7층 분이 제 자리로 오셨어요. 제 급여명세서 네 부를 들고요.",
+      "subtitle": "급여명세서 **네 부** 배달",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-05",
+      "order": 5,
+      "durationSec": 5,
+      "type": "I2V",
+      "reason": "이 편의 정점. 어깨를 토닥이는 손과 허탈한 얼굴",
+      "imageFile": "scene-05.png",
+      "narration": "건네주시면서 조용히 한마디 하시더라고요. \"힘내세요.\"",
+      "subtitle": "\"**힘내세요**\"",
+      "videoPrompt": "A hand from off-screen gently pats a young office worker's shoulder while he stands frozen with an embarrassed blank expression. Keep the original character design, clothing and office layout unchanged. Add subtle blinking, two soft pats on the shoulder, and a very slow camera pull-back."
+    },
+    {
+      "id": "SCENE-06",
+      "order": 6,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "댓글 유도. 사건을 다 보여준 뒤라 대답할 거리가 있다",
+      "imageFile": "scene-06.png",
+      "narration": "여러분도 회사 프린터 때문에 식은땀 흘려보셨죠?",
+      "subtitle": "여러분도 **식은땀** 흘려보셨죠?",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-07",
+      "order": 7,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "교훈을 말하되 아직 못 고쳤다로 뒤집어 훈계를 피한다",
+      "imageFile": "scene-07.png",
+      "narration": "그날 이후로 인쇄 전에 프린터 이름부터 봐요. 근데 급하면 아직도 그냥 눌러요.",
+      "subtitle": "급하면 **아직도** 그냥 누름",
+      "motion": "slow_zoom_out"
+    },
+    {
+      "id": "SCENE-08",
+      "order": 8,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "시청자에게 넘긴다. 예/아니오로 답할 수 있는 질문",
+      "imageFile": "scene-08.png",
+      "narration": "여러분은 회사에서 개인 서류 뽑으세요? 댓글로 알려주세요.",
+      "subtitle": "개인 서류, **회사**에서 뽑으세요?",
+      "motion": "slow_zoom_in"
+    }
+  ]
+}
