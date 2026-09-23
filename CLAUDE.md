@@ -87,6 +87,14 @@ ruff check --select F,E9,B,UP,SIM .      # lint
   추정 모델을 바꾸면 `test_default_rate_matches_measured_edge_tts`가 깨진다. 값을 다시 맞춘다.
 - **ffmpeg 필터에는 경로를 넣지 않는다.** 필터그래프 파서가 `:`와 `\`를 특수문자로 읽어
   Windows 절대 경로에서 깨진다. 자막·폰트는 작업 폴더로 복사하고 파일 이름만 넘긴다.
+- **ElevenLabs `eleven_v3`는 짧은 감탄사를 과장되게 늘여 읽는다.** 5편 정점 대사
+  `"넵!"`이 0.8초 넘게 늘어지며 억양이 꺾여 "겨죠?"처럼 들리는 문제가 있었다(2026-09-23).
+  같은 줄을 stability 0.8까지 올리고 따옴표를 빼고 여러 번 다시 뽑아도 매번 재현됐다 —
+  파라미터 문제가 아니라 v3가 짧고 독립된 대사를 "감정 표현"으로 해석해 늘이는 것으로 보인다.
+  `eleven_multilingual_v2`로는 같은 텍스트가 0.1~0.2초짜리 자연스러운 발화로 나왔다
+  (음성인식으로 대조 확인). 이 채널은 4편 "힘내세요"처럼 정점에 짧은 감탄사를 자주 쓰는
+  포맷이라 `config/tts.json`의 `elevenlabs.model`을 `eleven_multilingual_v2`로 되돌렸다.
+  v3를 다시 쓰려면 이 문제부터 재현 여부를 확인한다.
 
 ## 업로드 자동화에서 확인된 사실
 
@@ -112,9 +120,11 @@ ruff check --select F,E9,B,UP,SIM .      # lint
   운영자 PC에서 확인해야 한다.
 - **LTX 2.5 실제 생성** — 커넥터는 가짜 ComfyUI 서버로 HTTP 프로토콜 전 구간을
   검증했지만, 실제 LTX 워크플로우로는 돌려본 적이 없다.
-- **유료 TTS 3종(elevenlabs / clova / typecast)** — 세 도메인 모두 개발 컨테이너의
-  egress 정책에 막혀 실제 API로 돌려본 적이 없다. 가짜 서버(`tests/fake_tts_api.py`)로
-  요청 형식과 오류 처리는 검증했다. **특히 typecast는 공식 문서조차 열지 못해
+- **elevenlabs는 2026-09-23에 운영자 PC에서 실제 API로 검증됐다.** 5편 렌더에서
+  실제 음성이 나왔고, 그 과정에서 v3의 짧은 감탄사 문제를 찾아 v2로 바꿨다
+  (판단이 갈렸던 지점 참고). clova / typecast 두 종은 아직 미검증 —
+  개발 컨테이너의 egress 정책에 막혀 가짜 서버(`tests/fake_tts_api.py`)로
+  요청 형식과 오류 처리만 검증했다. **특히 typecast는 공식 문서조차 열지 못해
   요청 형식에 추측이 섞여 있다** — 그래서 엔드포인트와 필드를 `config/tts.json`에서
   고칠 수 있게 했다(`baseUrl` / `speakPath` / `extraFields` / `authHeader`).
   응답이 오디오든 작업 ID든 모두 처리하므로 둘 중 어느 쪽이어도 동작한다.
