@@ -369,11 +369,13 @@ def test_tts_failure_aborts_the_run(tmp_path, fast_config):
 
 
 # ---------------------------------------------------------------------------
-# BGM (명세서 §35-4 — MVP 제외이지만 켜면 동작해야 한다)
+# BGM (명세서 §35-4 — MVP 제외였으나 2026-09-24 운영자 요청으로 채널 전체에 켰다)
 # ---------------------------------------------------------------------------
 
-def test_bgm_is_off_by_default(fast_config):
-    assert fast_config.render["bgm"]["enabled"] is False
+def test_bgm_is_on_by_default(fast_config):
+    bgm_cfg = fast_config.render["bgm"]
+    assert bgm_cfg["enabled"] is True
+    assert (fast_config.repo_root / bgm_cfg["file"]).is_file()
 
 
 def test_bgm_mixes_in_when_enabled(tmp_path, fast_config):

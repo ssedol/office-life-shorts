@@ -44,9 +44,19 @@
     }
   },
   "bgm": {
-    "$comment": "명세서 §35-4 — MVP에서는 제외. 음원 파일을 넣고 enabled를 true로 바꾸면 동작한다.",
-    "enabled": false,
-    "file": null,
+    "$comment": [
+      "명세서 §35-4 — MVP에서는 제외했으나 2026-09-24 운영자 요청으로 채널 전체에 켰다.",
+      "곡: 'Carefree' by Kevin MacLeod (incompetech.com), CC BY 3.0.",
+      "  https://creativecommons.org/licenses/by/3.0/",
+      "  Content ID에 등록되지 않은 곡이라 유튜브 수익화 클레임 위험이 낮다.",
+      "  CC BY라 저작자 표시가 필요하다 — config/upload.json의 descriptionHeader 아래 줄에",
+      "  'Music: Carefree by Kevin MacLeod (incompetech.com) — CC BY 3.0'을 넣어 모든 회차에 자동으로 붙인다.",
+      "gainDb: 내레이션 아래 깔리는 수준. 너무 크게 올리면 대사가 묻힌다.",
+      "file 경로는 저장소 루트 기준 상대 경로다 (_bgm_path()가 REPO_ROOT 기준으로 절대 경로화한다).",
+      "  ffmpeg 자체는 job.work_dir을 cwd로 실행되지만 -i 인자는 절대 경로로 넘어가므로 영향 없다."
+    ],
+    "enabled": true,
+    "file": "assets/bgm/Carefree - Kevin MacLeod.mp3",
     "gainDb": -22
   }
 }

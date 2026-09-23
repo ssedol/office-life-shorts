@@ -16,6 +16,7 @@ import logging
 import shutil
 from pathlib import Path
 
+from ..config import REPO_ROOT
 from ..errors import PipelineError, RenderError
 from ..media.ffmpeg import FFmpeg
 from ..scene.still import build_fit_chain, build_still_filter
@@ -242,6 +243,9 @@ class FFmpegRenderer(Renderer):
             log.warning("bgm.enabled=true 이지만 file이 비어 있어 BGM을 건너뜁니다")
             return None
         path = Path(str(raw)).expanduser()
+        if not path.is_absolute():
+            # ffmpeg는 job.work_dir을 cwd로 실행되므로, 저장소 루트 기준 상대 경로를 직접 붙인다.
+            path = REPO_ROOT / path
         if not path.is_file():
             log.warning("BGM 파일을 찾을 수 없어 건너뜁니다: %s", path)
             return None

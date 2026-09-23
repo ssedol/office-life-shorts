@@ -54,7 +54,7 @@
     "장식 선은 16자 안쪽으로 유지하고, URL은 단독 줄에 둔다(그래야 링크로 잡힌다).",
     "회차별 upload.json에 descriptionHeader를 적으면 그 회차만 다른 머리말을 쓴다."
   ],
-  "descriptionHeader": "🔗 직장인 버티기 아이템 모음\nhttps://litt.ly/shorts.market\n━━━━━━━━━━━━━━━━",
+  "descriptionHeader": "🔗 직장인 버티기 아이템 모음\nhttps://litt.ly/shorts.market\n━━━━━━━━━━━━━━━━\n🎵 Carefree by Kevin MacLeod\nincompetech.com — CC BY 3.0",
 
   "descriptionTemplate": "{header}\n\n{hashtags}\n\n{body}\n\n{extraHashtags}",
   "hashtags": ["#직장생활", "#직장인공감", "#오늘도출근"],
