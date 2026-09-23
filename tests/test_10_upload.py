@@ -101,10 +101,20 @@ def test_공개설정_우선순위는_CLI가_가장_높다(tmp_path):
     assert meta.privacy_status == "public"
 
 
-def test_기본_공개설정은_비공개다(tmp_path):
-    """감사 전에는 유튜브가 어차피 비공개로 잠근다. 기본값이 그 사실과 맞아야 한다."""
+def test_회차가_안_적으면_config의_공개설정을_쓴다(tmp_path):
+    """upload.json에 privacyStatus가 없으면 config/upload.json 값이 그대로 내려온다.
+
+    저장소 기본값은 2026-09-23에 public으로 바뀌었다(감사 통과 확인). 여기서는
+    '회차가 안 적으면 채널 기본값을 쓴다'는 규칙만 본다 — CONFIG는 테스트용이다.
+    """
     _write(tmp_path, "upload.json", {"title": "t"})
     assert load_metadata(tmp_path, CONFIG, {}).privacy_status == "private"
+
+
+def test_저장소_기본_공개설정은_public이다(repo_root):
+    """비공개로 오래 두면 구독자 유입에 손해라 운영자가 public으로 바꿨다 (2026-09-23)."""
+    config = json.loads((repo_root / "config" / "upload.json").read_text(encoding="utf-8"))
+    assert config["privacyStatus"] == "public"
 
 
 @pytest.mark.parametrize(

@@ -37,7 +37,7 @@ python tools/tts_compare.py --engines edge,clova,typecast,elevenlabs --scripts o
 python tools/upload.py --input ./inputs/YYYY-MM-DD --dry-run
                                          # 무엇이 올라갈지만 확인 (네트워크 안 씀)
 python tools/upload.py --input ./inputs/YYYY-MM-DD
-                                         # 실제 업로드 (기본 비공개)
+                                         # 실제 업로드 (기본 공개 발행)
 
 pytest                                   # 전체 (약 2분)
 pytest -m "not slow" -q                  # 1080×1920 실렌더 제외
@@ -59,8 +59,10 @@ ruff check --select F,E9,B,UP,SIM .      # lint
    ~~감사를 통과하지 않아 유튜브가 비공개로 잠근다.~~
    **2026-09-23에 감사를 통과한 것이 확인됐다** — 5편을 `--privacy public`으로 올리고
    `videos.list`로 다시 읽어 `public`이 유지되는 것을 확인했다. 첫 댓글도 자동으로 달렸다.
-   `config/upload.json`의 기본값은 여전히 `private`이라, 공개로 올리려면
-   `--privacy public`을 준다.
+   그래서 같은 날 `config/upload.json`의 기본값도 `public`으로 바꿨다(운영자 결정) —
+   비공개로 오래 두면 구독자 유입에 손해다. **이제 `tools/upload.py`를 그냥 실행하면
+   바로 공개 발행된다.** 올리기 전에 `--dry-run`으로 먼저 확인한다.
+   특정 회차만 숨기려면 `--privacy private`를 준다.
 
 ## 판단이 갈렸던 지점
 
