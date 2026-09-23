@@ -13,6 +13,8 @@
 
 from __future__ import annotations
 
+import re
+from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -336,6 +338,76 @@ def _check_script_style(package: InputPackage, cfg: AppConfig, report: Validatio
                     f"{sc.id}: 내레이션이 {length}자입니다 (권장 {limit}자 이하). "
                     f"한 씬이 길면 자막이 넘치고 화면이 정체됩니다"
                 )
+
+    # 5) 어미가 단조롭지 않은가
+    _check_ending_variety(scenes, style, report)
+
+
+_SENTENCE_SPLIT = re.compile(r"[.?!…]+")
+_SIGNATURE_STRIP = re.compile(r"[^가-힣A-Za-z0-9]")
+_QUOTES = "\"'“”‘’"
+
+
+def _last_sentence(narration: str) -> str:
+    """마지막 문장만 남긴다. 어미는 문장 끝에서 결정되기 때문이다."""
+    text = narration.strip()
+    for mark in _QUOTES:
+        text = text.replace(mark, "")
+    parts = [p.strip() for p in _SENTENCE_SPLIT.split(text) if p.strip()]
+    return parts[-1] if parts else ""
+
+
+def _ending_signature(narration: str) -> str:
+    """어미 지문 = 마지막 문장의 끝 두 글자."""
+    tail = _SIGNATURE_STRIP.sub("", _last_sentence(narration))
+    return tail[-2:] if tail else ""
+
+
+def _check_ending_variety(scenes, style: dict, report: ValidationReport) -> None:
+    """어미가 몇 가지로 반복되는지 본다 (2026-09-23 추가).
+
+    5편 초안이 8개 씬 전부 '~어요'로 끝나 낭독이 단조롭다는 지적을 받았다.
+    원인을 보니 4편 대본을 줄 단위로 베껴 쓴 것이었는데, 기존 문체 검사는
+    '~습니다' 같은 문어체 어미만 막고 있어 그대로 통과했다.
+
+    귀로 듣는 콘텐츠라 어미가 곧 리듬이다. 같은 어미가 반복되면 내용과
+    무관하게 지루해진다. 다만 대본은 사람이 쓰는 것이라 경고로만 알린다.
+    """
+    max_same = int(style.get("maxSameEndingScenes", 0))
+    if max_same:
+        groups: Counter[str] = Counter()
+        for sc in scenes:
+            signature = _ending_signature(sc.narration)
+            if signature:
+                groups[signature] += 1
+        for signature, count in groups.most_common():
+            if count <= max_same:
+                break
+            ids = ", ".join(
+                sc.id for sc in scenes if _ending_signature(sc.narration) == signature
+            )
+            report.warn(
+                f"'~{signature}'로 끝나는 씬이 {count}개입니다 (권장 {max_same}개 이하): {ids}. "
+                f"어미가 반복되면 TTS 낭독이 단조로워집니다 — "
+                f"명사로 끊기, '~거든요', '~더라고요', '~죠' 같은 구어체 어미를 섞으세요"
+            )
+
+    max_polite = int(style.get("maxPlainPoliteScenes", 0))
+    if max_polite:
+        plain = [
+            sc
+            for sc in scenes
+            if _last_sentence(sc.narration).endswith("요")
+            and not sc.narration.strip().rstrip(_QUOTES).endswith("?")
+        ]
+        if len(plain) > max_polite:
+            ids = ", ".join(sc.id for sc in plain)
+            report.warn(
+                f"'~요.'로 끝나는 평서문이 {len(plain)}개 씬입니다 "
+                f"(권장 {max_polite}개 이하): {ids}. "
+                f"사람이 말할 때는 명사로 끊거나 되묻기도 합니다 — "
+                f"문장 끝을 섞어야 대화처럼 들립니다"
+            )
 
 
 def _check_cta(package: InputPackage, cfg: AppConfig, report: ValidationReport) -> None:

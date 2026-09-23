@@ -322,3 +322,84 @@ def test_bundled_sample_has_cta_in_both_places(repo_root, default_config):
     report = validate(package, default_config)
 
     assert not [w for w in report.warnings if "댓글 유도" in w], report.warnings
+
+
+# ---------------------------------------------------------------------------
+# 어미 반복 (config/app.json script.maxSameEndingScenes / maxPlainPoliteScenes)
+# ---------------------------------------------------------------------------
+
+def _ending_warnings(report) -> list[str]:
+    return [w for w in report.warnings if "어미가 반복" in w or "평서문이" in w]
+
+
+def test_same_ending_in_every_scene_warns(tmp_path, fast_config):
+    """5편 초안이 8개 씬 전부 '~어요'로 끝나 단조롭다는 지적을 받았다 (2026-09-23).
+
+    문어체 어미 검사는 '~습니다'만 보기 때문에 이런 대본이 그대로 통과했다.
+    """
+    root = make_package(tmp_path / "in", scene_overrides={
+        1: {"narration": "팀장님 흉을 보냈어요."},
+        2: {"narration": "삭제 버튼을 눌렀어요."},
+        3: {"narration": "이미 읽고 난 뒤였어요."},
+        4: {"narration": "카톡이 하나 왔어요."},
+        5: {"narration": "한마디로 답장했어요."},
+        6: {"narration": "여러분도 식은땀 흘려보셨죠?"},
+        7: {"narration": "급하면 아직도 그냥 눌러요."},
+        8: {"narration": "여러분은 어떠세요? 댓글로 알려주세요."},
+    })
+    report = validate(load_input_package(root), fast_config)
+
+    assert report.ok, "문체는 권고지 필수가 아니다"
+    repeated = [w for w in report.warnings if "'~어요'로 끝나는" in w]
+    assert repeated, report.warnings
+    assert "SCENE-01" in repeated[0] and "SCENE-05" in repeated[0]
+
+
+def test_mixed_endings_pass_clean(tmp_path, fast_config):
+    """명사 종결·'~거든요'·'~죠'를 섞으면 경고하지 않는다."""
+    root = make_package(tmp_path / "in", scene_overrides={
+        1: {"narration": "팀장님 흉을 보냈거든요. 근데 보낸 데가 팀 전체 단톡방."},
+        2: {"narration": '"아 취소, 취소!" 손이 먼저 나갔어요. 삭제 누르고 또 누르고.'},
+        3: {"narration": "근데 이미 읽음 표시. 팀장님이 제일 먼저 보신 거예요."},
+        4: {"narration": "5분 뒤에 카톡이 왔는데, 딱 한 글자. 물음표."},
+        5: {"narration": '그래서 저도 한 글자로 답했죠. "넵!"'},
+        6: {"narration": "여러분도 있으시죠? 단톡방 잘못 보내서 식은땀 난 적."},
+        7: {"narration": "요즘은 방 이름부터 봐요. 급하면? 그냥 누르죠 뭐."},
+        8: {"narration": "여러분은 무슨 사고 쳐보셨어요? 댓글 좀 풀어주세요."},
+    })
+    report = validate(load_input_package(root), fast_config)
+
+    assert not _ending_warnings(report), report.warnings
+
+
+def test_plain_polite_declaratives_are_counted_without_questions(tmp_path, fast_config):
+    """'~요?'로 되묻는 문장은 평서문으로 세지 않는다."""
+    root = make_package(tmp_path / "in", scene_overrides={
+        i: {"narration": f"{i}번은 이렇게 물어요?"} for i in range(1, 9)
+    })
+    report = validate(load_input_package(root), fast_config)
+
+    assert not [w for w in report.warnings if "평서문이" in w], report.warnings
+
+
+def test_ending_variety_check_can_be_disabled(tmp_path, fast_config):
+    from src.config import deep_merge
+
+    fast_config.app = deep_merge(
+        fast_config.app,
+        {"script": {"maxSameEndingScenes": 0, "maxPlainPoliteScenes": 0}},
+    )
+    root = make_package(tmp_path / "in", scene_overrides={
+        i: {"narration": f"{i}번째 씬을 진행했어요."} for i in range(1, 9)
+    })
+    report = validate(load_input_package(root), fast_config)
+
+    assert not _ending_warnings(report), report.warnings
+
+
+def test_episode_five_script_passes_the_ending_check(repo_root, default_config):
+    """운영자 지적으로 다시 쓴 5편 대본이 기준을 지키는지 본다."""
+    package = load_input_package(repo_root / "inputs" / "2026-09-24")
+    report = validate(package, default_config)
+
+    assert not _ending_warnings(report), report.warnings

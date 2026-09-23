@@ -46,7 +46,14 @@
       "  '대사가 몇 개인가'보다 '오해한 내용이 대사로 드러나는가'가 중요하다.",
       "writtenEndings: 낭독체 어미. 사람이 말할 때는 '빠졌어요'라고 하지 '빠져 있습니다'라고 안 한다.",
       "demonstratives: 지시어. 가리키는 대상이 먼저 나와야 하는데 훅에서부터 쓰기 쉽다.",
-      "maxDemonstrativeScenes: 지시어가 등장해도 되는 씬 수 상한."
+      "maxDemonstrativeScenes: 지시어가 등장해도 되는 씬 수 상한.",
+      "",
+      "maxSameEndingScenes / maxPlainPoliteScenes (2026-09-23 추가).",
+      "  5편 초안이 8개 씬 전부 '~어요'로 끝나 '왜 이런 게 반복되냐'는 지적을 받았다.",
+      "  4편 대본을 줄 단위로 베껴 쓴 게 원인이었는데, 위 검사들은 문어체 어미만 보기 때문에",
+      "  단조로움은 걸러내지 못하고 그대로 통과했다.",
+      "  maxSameEndingScenes: 마지막 문장의 끝 두 글자가 같은 씬 수 상한.",
+      "  maxPlainPoliteScenes: '~요.'로 끝나는 평서문 씬 수 상한(의문형은 세지 않는다)."
     ],
     "required": true,
     "minQuotedScenes": 2,
@@ -54,7 +61,9 @@
     "maxDemonstrativeScenes": 2,
     "demonstratives": ["이 말", "그 말", "이것", "이걸", "이거", "그때", "이런 말", "그런 말"],
     "writtenEndings": ["빠져 있습니다", "전달됩니다", "받아들여집니다", "여겨집니다", "됩니다만"],
-    "maxNarrationChars": 60
+    "maxNarrationChars": 60,
+    "maxSameEndingScenes": 3,
+    "maxPlainPoliteScenes": 5
   },
 
   "cta": {
