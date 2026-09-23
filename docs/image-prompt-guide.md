@@ -17,8 +17,17 @@ ChatGPT의 **Project** 기능(Instructions + Project files)을 쓰면 이 부분
 3. Project의 **Files**에 **마스터 캐릭터 참조 이미지**를 올린다.
    지금까지는 대화마다 이 이미지를 손으로 첨부해 왔는데, Project files로 올려두면
    매번 첨부하지 않아도 Project 안 모든 대화가 참조한다.
-   → 이 이미지들, 갖고 계신 파일이 있으면 저장소에 `assets/character/`로 넣어드릴 수
-     있습니다. 있으면 알려주세요 (파일 경로나 채팅에 올려주시면 됩니다).
+   참조 이미지 5장은 `assets/character/`에 저장돼 있다 (2026-09-23 등록):
+   - `ref-01-shocked.png` — 놀람 표정, 책상+노트북
+   - `ref-02-happy-coffee.png` — 웃는 표정, 가방+커피컵 (출근 포즈)
+   - `ref-03-talking-blank-bubble.png` — 말하는 포즈, 빈 말풍선
+   - `ref-04-side-with-back-figure.png` — 옆모습, 뒷모습만 보이는 상대役
+   - `ref-05-desk-whiteboard.png` — 책상+노트북, 화이트보드(빈 체크리스트) 가리키는 포즈
+
+   **주의**: `ref-01`에 땀방울과, 3가지 감정 기호에 없는 세로 막대 모양이 함께 들어가
+   있다. 캐릭터 외형(얼굴·머리·옷·소품)은 5장 모두 일관돼 참조용으로 좋지만,
+   **감정 기호는 이 문서의 "감정 표현 기호" 목록만 따른다** — 참조 이미지에 있다고
+   그대로 재현하지 않도록 Project Instructions의 해당 문구를 그대로 지킨다.
 4. 이후로는 회차마다 이 Project 안에서 새 대화를 열고, `inputs/<날짜>/image-prompts.md`의
    **씬별 프롬프트만** 붙여넣는다. 캐릭터·배경·규칙은 Instructions에 이미 있으므로
    다시 설명하지 않아도 된다.
