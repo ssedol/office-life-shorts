@@ -183,7 +183,20 @@ def _print_plan(meta, video: Path) -> None:
     print()
 
 
+def _force_utf8_output() -> None:
+    """콘솔 인코딩 때문에 업로드가 죽지 않게 한다.
+
+    Windows 콘솔 기본값은 cp949라 설명란 머리말의 이모지(🔗, 🎵)를 인코딩하지 못하고
+    UnicodeEncodeError로 멈춘다. 그 지점이 실제 업로드 직전이라 영상이 안 올라간다.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is not None:
+            reconfigure(encoding="utf-8", errors="replace")
+
+
 def main(argv: list[str] | None = None) -> int:
+    _force_utf8_output()
     args = build_parser().parse_args(argv)
     setup_logging(args.verbose)
 
