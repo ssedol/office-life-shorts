@@ -51,6 +51,11 @@ ruff check --select F,E9,B,UP,SIM .      # lint
    명세서 §1에 "주제/대본/8씬 구성은 외부 AI가 담당한다"고 적혀 있으나 **그 문장은 현재 운영 방식과 다르다.**
    ChatGPT에 기획을 넘기는 게 아니라, 이미지를 만들지 못해서 그 부분만 맡기는 것이다.
    ChatGPT에는 `image-prompts.md`만 넘긴다.
+   **캐릭터·배경·구도 같은 공통 규칙은 [docs/image-prompt-guide.md](docs/image-prompt-guide.md)에
+   고정해 ChatGPT Project의 Instructions로 한 번만 등록한다** (2026-09-23 추가).
+   5편까지는 회차마다 그 공통 규칙을 통째로 다시 적어서 문구가 조금씩 어긋났다
+   (벽시계 "숫자 없음" 유무, "8장 공통" / "공통" 표기 등). 이제 회차별
+   `image-prompts.md`에는 그 회차의 씬 내용만 적는다.
 2. STILL/I2V를 로컬에서 재판단하지 않는다 — `scene-plan.json`을 그대로 따른다.
 3. 씬 수는 **항상 8개**.
 4. I2V 실패는 전체 실패가 아니다 — 원본 이미지 + `slow_zoom_in`으로 대체하고 로그에 남긴다.
