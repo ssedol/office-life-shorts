@@ -52,11 +52,16 @@
       "  CC BY라 저작자 표시가 필요하다 — config/upload.json의 descriptionHeader 아래 줄에",
       "  'Music: Carefree by Kevin MacLeod (incompetech.com) — CC BY 3.0'을 넣어 모든 회차에 자동으로 붙인다.",
       "gainDb: 내레이션 아래 깔리는 수준. 너무 크게 올리면 대사가 묻힌다.",
+      "  2026-09-23에 -22 → -14로 올렸다. 운영자가 '배경음이 작다'고 해서 실측해 보니,",
+      "  BGM 원본이 -20.2 LUFS라 -22dB를 걸면 믹스에서 약 -42 LUFS가 되어 내레이션",
+      "  (-16.5 LUFS)보다 25.7 LU 아래였다. 내레이션용 배경음은 보통 15~20 LU 아래에 깐다.",
+      "  -14dB면 17.7 LU 아래로 그 범위에 들어오고, 실제 믹스 트루피크는 -1.1 dBFS라",
+      "  클리핑 여유도 남는다. 곡을 바꾸면 원본 LUFS가 달라지므로 이 값도 다시 재야 한다.",
       "file 경로는 저장소 루트 기준 상대 경로다 (_bgm_path()가 REPO_ROOT 기준으로 절대 경로화한다).",
       "  ffmpeg 자체는 job.work_dir을 cwd로 실행되지만 -i 인자는 절대 경로로 넘어가므로 영향 없다."
     ],
     "enabled": true,
     "file": "assets/bgm/Carefree - Kevin MacLeod.mp3",
-    "gainDb": -22
+    "gainDb": -14
   }
 }
