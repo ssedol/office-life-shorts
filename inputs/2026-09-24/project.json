@@ -1,0 +1,17 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-09-24",
+  "topic": "팀장 뒷담화를 팀 단톡방에 잘못 보낸 날",
+  "title": "팀장님 뒷담화, 팀 단톡방에 잘못 보냈습니다",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+  "tts": {
+    "$comment": "engine과 voice를 적으면 config/tts.json보다 우선합니다. 채널 공통 설정을 쓰려면 비워 둡니다."
+  },
+  "renderMode": "preview"
+}
