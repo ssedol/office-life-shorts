@@ -1,0 +1,68 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01", "order": 1, "durationSec": 5, "type": "STILL",
+      "reason": "퇴근 엘리베이터에서 팀장과 마주친 표정과 첫 대사로 훅을 만든다",
+      "imageFile": "scene-01.png",
+      "narration": "퇴근 엘리베이터 문이 열리자 팀장님이 서 계셨어요. \"벌써 가?\" 여러분도 이 말 무섭죠?",
+      "subtitle": "퇴근길 팀장님이 \"**벌써 가?**\"",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02", "order": 2, "durationSec": 5, "type": "STILL",
+      "reason": "퇴근 준비가 끝난 가방과 꺼진 노트북으로 거짓말할 수밖에 없는 상황을 보여준다",
+      "imageFile": "scene-02.png",
+      "narration": "여섯 시 일 분. 손에는 가방, 컴퓨터는 이미 껐죠.",
+      "subtitle": "가방까지 들었는데 **여섯 시 일 분**",
+      "motion": "slow_pan_left"
+    },
+    {
+      "id": "SCENE-03", "order": 3, "durationSec": 5, "type": "I2V",
+      "reason": "반사적으로 둘러대며 표정이 바뀌는 순간을 보여준다",
+      "imageFile": "scene-03.png",
+      "narration": "저도 모르게 말했어요. \"아뇨, 지하 창고에 서류 가지러요.\"",
+      "subtitle": "\"지하 창고에 **서류 가지러요**\"",
+      "videoPrompt": "The same chibi Korean male office worker hesitantly gestures toward the basement elevator button while clutching a black briefcase, smiling awkwardly. A manager is indicated only by a gray suit sleeve at the frame edge. Subtle blink and small hand gesture, slow camera push in. Preserve the exact character, clothing, vertical composition and office elevator lobby. No text, letters, numbers or logos."
+    },
+    {
+      "id": "SCENE-04", "order": 4, "durationSec": 5, "type": "STILL",
+      "reason": "팀장도 지하로 간다는 대사로 도망갈 길이 사라지는 반전",
+      "imageFile": "scene-04.png",
+      "narration": "팀장님이 웃으셨어요. \"나도 지하 가는데, 같이 내려가자.\"",
+      "subtitle": "\"나도 지하 가는데, **같이 가자**\"",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-05", "order": 5, "durationSec": 5, "type": "STILL",
+      "reason": "텅 빈 창고 선반과 팀장의 질문으로 거짓말이 막히는 장면",
+      "imageFile": "scene-05.png",
+      "narration": "텅 빈 선반 앞에서 팀장님이 물으셨죠. \"무슨 서류 찾는데?\"",
+      "subtitle": "빈 선반 앞, \"**무슨 서류?**\"",
+      "motion": "slow_zoom_out"
+    },
+    {
+      "id": "SCENE-06", "order": 6, "durationSec": 5, "type": "STILL",
+      "reason": "찾는다고 둘러댄 서류가 팀장 가방에서 나오는 시각적 정점",
+      "imageFile": "scene-06.png",
+      "narration": "\"내일 회의 자료요.\" 그러자 팀장님이 가방에서 그 자료를 꺼냈습니다.",
+      "subtitle": "그 자료가 **팀장님 가방에서**",
+      "motion": "static"
+    },
+    {
+      "id": "SCENE-07", "order": 7, "durationSec": 5, "type": "STILL",
+      "reason": "팀장의 담백한 허락으로 주인공 혼자 만든 민망함이 드러난다",
+      "imageFile": "scene-07.png",
+      "narration": "\"이거? 내 책상에 있었는데. 이제 진짜 퇴근해.\"",
+      "subtitle": "\"이제 **진짜 퇴근해**\"",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-08", "order": 8, "durationSec": 5, "type": "STILL",
+      "reason": "다시 올라가는 엘리베이터에서 자책하고 시청자 답변을 묻는다",
+      "imageFile": "scene-08.png",
+      "narration": "저는 일 층 버튼을 다시 눌렀어요. 여러분은 \"벌써 가?\" 들으면 뭐라고 하세요?",
+      "subtitle": "\"벌써 가?\" 들으면 **뭐라 하세요?**",
+      "motion": "slow_zoom_out"
+    }
+  ]
+}

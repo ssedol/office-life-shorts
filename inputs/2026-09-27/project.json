@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-09-27",
+  "topic": "퇴근 엘리베이터에서 팀장을 만나 지하 창고까지 따라간 날",
+  "title": "퇴근길 팀장님께 '지하 창고 가는 길'이라고 했다가",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}
