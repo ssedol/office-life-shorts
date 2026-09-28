@@ -1,0 +1,68 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01", "order": 1, "durationSec": 5, "type": "STILL",
+      "reason": "면접 중인 회의실에 점심 주문을 물은 실수를 첫 장면에 드러낸다",
+      "imageFile": "scene-01.png",
+      "narration": "면접 중인 회의실에 들어가서 \"점심 드실 분?\" 외친 적 있으세요?",
+      "subtitle": "면접 중에 \"**점심 드실 분?**\"",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02", "order": 2, "durationSec": 5, "type": "STILL",
+      "reason": "팀장의 점심 주문 부탁으로 주인공의 행동에 동기를 준다",
+      "imageFile": "scene-02.png",
+      "narration": "팀장님이 \"회의실 사람들 점심 메뉴 좀 물어봐\" 하셨거든요.",
+      "subtitle": "팀장님: \"**점심 메뉴** 좀 물어봐\"",
+      "motion": "slow_pan_left"
+    },
+    {
+      "id": "SCENE-03", "order": 3, "durationSec": 5, "type": "STILL",
+      "reason": "복도의 비슷한 두 회의실과 불 켜진 방을 보고 착각한다",
+      "imageFile": "scene-03.png",
+      "narration": "복도에 회의실이 두 개. 불 켜진 쪽에 사람 셋이 앉아 있었죠.",
+      "subtitle": "불 켜진 회의실에 **사람 셋**",
+      "motion": "slow_zoom_out"
+    },
+    {
+      "id": "SCENE-04", "order": 4, "durationSec": 5, "type": "I2V",
+      "reason": "문을 열며 큰소리로 점심 주문을 묻는 행동이 사건의 중심이다",
+      "imageFile": "scene-04.png",
+      "narration": "저는 문을 벌컥 열고 씩씩하게 \"점심 뭐 드세요?\"",
+      "subtitle": "문을 벌컥, \"**점심 뭐 드세요?**\"",
+      "videoPrompt": "Same chibi Korean male office worker opens a conference room door and holds up a blank menu card, cheerful expression quickly turning surprised. Only partial sleeves and hands of interviewers at the meeting table; no other faces. Small hand motion and blink, slow camera push. Preserve exact character, clothing, vertical composition, no text or logos."
+    },
+    {
+      "id": "SCENE-05", "order": 5, "durationSec": 5, "type": "STILL",
+      "reason": "면접관의 대사로 방을 잘못 들어왔다는 반전이 드러난다",
+      "imageFile": "scene-05.png",
+      "narration": "정장 입은 분이 절 보더니 \"지원자분, 앉으세요.\"",
+      "subtitle": "면접관: \"**지원자분, 앉으세요**\"",
+      "motion": "static"
+    },
+    {
+      "id": "SCENE-06", "order": 6, "durationSec": 5, "type": "STILL",
+      "reason": "점심 회의가 옆방이었음을 알아차리고 주인공이 민망해한다",
+      "imageFile": "scene-06.png",
+      "narration": "아, 점심 회의는 바로 옆방. 메뉴판을 든 저는 얼음. 여러분이라면 바로 나갔겠죠?",
+      "subtitle": "점심 회의는 **바로 옆방**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-07", "order": 7, "durationSec": 5, "type": "STILL",
+      "reason": "지원자의 예상 밖 점심 주문으로 긴장을 풀고 웃음을 만든다",
+      "imageFile": "scene-07.png",
+      "narration": "나오려는데 지원자분이 \"저는 제육이요.\" 다 같이 웃었습니다.",
+      "subtitle": "지원자: \"**저는 제육이요**\"",
+      "motion": "slow_pan_left"
+    },
+    {
+      "id": "SCENE-08", "order": 8, "durationSec": 5, "type": "STILL",
+      "reason": "팀장에게 아직 말하지 못했다는 후일담과 댓글 질문",
+      "imageFile": "scene-08.png",
+      "narration": "팀장님께는 아직 말 못 했어요. 여러분이라면 거기서 뭐라고 하셨을까요?",
+      "subtitle": "여러분이라면 **뭐라고 하셨을까요?**",
+      "motion": "slow_zoom_out"
+    }
+  ]
+}

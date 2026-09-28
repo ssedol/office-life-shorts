@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-09-28",
+  "topic": "점심 주문을 물으러 면접 중인 회의실에 잘못 들어간 날",
+  "title": "면접 중인 회의실에서 '점심 뭐 드세요?'라고 한 날",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}
