@@ -1,0 +1,92 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01",
+      "order": 1,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "첫 장면에서 생중계된 과자 봉지 소리의 당혹감을 보여준다",
+      "imageFile": "scene-01.png",
+      "narration": "화상회의에서 과자 봉지 뜯는 소리, 전원에게 생중계된 적 있으세요?",
+      "subtitle": "과자 봉지 소리, **전원 생중계**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02",
+      "order": 2,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "긴 오후 회의와 배고픔을 설정한다",
+      "imageFile": "scene-02.png",
+      "narration": "오후 세 시. 회의가 길어지니까 배가 고프더라고요.",
+      "subtitle": "오후 세 시, **회의는 계속**",
+      "motion": "slow_pan_left"
+    },
+    {
+      "id": "SCENE-03",
+      "order": 3,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "음소거했다고 착각한 채 과자를 집는다",
+      "imageFile": "scene-03.png",
+      "narration": "저는 음소거했다고 믿고 책상 밑 과자를 집었습니다.",
+      "subtitle": "**음소거**했다고 믿고",
+      "motion": "slow_zoom_out"
+    },
+    {
+      "id": "SCENE-04",
+      "order": 4,
+      "durationSec": 5,
+      "type": "I2V",
+      "reason": "과자 봉지를 찢으며 나는 소리가 사건의 핵심 행동이다",
+      "imageFile": "scene-04.png",
+      "narration": "봉지를 살짝 뜯는다는 게, 와그작 소리가 났죠.",
+      "subtitle": "와그작! **봉지 뜯는 소리**",
+      "videoPrompt": "The exact same main character from the source image tears open a snack bag with both hands. Subtle bag crinkle and blink, slow camera push. Preserve face, hair, clothing, employee badge, bold flat illustration. No text, logos, other faces."
+    },
+    {
+      "id": "SCENE-05",
+      "order": 5,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "켜진 마이크 표시를 보고 실수를 알아차린다",
+      "imageFile": "scene-05.png",
+      "narration": "그때 화면에 제 마이크가 빨갛게. 팀장님이 '과자 드세요?' 물으셨어요.",
+      "subtitle": "마이크가 **켜져 있었다**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-06",
+      "order": 6,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "소리를 막으려다 더 큰 소리를 내는 두 번째 실수",
+      "imageFile": "scene-06.png",
+      "narration": "얼떨결에 봉지를 꽉 쥐었더니 더 크게 났죠. 여러분이라면 어떻게 하셨겠어요?",
+      "subtitle": "꽉 쥐었더니 **더 큰 소리**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-07",
+      "order": 7,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "동료의 호의적인 반응으로 긴장을 푼다",
+      "imageFile": "scene-07.png",
+      "narration": "팀장님이 웃으면서, '저도 하나 주세요.' 한마디.",
+      "subtitle": "팀장님: **저도 하나 주세요**",
+      "motion": "slow_pan_right"
+    },
+    {
+      "id": "SCENE-08",
+      "order": 8,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "후일담과 시청자 경험을 묻는다",
+      "imageFile": "scene-08.png",
+      "narration": "그날 이후 회의 전엔 마이크부터 봅니다. 여러분도 이런 적 있나요?",
+      "subtitle": "여러분도 **이런 적 있나요?**",
+      "motion": "slow_zoom_out"
+    }
+  ]
+}

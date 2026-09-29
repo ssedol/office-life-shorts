@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "reviewedAt": "2026-09-29T17:13:46+09:00",
+  "reviewNotes": "장면 생성 직후 프리뷰·렌더·업로드 전 마스터 5장과 8장을 각각 열어 시각 비교. 모두 같은 인물과 동일한 플랫 일러스트 스타일로 판정. 썸네일도 별도 확인.",
+  "masterReferences": [
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-01-shocked.png",
+      "sha256": "28469b406f418d18d316cada92e090a9165ff2dab678131ceca34519877e7f06",
+      "notes": "눈과 얼굴형, 머리, 홍조, 의상, 사원증, 선·색채 기준 참조"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-02-happy-coffee.png",
+      "sha256": "eb8b16205479a84386114c3cd871e9083489382270a68b12cbfb3bdb1d963515",
+      "notes": "눈과 얼굴형, 머리, 홍조, 의상, 사원증, 선·색채 기준 참조"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-03-talking-blank-bubble.png",
+      "sha256": "702a2b104bff68b2d1a47c8b9663fb910a40febd30d9991fb445a295cbe846fc",
+      "notes": "눈과 얼굴형, 머리, 홍조, 의상, 사원증, 선·색채 기준 참조"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-04-side-with-back-figure.png",
+      "sha256": "28e4e85b46e4db3db05910dc58de90ba9c1e5fc7206882970f0c958f947ef5f6",
+      "notes": "눈과 얼굴형, 머리, 홍조, 의상, 사원증, 선·색채 기준 참조"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-05-desk-whiteboard.png",
+      "sha256": "ad8b5f0913eb54c3a27b841b2836338be8f7503edac18e27746edbe914d56b7b",
+      "notes": "눈과 얼굴형, 머리, 홍조, 의상, 사원증, 선·색채 기준 참조"
+    }
+  ],
+  "scenes": [
+    {
+      "file": "scene-01.png",
+      "sha256": "51d12838b7755f31e9c5cc634cb318354e69ed9d30f0c32b8739a8a985618cc3",
+      "matchesMaster": true,
+      "notes": "놀란 큰 검정 타원 눈과 둥근 얼굴, 양 볼 분홍 홍조, 이마를 덮는 짙은 앞머리와 솟은 정수리 가닥이 ref-01과 일치. 흰 셔츠, 네이비 넥타이, 파란 줄과 사람 아이콘 사원증, 굵은 검정 외곽선·플랫 채색 확인."
+    },
+    {
+      "file": "scene-02.png",
+      "sha256": "6f6a8b952619ad3fa978eac90997524bb4fb3676c887cbf78c24ee32f9776c91",
+      "matchesMaster": true,
+      "notes": "웃는 입과 열린 검정 타원 눈은 표정 변화 범위. 둥근 얼굴·양 볼 홍조·삐죽한 정수리·내린 앞머리, 흰 셔츠·네이비 넥타이·파란 사원증, 균일한 검정 선과 면 채색 확인."
+    },
+    {
+      "file": "scene-03.png",
+      "sha256": "fcabde426fb86a641e2a2e2abf55eabb2a26892f06f1bdfe3cd5a15c153ce2a7",
+      "matchesMaster": true,
+      "notes": "과자에 시선을 두어도 눈 크기·얼굴 곡선·앞머리 결·정수리 가닥과 양 볼 홍조가 마스터와 같다. 셔츠, 넥타이, 파란 목걸이와 흰 사원증의 파란 사람 아이콘 및 굵은 외곽선 확인."
+    },
+    {
+      "file": "scene-04.png",
+      "sha256": "faa648d1098b62ffbe3fd4485d312d9d512c9a73a54a784f28d97c5ee564a4f9",
+      "matchesMaster": true,
+      "notes": "찡그려 감긴 눈만 장면 표정 차이. 둥근 턱과 귀, 같은 앞머리와 솟은 머리카락, 양 볼 홍조, 흰 와이셔츠·네이비 넥타이·파란 줄/사람 아이콘 사원증, 검정 외곽선과 플랫 채색 확인."
+    },
+    {
+      "file": "scene-05.png",
+      "sha256": "1e7ababf9ffa590c33658761aba7c9b2b69cfeac594ad6dc1f4118b6005b5144",
+      "matchesMaster": true,
+      "notes": "놀란 검정 타원 눈·둥근 얼굴, 앞머리와 정수리 가닥, 양쪽 볼 분홍 홍조가 마스터와 같다. 흰 셔츠와 진한 네이비 넥타이, 파란 줄과 흰 사람 아이콘 사원증, 균일한 굵은 선 확인."
+    },
+    {
+      "file": "scene-06.png",
+      "sha256": "d7a2ddc8e03222c2290df0b814142b7d688624d4ead332ba69d2e0edba059f32",
+      "matchesMaster": true,
+      "notes": "불안한 표정에도 눈 타원·얼굴형·검은 앞머리와 정수리 가닥·양 볼 홍조가 일치. 과자 봉지가 일부 넥타이를 가리지만 아래 네이비 넥타이와 파란 목걸이, 사람 아이콘 사원증, 검정 선·플랫 채색 확인."
+    },
+    {
+      "file": "scene-07.png",
+      "sha256": "30bbd44a40ea271dd7fd30c2aee09ec4f90d65a067a8c418a5c2f4ff4e72e097",
+      "matchesMaster": true,
+      "notes": "수줍은 표정 변화 외에 둥근 얼굴과 검정 타원 눈, 짙은 앞머리·정수리 가닥, 두 볼 홍조, 흰 셔츠·네이비 넥타이·파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선이 동일."
+    },
+    {
+      "file": "scene-08.png",
+      "sha256": "b25f0663e389507e923cbbfef59a3de093e8fb883257b94dfd8308b5be817a56",
+      "matchesMaster": true,
+      "notes": "웃는 눈과 볼 표정은 허용 범위. 둥근 얼굴, 덮인 앞머리·솟은 정수리 가닥, 양 볼 홍조, 흰 셔츠·네이비 넥타이·파란 줄과 사람 아이콘 사원증, 평면 색면과 선 굵기 확인."
+    }
+  ],
+  "thumbnail": {
+    "file": "thumbnail-final.png",
+    "sha256": "1f0cfcc508e641a08dc95ad64c0ddf1d17745c9e223d3469d911a33b2a920b0f",
+    "matchesMaster": true,
+    "notes": "마스터 5장과 대조: 검정 타원 눈, 둥근 얼굴, 솟은 정수리와 이마 앞머리, 양 볼 홍조, 흰 와이셔츠·네이비 넥타이·파란 목걸이/사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색이 동일. 제목·인물 정상 표시."
+  }
+}

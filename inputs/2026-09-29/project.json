@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-09-29",
+  "topic": "화상회의에서 음소거인 줄 알고 과자 봉지를 뜯은 날",
+  "title": "화상회의 음소거인 줄 알고 과자 봉지 뜯었다가",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}
