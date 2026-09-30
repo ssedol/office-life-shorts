@@ -29,6 +29,7 @@ class UploadMetadata:
     category_id: str = "22"
     privacy_status: str = "private"
     made_for_kids: bool = False
+    contains_synthetic_media: bool = False
     comment: str | None = None
 
     def validate(self) -> None:
@@ -133,6 +134,12 @@ def load_metadata(
         privacy_status=str(privacy),
         made_for_kids=bool(
             episode.get("madeForKids", config.get("madeForKids", False))
+        ),
+        contains_synthetic_media=bool(
+            episode.get(
+                "containsSyntheticMedia",
+                config.get("containsSyntheticMedia", False),
+            )
         ),
         comment=(episode.get("comment") or "").strip() or None,
     )

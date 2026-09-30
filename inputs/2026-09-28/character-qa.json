@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "approved": false,
+  "reviewedAt": "2026-09-29T16:10:00+09:00",
+  "reviewBasis": "assets/character의 마스터 5장과 scene-01~08을 육안 대조",
+  "masterReferences": [
+    {
+      "file": "assets/character/ref-01-shocked.png",
+      "sha256": "28469b406f418d18d316cada92e090a9165ff2dab678131ceca34519877e7f06"
+    },
+    {
+      "file": "assets/character/ref-02-happy-coffee.png",
+      "sha256": "eb8b16205479a84386114c3cd871e9083489382270a68b12cbfb3bdb1d963515"
+    },
+    {
+      "file": "assets/character/ref-03-talking-blank-bubble.png",
+      "sha256": "702a2b104bff68b2d1a47c8b9663fb910a40febd30d9991fb445a295cbe846fc"
+    },
+    {
+      "file": "assets/character/ref-04-side-with-back-figure.png",
+      "sha256": "28e4e85b46e4db3db05910dc58de90ba9c1e5fc7206882970f0c958f947ef5f6"
+    },
+    {
+      "file": "assets/character/ref-05-desk-whiteboard.png",
+      "sha256": "ad8b5f0913eb54c3a27b841b2836338be8f7503edac18e27746edbe914d56b7b"
+    }
+  ],
+  "scenes": [
+    {
+      "file": "scene-01.png",
+      "sha256": "faac71f74539214f848170fc30925e42ca8ae3eccf1f8ff5f0e29baeb54196bd",
+      "matchesMaster": false,
+      "notes": "머리가 과도하게 뾰족하고 얼굴형·눈 비율·사원증·선 굵기가 마스터와 다름"
+    },
+    {
+      "file": "scene-02.png",
+      "sha256": "66f2866da367fc4d07d0205157b6891f831e48389b8f095731205a84ab045bf4",
+      "matchesMaster": false,
+      "notes": "머리 실루엣과 얼굴 비율, 외곽선 스타일이 마스터에서 벗어남"
+    },
+    {
+      "file": "scene-03.png",
+      "sha256": "f34ea2cd02d0105398e5a879abf385edc58d211179fccc7e95d14b26b82de1c4",
+      "matchesMaster": false,
+      "notes": "머리 실루엣과 얼굴 비율, 외곽선 스타일이 마스터에서 벗어남"
+    },
+    {
+      "file": "scene-04.png",
+      "sha256": "95a64f1fec35d9ecfe57d6f24ecdad02e4211d135545b81daeb9dba10122e04b",
+      "matchesMaster": false,
+      "notes": "머리 실루엣과 얼굴 비율, 외곽선 스타일이 마스터에서 벗어남"
+    },
+    {
+      "file": "scene-05.png",
+      "sha256": "1885789793c8e9f6e0c46fb2980b8096ec83c59b25aa42784c881bf4431a41d2",
+      "matchesMaster": false,
+      "notes": "머리 실루엣과 얼굴 비율, 외곽선 스타일이 마스터에서 벗어남"
+    },
+    {
+      "file": "scene-06.png",
+      "sha256": "7dab7839008c78c44b62b09c65c463bac30890ca0391948a9b9fc6982859f883",
+      "matchesMaster": false,
+      "notes": "머리 실루엣과 얼굴 비율, 외곽선 스타일이 마스터에서 벗어남"
+    },
+    {
+      "file": "scene-07.png",
+      "sha256": "6c357241dfbd075465f9f9ac0ac87161487deb87f94738ab00474caf03bb6e71",
+      "matchesMaster": false,
+      "notes": "머리 실루엣과 얼굴 비율, 외곽선 스타일이 마스터에서 벗어남"
+    },
+    {
+      "file": "scene-08.png",
+      "sha256": "e33f61bc181d999eec2d4b9d883ff3d1c378fe19c106810821fc468abdbe9d93",
+      "matchesMaster": false,
+      "notes": "머리 실루엣과 얼굴 비율, 외곽선 스타일이 마스터에서 벗어남"
+    }
+  ],
+  "thumbnail": {
+    "file": "thumbnail.png",
+    "sha256": "900bbb8b0308c75089a7e85a4eebe54a0a3b21e853d096bf790f80b921270ec3",
+    "matchesMaster": false,
+    "notes": "노란 커버 구성은 맞지만 인물의 머리 실루엣과 얼굴 비율이 마스터에서 벗어남"
+  }
+}

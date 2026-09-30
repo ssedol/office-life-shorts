@@ -1,0 +1,92 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01",
+      "order": 1,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "훅. 담백한 경고처럼 시작하지만 파일명까지요에서 사고 냄새를 만든다",
+      "imageFile": "scene-01.png",
+      "narration": "첨부파일을 꼭 확인하세요. 파일명까지요.",
+      "subtitle": "첨부파일을 꼭 확인하세요. **파일명까지요**.",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02",
+      "order": 2,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "마감 직전의 급한 손동작과 표정으로 실수의 원인을 보여준다",
+      "imageFile": "scene-02.png",
+      "narration": "그날 저는 마감 3분 전에 부장님께 보고서를 보냈습니다.",
+      "subtitle": "마감 **3분 전** 보고서 전송",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-03",
+      "order": 3,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "공손한 본문과 실제 속마음 파일명의 대비를 깔아준다",
+      "imageFile": "scene-03.png",
+      "narration": "메일 본문은 완벽했어요. \"검토 부탁드립니다.\" 진짜 사회생활 그 자체.",
+      "subtitle": "본문은 완벽했습니다. **검토 부탁드립니다**.",
+      "motion": "slow_zoom_out"
+    },
+    {
+      "id": "SCENE-04",
+      "order": 4,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "보내고 나서야 파일명을 보는 아차 순간",
+      "imageFile": "scene-04.png",
+      "narration": "근데 보내고 나서야 첨부파일명이 보였습니다.",
+      "subtitle": "보내고 나서야 보인 **파일명**",
+      "motion": "static"
+    },
+    {
+      "id": "SCENE-05",
+      "order": 5,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "이 편의 정점. 파일명 자체가 punchline이다",
+      "imageFile": "scene-05.png",
+      "narration": "최종, 진짜 최종, 니가 해봐라 부장놈아, 피피티엑스.",
+      "subtitle": "최종_진짜최종_**니가해봐라부장놈아**.pptx",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-06",
+      "order": 6,
+      "durationSec": 5,
+      "type": "I2V",
+      "reason": "메일 회수 버튼을 누르는 손과 이미 읽음 표시가 긴장감을 만든다",
+      "imageFile": "scene-06.png",
+      "narration": "메일 회수를 눌렀지만, 그 전에 이미 읽음 표시가 떴습니다. 여러분도 이러면 손 얼지 않나요?",
+      "subtitle": "메일 회수보다 빠른 **읽음**",
+      "videoPrompt": "A young Korean office worker at a desk frantically clicks a laptop trackpad, panicked expression, black scribble cloud above the head, a speech bubble reading '이미 읽음'. Keep the exact character design, outfit, office background, and composition unchanged. Add subtle blinking, quick repeated clicking motion, and a very slow camera push-in. Do not add any new text."
+    },
+    {
+      "id": "SCENE-07",
+      "order": 7,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "부장님 답장 한 줄로 사건을 마무리한다",
+      "imageFile": "scene-07.png",
+      "narration": "5분 뒤 부장님 답장. \"그래. 내가 해볼게.\"",
+      "subtitle": "부장님 답장. \"**내가 해볼게**\"",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-08",
+      "order": 8,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "교훈과 댓글 유도를 같이 넣는다",
+      "imageFile": "scene-08.png",
+      "narration": "그 뒤로 저는 메일 보내기 전에 파일명부터 세 번 봅니다. 여러분은 파일명 사고 내본 적 있으세요?",
+      "subtitle": "여러분은 **파일명 사고** 내본 적 있으세요?",
+      "motion": "slow_zoom_in"
+    }
+  ]
+}

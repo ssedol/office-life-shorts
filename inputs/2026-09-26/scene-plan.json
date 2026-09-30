@@ -1,0 +1,92 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01",
+      "order": 1,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "출근 게이트와 경비원 호출을 한 문장에 제시해 사고의 결말을 궁금하게 만든다",
+      "imageFile": "scene-01.png",
+      "narration": "월요일 아침, 회사 출입문이 고장 난 줄 알고 경비원까지 불렀습니다. 혹시 이런 적 있으세요?",
+      "subtitle": "출입문 고장인 줄 알고 **경비원까지** 불렀습니다",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02",
+      "order": 2,
+      "durationSec": 5,
+      "type": "I2V",
+      "reason": "카드를 반복해서 찍는 손동작과 닫힌 게이트가 첫 실패를 즉시 보여준다",
+      "imageFile": "scene-02.png",
+      "narration": "카드를 찍었는데 문이 안 열렸어요. 삑 소리만 세 번 났습니다.",
+      "subtitle": "문은 그대로, **삑 소리만 세 번**",
+      "videoPrompt": "The same young Korean office worker repeatedly taps a blue transit card on a gray office entry gate reader, but the gate stays closed. Keep the exact character design, outfit, yellow-accented office lobby, and vertical composition unchanged. Add three quick card tapping motions, subtle blinking, and a very slow camera push-in. No text, letters, numbers, logos, or new objects."
+    },
+    {
+      "id": "SCENE-03",
+      "order": 3,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "등 뒤에 늘어난 출근 줄과 리더기를 닦는 행동으로 민망함을 키운다",
+      "imageFile": "scene-03.png",
+      "narration": "뒤에 출근 줄은 길어지고, 저는 카드 리더기를 소매로 닦기 시작했죠.",
+      "subtitle": "뒤에는 출근 줄, 저는 **리더기 청소**",
+      "motion": "slow_zoom_out"
+    },
+    {
+      "id": "SCENE-04",
+      "order": 4,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "경비원에게 고장이라고 말하는 실제 대사로 실수의 확신을 보여준다",
+      "imageFile": "scene-04.png",
+      "narration": "결국 경비원 아저씨한테 말했습니다. \"카드가 고장 난 것 같아요.\"",
+      "subtitle": "\"**카드가 고장** 난 것 같아요\"",
+      "motion": "slow_pan_left"
+    },
+    {
+      "id": "SCENE-05",
+      "order": 5,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "경비원이 카드를 확인하는 짧은 정적으로 반전 직전의 긴장을 만든다",
+      "imageFile": "scene-05.png",
+      "narration": "아저씨가 제 카드를 앞뒤로 보더니, 저를 한 번 쳐다봤습니다.",
+      "subtitle": "카드를 보더니 저를 **한 번** 봤습니다",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-06",
+      "order": 6,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "교통카드였다는 정체 공개가 이야기의 첫 번째 정점이다",
+      "imageFile": "scene-06.png",
+      "narration": "그러고는 조용히 말씀하셨어요. \"이건 사원증이 아니라 교통카드인데요.\"",
+      "subtitle": "\"사원증이 아니라 **교통카드**인데요\"",
+      "motion": "static"
+    },
+    {
+      "id": "SCENE-07",
+      "order": 7,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "환승이라는 짧은 농담으로 사건을 기억에 남는 한 줄로 마무리한다",
+      "imageFile": "scene-07.png",
+      "narration": "제가 사원증을 꺼내자 한마디 더 하셨습니다. \"여기서는 환승 안 됩니다.\"",
+      "subtitle": "\"여기서는 **환승 안 됩니다**\"",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-08",
+      "order": 8,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "사원증을 확인하는 새 습관과 시청자 질문으로 자연스럽게 댓글을 유도한다",
+      "imageFile": "scene-08.png",
+      "narration": "그날부터 출입문 앞에서는 카드 색부터 봅니다. 여러분도 다른 카드 찍어본 적 있나요? 댓글로 남겨주세요.",
+      "subtitle": "다른 카드 찍어봤나요? **댓글로 남겨주세요**",
+      "motion": "slow_zoom_in"
+    }
+  ]
+}

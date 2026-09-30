@@ -997,8 +997,12 @@ MVP 완료 조건:
 - **DEC-017** *(2026-09-21)* **자동 YouTube 업로드를 범위에 넣는다.** §33-7을 대체한다.
   업로드 실행도 로컬 작업자가 맡는다(`tools/upload.py`).
   단 감사(audit)를 통과하지 않은 API 프로젝트의 업로드는 유튜브가 비공개로 잠그므로
-  기본 `privacyStatus`는 `private`이고, 공개 전환·댓글 고정·AI 공시는
-  API로 할 수 없어 사람이 눌러야 한다.
+  당시 기본 `privacyStatus`는 `private`였고 공개 전환·댓글 고정·AI 공시는
+  사람이 누르는 것으로 시작했다. 현재 운영 방식은 아래 DEC-019가 대체한다.
+
+- **DEC-019** *(2026-09-26)* **AI 생성 콘텐츠 표시를 업로드 API에 포함한다.**
+  YouTube Data API가 지원하는 `status.containsSyntheticMedia`를 사용한다.
+  `config/upload.json`의 채널 기본값은 `true`다. 댓글 고정만 사람이 직접 누른다.
 
 ---
 
@@ -1037,9 +1041,9 @@ Preview
         ↓
 Final
         ↓
-업로드 (tools/upload.py, 기본 비공개)
+업로드 (tools/upload.py, 기본 공개 + AI 생성 콘텐츠 표시)
         ↓
-사람이 누를 것: 공개 전환 / 댓글 고정 / AI 공시
+사람이 누를 것: 댓글 고정
 ```
 
 이 구조가 v1.1의 SSOT다.
@@ -1055,4 +1059,3 @@ Final
 3. 자막 폰트 및 정확한 위치
 4. BGM/SFX를 MVP에 포함할지
 5. LTX 2.5 최종 ComfyUI Workflow JSON
-

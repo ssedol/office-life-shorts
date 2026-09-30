@@ -7,16 +7,26 @@ videos.insert에 실려 나가는 본문이 맞는지만 확인한다.
 from __future__ import annotations
 
 import json
+from types import SimpleNamespace
 
 import pytest
 
 from src.errors import UploadError
+from src.upload.youtube import THUMBNAIL_SIZE_LIMIT, YouTubeUploader
 from src.upload.metadata import (
     DESCRIPTION_LIMIT,
     TAGS_TOTAL_LIMIT,
     TITLE_LIMIT,
     UploadMetadata,
     load_metadata,
+)
+from tools.upload import (
+    MASTER_CHARACTER_FILES,
+    _assert_character_qa,
+    _assert_thumbnail_recorded,
+    _record_thumbnail_set,
+    _resolve_thumbnail,
+    _sha256,
 )
 
 CONFIG = {
@@ -117,6 +127,24 @@ def test_저장소_기본_공개설정은_public이다(repo_root):
     assert config["privacyStatus"] == "public"
 
 
+def test_AI_생성_콘텐츠_표시는_config에서_내려온다(tmp_path):
+    cfg = dict(CONFIG)
+    cfg["containsSyntheticMedia"] = True
+    _write(tmp_path, "upload.json", {"title": "t"})
+    assert load_metadata(tmp_path, cfg, {}).contains_synthetic_media is True
+
+
+def test_회차별로_AI_생성_콘텐츠_표시를_덮어쓸_수_있다(tmp_path):
+    cfg = dict(CONFIG)
+    cfg["containsSyntheticMedia"] = True
+    _write(
+        tmp_path,
+        "upload.json",
+        {"title": "t", "containsSyntheticMedia": False},
+    )
+    assert load_metadata(tmp_path, cfg, {}).contains_synthetic_media is False
+
+
 @pytest.mark.parametrize(
     "meta, 걸리는_말",
     [
@@ -154,3 +182,147 @@ def test_upload_json이_없어도_동작한다(tmp_path):
     assert meta.title == "제목만"
     assert meta.tags == ["직장생활", "오늘도출근"]
     assert meta.comment is None
+
+
+def test_썸네일은_final_파일을_우선한다(tmp_path):
+    (tmp_path / "thumbnail.png").write_bytes(b"plain")
+    final = tmp_path / "thumbnail-final.png"
+    final.write_bytes(b"final")
+    args = SimpleNamespace(no_thumbnail=False, thumbnail=None)
+    assert _resolve_thumbnail(args, tmp_path) == final
+
+
+def test_썸네일_API는_2MB_초과를_업로드_전에_막는다(tmp_path):
+    image = tmp_path / "thumbnail.png"
+    image.write_bytes(b"x" * (THUMBNAIL_SIZE_LIMIT + 1))
+    uploader = YouTubeUploader({}, root=tmp_path)
+    with pytest.raises(UploadError) as exc:
+        uploader.set_thumbnail("video-id", image)
+    assert "2MB" in str(exc.value)
+
+
+def test_썸네일_적용_기록이_있어야_완료로_볼_수_있다(tmp_path):
+    result = tmp_path / "upload-result.json"
+    image = tmp_path / "thumbnail.png"
+    image.write_bytes(b"image")
+
+    _record_thumbnail_set(result, image)
+    data = json.loads(result.read_text(encoding="utf-8"))
+
+    assert data["thumbnailSet"] is True
+    assert data["thumbnailFile"] == str(image.resolve())
+    assert data["thumbnailSetAt"]
+    _assert_thumbnail_recorded(result, image)
+
+
+def test_썸네일_적용_기록이_없으면_성공_검증이_실패한다(tmp_path):
+    result = tmp_path / "upload-result.json"
+    image = tmp_path / "thumbnail.png"
+    image.write_bytes(b"image")
+    result.write_text(json.dumps({"thumbnailSet": False}), encoding="utf-8")
+
+    with pytest.raises(UploadError) as exc:
+        _assert_thumbnail_recorded(result, image)
+
+    assert "커스텀 썸네일 적용 확인" in str(exc.value)
+
+
+def _write_character_qa(tmp_path, *, approved=True, failed_scene=None):
+    input_dir = tmp_path / "inputs" / "2026-09-29"
+    master_dir = tmp_path / "assets" / "character"
+    input_dir.mkdir(parents=True)
+    master_dir.mkdir(parents=True)
+
+    scenes = []
+    for index in range(1, 9):
+        name = f"scene-{index:02d}.png"
+        path = input_dir / name
+        path.write_bytes(f"scene-{index}".encode())
+        scenes.append(
+            {
+                "file": name,
+                "sha256": _sha256(path),
+                "matchesMaster": name != failed_scene,
+                "notes": "마스터의 얼굴·머리·의상·사원증·선 굵기와 일치",
+            }
+        )
+
+    masters = []
+    for name in MASTER_CHARACTER_FILES:
+        path = master_dir / name
+        path.write_bytes(name.encode())
+        masters.append(
+            {
+                "file": f"assets/character/{name}",
+                "sha256": _sha256(path),
+            }
+        )
+
+    thumbnail = input_dir / "thumbnail.png"
+    thumbnail.write_bytes(b"thumbnail")
+
+    _write(
+        input_dir,
+        "character-qa.json",
+        {
+            "version": 1,
+            "approved": approved,
+            "reviewedAt": "2026-09-29T10:00:00+09:00",
+            "masterReferences": masters,
+            "scenes": scenes,
+            "thumbnail": {
+                "file": "thumbnail.png",
+                "sha256": _sha256(thumbnail),
+                "matchesMaster": True,
+                "notes": "마스터의 얼굴·머리·의상·사원증·선 굵기와 일치",
+            },
+        },
+    )
+    return input_dir
+
+
+def test_캐릭터_검수_기록과_현재_이미지가_일치하면_통과한다(tmp_path):
+    input_dir = _write_character_qa(tmp_path)
+    _assert_character_qa(input_dir, tmp_path, input_dir / "thumbnail.png")
+
+
+def test_캐릭터가_다른_장면이_하나라도_있으면_업로드를_막는다(tmp_path):
+    input_dir = _write_character_qa(tmp_path, failed_scene="scene-01.png")
+
+    with pytest.raises(UploadError) as exc:
+        _assert_character_qa(input_dir, tmp_path)
+
+    assert "scene-01.png이 마스터 캐릭터와 일치 판정을 받지 못했습니다" in str(exc.value)
+
+
+def test_썸네일_캐릭터가_다르면_업로드를_막는다(tmp_path):
+    input_dir = _write_character_qa(tmp_path)
+    qa_path = input_dir / "character-qa.json"
+    data = json.loads(qa_path.read_text(encoding="utf-8"))
+    data["thumbnail"]["matchesMaster"] = False
+    _write(input_dir, "character-qa.json", data)
+
+    with pytest.raises(UploadError) as exc:
+        _assert_character_qa(input_dir, tmp_path, input_dir / "thumbnail.png")
+
+    assert "썸네일이 마스터 캐릭터와 일치 판정을 받지 못했습니다" in str(exc.value)
+
+
+def test_캐릭터_검수_뒤_이미지가_바뀌면_업로드를_막는다(tmp_path):
+    input_dir = _write_character_qa(tmp_path)
+    (input_dir / "scene-08.png").write_bytes(b"changed")
+
+    with pytest.raises(UploadError) as exc:
+        _assert_character_qa(input_dir, tmp_path)
+
+    assert "scene-08.png이 캐릭터 검수 후 변경됐습니다" in str(exc.value)
+
+
+def test_캐릭터_검수_파일이_없으면_업로드를_막는다(tmp_path):
+    input_dir = tmp_path / "inputs" / "2026-09-29"
+    input_dir.mkdir(parents=True)
+
+    with pytest.raises(UploadError) as exc:
+        _assert_character_qa(input_dir, tmp_path)
+
+    assert "마스터 캐릭터 일치 검수 기록이 없습니다" in str(exc.value)

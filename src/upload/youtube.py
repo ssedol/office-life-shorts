@@ -11,6 +11,7 @@ token.json의 refresh token으로 갱신한다. client_secret.json과 token.json
 from __future__ import annotations
 
 import logging
+import time
 from pathlib import Path
 
 from ..errors import DependencyMissingError, UploadError
@@ -25,6 +26,15 @@ SCOPES = [
 
 #: 한 번에 올리는 덩어리. 재개 가능 업로드라 중간에 끊겨도 이어서 간다.
 CHUNK_SIZE = 4 * 1024 * 1024
+
+# YouTube Data API thumbnails.set 제한. 세로(9:16) 이미지도 허용되며,
+# YouTube가 웹용 16:9 파생 썸네일을 만들 때 좌우 배경을 자동으로 채운다.
+THUMBNAIL_SIZE_LIMIT = 2 * 1024 * 1024
+THUMBNAIL_MIME_TYPES = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+}
 
 
 def _import_google():
@@ -175,6 +185,7 @@ class YouTubeUploader:
             "status": {
                 "privacyStatus": metadata.privacy_status,
                 "selfDeclaredMadeForKids": metadata.made_for_kids,
+                "containsSyntheticMedia": metadata.contains_synthetic_media,
             },
         }
 
@@ -208,6 +219,86 @@ class YouTubeUploader:
         if not video_id:
             raise UploadError("업로드 응답에 videoId가 없습니다", details=[str(response)[:500]])
         return video_id
+
+    def processing_status(self, video_id: str) -> str | None:
+        """영상 처리 상태를 읽는다. 아직 항목이 없으면 None을 돌려준다."""
+        _, _, _, _, HttpError, _ = _import_google()
+        try:
+            response = (
+                self._client()
+                .videos()
+                .list(part="processingDetails", id=video_id)
+                .execute()
+            )
+        except HttpError as exc:
+            raise UploadError(
+                "영상 처리 상태를 읽지 못했습니다",
+                details=_http_error_details(exc),
+            ) from exc
+        items = response.get("items") or []
+        if not items:
+            return None
+        return items[0].get("processingDetails", {}).get("processingStatus")
+
+    def wait_until_processed(
+        self,
+        video_id: str,
+        *,
+        timeout_sec: int = 600,
+        poll_sec: int = 5,
+    ) -> None:
+        """커스텀 썸네일을 넣기 전에 YouTube 영상 처리가 끝날 때까지 기다린다."""
+        deadline = time.monotonic() + timeout_sec
+        last_status = None
+        while time.monotonic() < deadline:
+            last_status = self.processing_status(video_id)
+            if last_status == "succeeded":
+                return
+            if last_status in {"failed", "rejected", "terminated"}:
+                raise UploadError(
+                    "YouTube 영상 처리가 실패했습니다",
+                    details=[f"videoId: {video_id}", f"processingStatus: {last_status}"],
+                )
+            time.sleep(poll_sec)
+        raise UploadError(
+            "YouTube 영상 처리를 기다리다 시간이 초과됐습니다",
+            details=[f"videoId: {video_id}", f"마지막 상태: {last_status or '확인되지 않음'}"],
+        )
+
+    def set_thumbnail(self, video_id: str, image_path: Path) -> dict:
+        """JPG/PNG 커스텀 썸네일을 설정한다. 9:16 원본도 그대로 허용한다."""
+        image_path = Path(image_path)
+        if not image_path.is_file():
+            raise UploadError(f"썸네일 파일이 없습니다: {image_path}")
+
+        mime_type = THUMBNAIL_MIME_TYPES.get(image_path.suffix.lower())
+        if mime_type is None:
+            raise UploadError(
+                "지원하지 않는 썸네일 형식입니다",
+                details=[f"파일: {image_path}", "JPG 또는 PNG 파일을 사용하세요"],
+            )
+
+        size = image_path.stat().st_size
+        if size > THUMBNAIL_SIZE_LIMIT:
+            raise UploadError(
+                "썸네일이 YouTube API의 2MB 제한을 넘었습니다",
+                details=[f"파일: {image_path}", f"크기: {size / (1024 * 1024):.2f}MB"],
+            )
+
+        _, _, _, _, HttpError, MediaFileUpload = _import_google()
+        media = MediaFileUpload(str(image_path), mimetype=mime_type, resumable=False)
+        try:
+            return (
+                self._client()
+                .thumbnails()
+                .set(videoId=video_id, media_body=media)
+                .execute()
+            )
+        except HttpError as exc:
+            raise UploadError(
+                "커스텀 썸네일 API 설정에 실패했습니다",
+                details=_http_error_details(exc),
+            ) from exc
 
     # --- 첫 댓글 ------------------------------------------------------
 
