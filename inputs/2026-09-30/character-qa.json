@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "reviewedAt": "2026-09-30T17:19:27+09:00",
+  "reviewNotes": "8장 생성 직후 프리뷰·최종 렌더·업로드 전 마스터 5장과 각 장면 8장을 실제 파일로 다시 열어 한 장씩 비교. 눈·얼굴형, 이마 앞머리와 정수리 가닥, 양 볼 홍조, 흰 와이셔츠와 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색 모두 일치. 커버도 별도 시각 대조.",
+  "masterReferences": [
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-01-shocked.png",
+      "sha256": "28469b406f418d18d316cada92e090a9165ff2dab678131ceca34519877e7f06",
+      "notes": "눈·얼굴형, 앞머리·정수리 가닥, 양 볼 홍조, 의상·사원증·선·채색의 실물 대조 기준"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-02-happy-coffee.png",
+      "sha256": "eb8b16205479a84386114c3cd871e9083489382270a68b12cbfb3bdb1d963515",
+      "notes": "눈·얼굴형, 앞머리·정수리 가닥, 양 볼 홍조, 의상·사원증·선·채색의 실물 대조 기준"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-03-talking-blank-bubble.png",
+      "sha256": "702a2b104bff68b2d1a47c8b9663fb910a40febd30d9991fb445a295cbe846fc",
+      "notes": "눈·얼굴형, 앞머리·정수리 가닥, 양 볼 홍조, 의상·사원증·선·채색의 실물 대조 기준"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-04-side-with-back-figure.png",
+      "sha256": "28e4e85b46e4db3db05910dc58de90ba9c1e5fc7206882970f0c958f947ef5f6",
+      "notes": "눈·얼굴형, 앞머리·정수리 가닥, 양 볼 홍조, 의상·사원증·선·채색의 실물 대조 기준"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-05-desk-whiteboard.png",
+      "sha256": "ad8b5f0913eb54c3a27b841b2836338be8f7503edac18e27746edbe914d56b7b",
+      "notes": "눈·얼굴형, 앞머리·정수리 가닥, 양 볼 홍조, 의상·사원증·선·채색의 실물 대조 기준"
+    }
+  ],
+  "scenes": [
+    {
+      "file": "scene-01.png",
+      "sha256": "157616bf85ae3e7d8ebd3a47cede270d0c2393cd9228659f3e2e5ee893a98c45",
+      "matchesMaster": true,
+      "notes": "놀란 큰 검정 타원 눈과 둥근 턱, 이마 앞머리와 정수리 솟은 가닥, 양 볼 분홍 홍조가 ref-01과 일치. 흰 셔츠·넓은 네이비 넥타이·파란 목걸이와 파란 사람 아이콘 사원증, 굵은 검정 외곽선·플랫 채색 확인."
+    },
+    {
+      "file": "scene-02.png",
+      "sha256": "c15d0d19009e2170cbe34d583c984c85fb1856f75a5fc2f3b993220e62b79f31",
+      "matchesMaster": true,
+      "notes": "걱정스러운 눈썹만 표정 변화. 둥근 얼굴과 큰 타원 눈, 짙은 부스스한 앞머리·정수리 가닥, 양 볼 홍조, 흰 셔츠·네이비 넥타이·파란 사람 아이콘 사원증과 두꺼운 선이 마스터와 같다."
+    },
+    {
+      "file": "scene-03.png",
+      "sha256": "bfd48cf6f0e3eb51d6149b4716bf99b26d5f7f9a2f10442059791fcd66d53932",
+      "matchesMaster": true,
+      "notes": "배터리·USB 소품을 들어도 얼굴 비율과 검정 타원 눈, 이마 앞머리·정수리 가닥, 양 볼 홍조가 유지된다. 흰 셔츠·넓은 네이비 넥타이·파란 줄과 사람 아이콘 사원증, 플랫 채색 확인."
+    },
+    {
+      "file": "scene-04.png",
+      "sha256": "b9b11029397b5cfd0d24bae7abff229de49925093a8921599839bfbbb82150a4",
+      "matchesMaster": true,
+      "notes": "통화하며 입을 벌린 표정 외에 둥근 얼굴·눈 비율·앞머리와 정수리 머리카락·두 볼 홍조가 동일. 흰 셔츠, 네이비 넥타이, 파란 목걸이/사람 아이콘 사원증과 굵은 검정 선 확인."
+    },
+    {
+      "file": "scene-05.png",
+      "sha256": "4c7b3c3cf23683961696bccaab7ff7df5962bab0f3e1e5bbd002feea2b1f1848",
+      "matchesMaster": true,
+      "notes": "IT 담당자는 손과 소매만 보인다. 주인공의 검정 타원 눈·둥근 얼굴·짙은 앞머리와 정수리 가닥·양 볼 홍조·흰 셔츠·네이비 넥타이·파란 사원증·두꺼운 외곽선이 마스터와 일치."
+    },
+    {
+      "file": "scene-06.png",
+      "sha256": "624980984a6dd101dc34ad9c1d11323afb0dda2fb92f32f7fa6654cc2c297b74",
+      "matchesMaster": true,
+      "notes": "놀란 표정의 눈·둥근 얼굴·앞머리와 솟은 정수리 가닥, 양 볼 분홍 홍조가 ref-01과 같다. 두 마우스가 보여도 흰 셔츠·네이비 넥타이·파란 목걸이/사람 아이콘 사원증과 플랫 스타일 유지."
+    },
+    {
+      "file": "scene-07.png",
+      "sha256": "978567769dbeabe655913d246cbe2bd9b9ecca300d853eb641a5c592b0eb64d0",
+      "matchesMaster": true,
+      "notes": "민망한 표정에도 눈 타원·얼굴형·정수리 가닥과 앞머리·양 볼 홍조가 동일. 흰 셔츠·네이비 넥타이·파란 줄과 흰색 사람 아이콘 사원증, 일관된 굵은 선 확인."
+    },
+    {
+      "file": "scene-08.png",
+      "sha256": "8c4c15d5028d19f8daf7bc3f1b31e06bf080252ae05e9293aafe69ce846c9e5e",
+      "matchesMaster": true,
+      "notes": "작게 웃는 입만 변화. 검정 타원 눈, 둥근 얼굴, 부스스한 앞머리와 정수리 가닥, 양 볼 홍조, 흰 셔츠·넓은 네이비 넥타이·파란 목걸이/사람 아이콘 사원증·플랫 채색 일치."
+    }
+  ],
+  "thumbnail": {
+    "file": "thumbnail-final.png",
+    "sha256": "55b2e6909911b9c2ede338d237913d295b25f875aeab6b60774b52a4d92c0628",
+    "matchesMaster": true,
+    "notes": "마스터 5장과 대조: 검정 타원 눈·둥근 얼굴, 정수리 가닥과 이마 앞머리, 두 볼 홍조, 흰 와이셔츠·넓은 네이비 넥타이, 파란 목걸이와 파란 사람 아이콘이 있는 흰 사원증, 검정 굵은 외곽선과 플랫 채색 일치. 두 줄 제목과 인물도 정상 표시."
+  }
+}

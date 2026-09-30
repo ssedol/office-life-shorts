@@ -1,0 +1,92 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01",
+      "order": 1,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "IT팀을 부른 뒤 옆자리 마우스를 잡고 있던 반전을 훅으로 제시한다",
+      "imageFile": "scene-01.png",
+      "narration": "IT팀까지 불렀는데, 제 손이 옆자리 마우스를 잡고 있었다면 믿으시겠어요?",
+      "subtitle": "IT팀 불렀는데 **옆자리 마우스**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02",
+      "order": 2,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "출근 직후 커서가 움직이지 않는 상황",
+      "imageFile": "scene-02.png",
+      "narration": "월요일 아침, 아무리 마우스를 움직여도 커서가 꼼짝 안 했습니다.",
+      "subtitle": "월요일 아침 **커서 정지**",
+      "motion": "slow_pan_left"
+    },
+    {
+      "id": "SCENE-03",
+      "order": 3,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "배터리와 연결을 확인해도 해결되지 않는다",
+      "imageFile": "scene-03.png",
+      "narration": "배터리를 갈고 연결도 다시 해 봤죠. 그래도 그대로.",
+      "subtitle": "배터리도 교체, **여전히 정지**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-04",
+      "order": 4,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "IT 담당자를 부르고 자신 있게 고장이라 말한다",
+      "imageFile": "scene-04.png",
+      "narration": "결국 IT팀에 연락했습니다. 마우스가 완전히 고장 났다고요.",
+      "subtitle": "결국 **IT팀 호출**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-05",
+      "order": 5,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "담당자의 손가락이 옆자리 책상을 가리킨다",
+      "imageFile": "scene-05.png",
+      "narration": "담당자분이 제 손을 보더니 묻더라고요. \"이거 옆자리 건데요?\"",
+      "subtitle": "담당자: **옆자리 건데요?**",
+      "motion": "slow_pan_right"
+    },
+    {
+      "id": "SCENE-06",
+      "order": 6,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "자신이 옆자리 마우스를 잡고 있음을 깨닫는다",
+      "imageFile": "scene-06.png",
+      "narration": "제가 잡은 건 옆자리 마우스. 제 건 서류 밑에 얌전히 있었습니다. 여러분이라면 뭐라 하셨겠어요?",
+      "subtitle": "잡은 건 **옆자리 마우스**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-07",
+      "order": 7,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "민망해서 마우스를 놓고 IT 담당자에게 고개 숙인다",
+      "imageFile": "scene-07.png",
+      "narration": "말없이 마우스를 내려놓는데, 얼굴이 뜨거워지더라고요.",
+      "subtitle": "말없이 내려놓은 **마우스**",
+      "motion": "slow_zoom_out"
+    },
+    {
+      "id": "SCENE-08",
+      "order": 8,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "후일담과 댓글 질문",
+      "imageFile": "scene-08.png",
+      "narration": "그날부터 출근하면 마우스 위치부터 확인합니다. 여러분도 이런 허무한 실수 해 보셨나요?",
+      "subtitle": "여러분의 **허무한 실수**는?",
+      "motion": "slow_zoom_out"
+    }
+  ]
+}

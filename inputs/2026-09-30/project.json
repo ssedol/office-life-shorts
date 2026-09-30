@@ -1,0 +1,15 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-09-30",
+  "topic": "마우스가 고장 난 줄 알고 IT팀을 불렀는데 옆자리 마우스를 잡고 있던 날",
+  "title": "마우스 고장인 줄 알고 IT팀 불렀는데 제 손이 잡은 건",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}
