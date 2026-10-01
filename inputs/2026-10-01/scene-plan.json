@@ -1,0 +1,92 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01",
+      "order": 1,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "임시보관함 발견 반전을 첫 장면 훅으로 제시",
+      "imageFile": "scene-01.png",
+      "narration": "답장 왜 없냐고 재촉까지 했는데, 제 원래 메일은 임시보관함에 있었습니다. 여러분도 이런 적 있나요?",
+      "subtitle": "답장 재촉했는데 **임시보관함**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02",
+      "order": 2,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "아침에 메일을 작성하고 보냈다고 믿는 상황",
+      "imageFile": "scene-02.png",
+      "narration": "아침에 자료를 정리해서 메일을 썼습니다. 전송 버튼도 눌렀다고 생각했죠.",
+      "subtitle": "아침에 메일 **보냈다고 생각**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-03",
+      "order": 3,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "점심 이후 답장을 기다리는 표정",
+      "imageFile": "scene-03.png",
+      "narration": "점심이 지나도 답장이 없었습니다. 바쁘신가 보다 하고 넘겼어요.",
+      "subtitle": "점심 지나도 **답장 없음**",
+      "motion": "slow_pan_left"
+    },
+    {
+      "id": "SCENE-04",
+      "order": 4,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "오후 내내 전화와 노트북을 확인하는 불안",
+      "imageFile": "scene-04.png",
+      "narration": "오후가 되니 슬슬 불안해져서 받은 편지함을 계속 새로고침했습니다.",
+      "subtitle": "오후 내내 **새로고침**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-05",
+      "order": 5,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "재촉 메시지를 보내는 민망한 순간",
+      "imageFile": "scene-05.png",
+      "narration": "결국 메신저로 메일 확인 부탁드린다고 한 번 더 재촉했습니다.",
+      "subtitle": "메신저로 **확인 재촉**",
+      "motion": "slow_pan_right"
+    },
+    {
+      "id": "SCENE-06",
+      "order": 6,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "동료 손이 노트북을 가리키며 발신함 확인을 제안",
+      "imageFile": "scene-06.png",
+      "narration": "옆자리 동료가 그러더라고요. 발신함부터 확인해 보셨어요?",
+      "subtitle": "동료: **발신함 봤어요?**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-07",
+      "order": 7,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "전송하지 않은 원본 메일을 발견",
+      "imageFile": "scene-07.png",
+      "narration": "발신함엔 없고, 임시보관함에 아침 메일이 그대로 있었습니다.",
+      "subtitle": "원래 메일은 **임시보관함**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-08",
+      "order": 8,
+      "durationSec": 5,
+      "type": "STILL",
+      "reason": "메일을 보내고 시청자에게 공감 질문",
+      "imageFile": "scene-08.png",
+      "narration": "그제야 전송을 눌렀습니다. 여러분도 보내지도 않고 답장 기다린 적 있나요?",
+      "subtitle": "보내지도 않고 **답장 기다림?**",
+      "motion": "slow_zoom_out"
+    }
+  ]
+}

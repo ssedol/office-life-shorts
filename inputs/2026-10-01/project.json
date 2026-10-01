@@ -1,0 +1,15 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-10-01",
+  "topic": "답장을 재촉했는데 원래 메일이 임시보관함에 있던 날",
+  "title": "답장 재촉했는데 메일은 임시보관함에 있었습니다",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}

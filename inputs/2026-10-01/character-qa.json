@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "reviewedAt": "2026-10-01T17:17:54+09:00",
+  "reviewNotes": "8장 생성 직후 프리뷰·최종 렌더·업로드 전에 마스터 5장과 장면 8장 각각을 실제로 열어 한 장씩 시각 대조. 금지된 물음표·땀방울이 있던 장면을 다시 생성하고 8장 전체 재검수. 눈·얼굴형, 앞머리·정수리 가닥, 양 볼 홍조, 흰 셔츠·네이비 넥타이, 파란 목걸이·사람 아이콘 사원증, 굵은 검정 외곽선·플랫 채색 모두 일치.",
+  "masterReferences": [
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-01-shocked.png",
+      "sha256": "28469b406f418d18d316cada92e090a9165ff2dab678131ceca34519877e7f06",
+      "notes": "실제 파일을 열어 큰 검정 타원 눈과 둥근 얼굴, 부스스한 앞머리와 정수리 솟은 가닥, 양 볼 분홍 홍조, 흰 셔츠·네이비 넥타이, 파란 목걸이·사람 아이콘 사원증, 굵은 검정 선·플랫 채색 기준 확인"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-02-happy-coffee.png",
+      "sha256": "eb8b16205479a84386114c3cd871e9083489382270a68b12cbfb3bdb1d963515",
+      "notes": "실제 파일을 열어 큰 검정 타원 눈과 둥근 얼굴, 부스스한 앞머리와 정수리 솟은 가닥, 양 볼 분홍 홍조, 흰 셔츠·네이비 넥타이, 파란 목걸이·사람 아이콘 사원증, 굵은 검정 선·플랫 채색 기준 확인"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-03-talking-blank-bubble.png",
+      "sha256": "702a2b104bff68b2d1a47c8b9663fb910a40febd30d9991fb445a295cbe846fc",
+      "notes": "실제 파일을 열어 큰 검정 타원 눈과 둥근 얼굴, 부스스한 앞머리와 정수리 솟은 가닥, 양 볼 분홍 홍조, 흰 셔츠·네이비 넥타이, 파란 목걸이·사람 아이콘 사원증, 굵은 검정 선·플랫 채색 기준 확인"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-04-side-with-back-figure.png",
+      "sha256": "28e4e85b46e4db3db05910dc58de90ba9c1e5fc7206882970f0c958f947ef5f6",
+      "notes": "실제 파일을 열어 큰 검정 타원 눈과 둥근 얼굴, 부스스한 앞머리와 정수리 솟은 가닥, 양 볼 분홍 홍조, 흰 셔츠·네이비 넥타이, 파란 목걸이·사람 아이콘 사원증, 굵은 검정 선·플랫 채색 기준 확인"
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-05-desk-whiteboard.png",
+      "sha256": "ad8b5f0913eb54c3a27b841b2836338be8f7503edac18e27746edbe914d56b7b",
+      "notes": "실제 파일을 열어 큰 검정 타원 눈과 둥근 얼굴, 부스스한 앞머리와 정수리 솟은 가닥, 양 볼 분홍 홍조, 흰 셔츠·네이비 넥타이, 파란 목걸이·사람 아이콘 사원증, 굵은 검정 선·플랫 채색 기준 확인"
+    }
+  ],
+  "scenes": [
+    {
+      "file": "scene-01.png",
+      "sha256": "d40d762084d3c04929f7e615b993a48b8714b749a4e22b0122ba481d39d6daa2",
+      "matchesMaster": true,
+      "notes": "놀란 타원 눈·둥근 턱, 이마 앞머리와 정수리 두 가닥, 양 볼 홍조가 ref-01과 같다. 흰 셔츠·넓은 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 선·플랫 채색 확인."
+    },
+    {
+      "file": "scene-02.png",
+      "sha256": "7ba19fdeb92a03fbbfafc5aa8518bccf092fd72dbb6db080f7ece19350fd125d",
+      "matchesMaster": true,
+      "notes": "밝은 표정의 큰 타원 눈과 둥근 얼굴, 짙은 부스스한 앞머리·정수리 가닥, 양 볼 홍조, 흰 셔츠·네이비 넥타이·파란 사원증과 굵은 선이 마스터와 같다."
+    },
+    {
+      "file": "scene-03.png",
+      "sha256": "daab3603fbd02b663552f7f88f9b97118cdb0d164576391d890f8d89eb9c20d8",
+      "matchesMaster": true,
+      "notes": "기다리는 표정으로 바뀌어도 눈과 둥근 얼굴 비율, 이마 앞머리·정수리 가닥, 양 볼 홍조가 유지된다. 흰 셔츠·넓은 네이비 넥타이·파란 목걸이와 사람 아이콘 사원증, 플랫 채색 확인."
+    },
+    {
+      "file": "scene-04.png",
+      "sha256": "068257de149ddbfd53ecc2f3cbfbfc52bb1213f1b2912375919be26eb90d09e0",
+      "matchesMaster": true,
+      "notes": "고민하는 눈썹 외에는 검정 타원 눈, 둥근 얼굴, 앞머리·정수리 가닥, 두 볼 홍조가 동일하다. 흰 셔츠와 네이비 넥타이, 파란 목걸이·사원증, 굵은 검정 외곽선 확인."
+    },
+    {
+      "file": "scene-05.png",
+      "sha256": "a65ee1c8c8bb23eea72740598e2e2a65bc54fff7781bc60f28839d04e0359149",
+      "matchesMaster": true,
+      "notes": "휴대전화 소품이 있어도 얼굴형과 검정 타원 눈, 이마 앞머리·정수리 가닥, 양 볼 홍조가 일치한다. 흰 셔츠·넓은 네이비 넥타이·파란 사람 아이콘 사원증과 플랫 스타일 유지."
+    },
+    {
+      "file": "scene-06.png",
+      "sha256": "434f3a888bd29821d9ec83ce40fa383ac54885219b34a32f7184015b7ebd8bcb",
+      "matchesMaster": true,
+      "notes": "동료는 손과 소매만 나온다. 주인공의 검정 타원 눈·둥근 얼굴·짙은 앞머리와 정수리 가닥·두 볼 홍조·흰 셔츠·네이비 넥타이·파란 사원증·두꺼운 선이 마스터와 일치."
+    },
+    {
+      "file": "scene-07.png",
+      "sha256": "c79ccf3fd72e7ce7543640575bb742e19e1a71712fb4138fe84944b63b04b3ee",
+      "matchesMaster": true,
+      "notes": "충격받은 눈과 둥근 얼굴, 앞머리·정수리 가닥, 양 볼 분홍 홍조가 ref-01과 같다. 흰 셔츠·네이비 넥타이·파란 목걸이와 사람 아이콘 사원증, 굵은 검정 선과 플랫 채색 유지."
+    },
+    {
+      "file": "scene-08.png",
+      "sha256": "fe1c89385e159172938e0cec6121cb04226c85bec7ce7fa797f667f123a979c5",
+      "matchesMaster": true,
+      "notes": "작게 웃는 입만 달라지고 큰 검정 타원 눈·둥근 얼굴·부스스한 앞머리와 정수리 가닥·양 볼 홍조가 동일하다. 흰 셔츠·넓은 네이비 넥타이·파란 목걸이와 사원증, 플랫 채색 확인."
+    }
+  ],
+  "thumbnail": {
+    "file": "thumbnail.png",
+    "sha256": "0995bc2c75393ddf7ffab83b41e0de23a54a4fa4e21c144980d037e903d630e3",
+    "matchesMaster": true,
+    "notes": "실제 파일을 마스터 5장과 대조: 큰 검정 타원 눈·둥근 얼굴, 이마 앞머리와 정수리 가닥, 양 볼 홍조, 흰 와이셔츠·넓은 네이비 넥타이, 파란 목걸이와 파란 사람 아이콘 사원증, 굵은 검정 외곽선·플랫 채색 일치. 제목 두 줄과 인물 정상 표시."
+  }
+}
