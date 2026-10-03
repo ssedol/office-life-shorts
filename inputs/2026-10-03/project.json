@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-10-03",
+  "topic": "발표 리모컨인 줄 알고 에어컨 리모컨을 누른 회의",
+  "title": "발표 넘기려다 에어컨만 세 번 조작했습니다",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}

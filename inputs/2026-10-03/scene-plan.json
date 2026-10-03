@@ -1,0 +1,12 @@
+{
+  "scenes": [
+    {"id":"SCENE-01","order":1,"durationSec":5,"type":"STILL","reason":"발표 화면은 그대로인데 에어컨만 반응하는 상황을 훅으로 제시","imageFile":"scene-01.png","narration":"발표 넘기려고 눌렀는데 에어컨만 꺼졌습니다. 여러분도 이런 실수 해보셨어요?","subtitle":"발표 대신 **에어컨 조작**","motion":"slow_zoom_in"},
+    {"id":"SCENE-02","order":2,"durationSec":5,"type":"STILL","reason":"회의 시작 전 테이블에서 리모컨을 집음","imageFile":"scene-02.png","narration":"회의 시작 직전, 테이블 위 검은 리모컨 하나를 집었어요.","subtitle":"테이블 위 **검은 리모컨**","motion":"slow_pan_right"},
+    {"id":"SCENE-03","order":3,"durationSec":5,"type":"STILL","reason":"첫 버튼에 프로젝터 대신 천장 에어컨이 반응","imageFile":"scene-03.png","narration":"첫 장을 넘기려는데 화면은 그대로고, 천장 에어컨에서 삑 소리만 났죠.","subtitle":"화면은 그대로, **에어컨만 삑**","motion":"slow_zoom_in"},
+    {"id":"SCENE-04","order":4,"durationSec":5,"type":"STILL","reason":"리모컨을 거듭 눌러 바람 세기가 변함","imageFile":"scene-04.png","narration":"고장인가 싶어 두 번 더 눌렀더니 바람이 세졌다 약해졌다 하더라고요.","subtitle":"누를수록 **바람만 변함**","motion":"slow_pan_left"},
+    {"id":"SCENE-05","order":5,"durationSec":5,"type":"STILL","reason":"팀장이 추워하는데 발표자는 화면만 바라봄","imageFile":"scene-05.png","narration":"팀장님이 춥다고 하시는데 저는 발표 화면만 뚫어져라 봤습니다.","subtitle":"팀장님: **좀 춥네요**","motion":"slow_zoom_in"},
+    {"id":"SCENE-06","order":6,"durationSec":5,"type":"STILL","reason":"옆자리 동료가 손에 든 리모컨을 가리킴","imageFile":"scene-06.png","narration":"옆자리 동료가 말없이 제 손의 리모컨을 가리키더군요.","subtitle":"동료가 가리킨 건 **제 손**","motion":"slow_zoom_in"},
+    {"id":"SCENE-07","order":7,"durationSec":5,"type":"STILL","reason":"에어컨 그림을 발견하고 진짜 발표 리모컨을 봄","imageFile":"scene-07.png","narration":"그제야 에어컨 그림이 보였습니다. 발표 리모컨은 노트북 옆에 있었고요.","subtitle":"제 손엔 **에어컨 리모컨**","motion":"slow_pan_right"},
+    {"id":"SCENE-08","order":8,"durationSec":5,"type":"STILL","reason":"민망한 마무리와 시청자 공감 질문","imageFile":"scene-08.png","narration":"그날 발표보다 리모컨을 더 오래 설명했습니다. 여러분도 회의실에서 이런 적 있나요?","subtitle":"여러분도 **이런 적 있나요?**","motion":"slow_zoom_out"}
+  ]
+}
