@@ -1,0 +1,12 @@
+{
+  "scenes": [
+    {"id":"SCENE-01","order":1,"durationSec":5,"type":"STILL","reason":"지운 보드와 팀장의 질문으로 사건을 바로 제시","imageFile":"scene-01.png","narration":"팀장님이 '사진 찍었죠?' 하시는데, 제 손엔 지우개가 들려 있었습니다.","subtitle":"제 손엔 **지우개**","motion":"slow_zoom_in"},
+    {"id":"SCENE-02","order":2,"durationSec":5,"type":"STILL","reason":"회의가 끝나 사람들이 나간 상황","imageFile":"scene-02.png","narration":"회의 끝나고 다들 나가길래, 제가 화이트보드를 정리했어요.","subtitle":"회의 끝! **보드 정리**","motion":"slow_pan_right"},
+    {"id":"SCENE-03","order":3,"durationSec":5,"type":"STILL","reason":"기록된 표를 지우는 결정적 행동","imageFile":"scene-03.png","narration":"다음 회의가 곧 시작이라, 표까지 한 번에 싹 지웠죠.","subtitle":"표까지 **싹 지움**","motion":"slow_zoom_in"},
+    {"id":"SCENE-04","order":4,"durationSec":5,"type":"STILL","reason":"팀장이 돌아와 사진을 묻는 반전","imageFile":"scene-04.png","narration":"그때 팀장님이 돌아와서 '잠깐, 그 표 사진은?' 하시더라고요.","subtitle":"팀장님: **표 사진은?**","motion":"slow_pan_left"},
+    {"id":"SCENE-05","order":5,"durationSec":5,"type":"STILL","reason":"지우개를 든 주인공의 민망한 대답","imageFile":"scene-05.png","narration":"지우개를 숨기며 물었죠. '아직 안 찍으셨어요?' 여러분도 서둘러 지운 적 있나요?","subtitle":"**아직 안 찍으셨어요?**","motion":"slow_zoom_in"},
+    {"id":"SCENE-06","order":6,"durationSec":5,"type":"STILL","reason":"내일 보고할 숫자였다는 팀장 반응","imageFile":"scene-06.png","narration":"'내일 보고할 숫자였는데.' 회의실이 갑자기 조용해졌습니다.","subtitle":"내일 보고할 **숫자**","motion":"slow_zoom_in"},
+    {"id":"SCENE-07","order":7,"durationSec":5,"type":"STILL","reason":"노트북 원본을 보며 보드를 다시 쓰는 수습","imageFile":"scene-07.png","narration":"다행히 원본 파일을 찾아서, 제가 그 표를 다시 그렸어요.","subtitle":"원본 찾아 **다시 그림**","motion":"slow_pan_right"},
+    {"id":"SCENE-08","order":8,"durationSec":5,"type":"STILL","reason":"지우기 전 확인하는 습관과 공감 질문","imageFile":"scene-08.png","narration":"이젠 지우개 들기 전에 꼭 묻습니다. '사진 찍으셨죠?' 여러분도 이런 적 있나요?","subtitle":"지우기 전 **사진 확인**","motion":"slow_zoom_out"}
+  ]
+}

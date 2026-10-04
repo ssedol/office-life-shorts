@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-10-04",
+  "topic": "회의가 끝난 줄 알고 화이트보드를 지운 날",
+  "title": "회의 끝난 줄 알고 지웠는데 팀장님이 아직 사진을 안 찍으셨습니다",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}
