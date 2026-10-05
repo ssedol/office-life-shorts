@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "reviewedAt": "2026-10-05T17:19:31+09:00",
+  "reviewNotes": "Opened all five master files and each of eight generated scene files individually before preview or final rendering. Every scene depicts the same master character on face, eyes, hair, bilateral blush, shirt/tie, lanyard/person badge, outline, and flat fill. Opened and checked the cover against the same five masters; Korean headline and character are visible.",
+  "masterReferences": [
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-01-shocked.png",
+      "sha256": "28469b406f418d18d316cada92e090a9165ff2dab678131ceca34519877e7f06",
+      "notes": "Opened and compared face/eyes, tousled dark fringe and crown tufts, pink blush on both cheeks, white collared shirt, broad navy tie, blue lanyard and white person-icon badge, thick black outlines and flat colors."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-02-happy-coffee.png",
+      "sha256": "eb8b16205479a84386114c3cd871e9083489382270a68b12cbfb3bdb1d963515",
+      "notes": "Opened and compared face/eyes, tousled dark fringe and crown tufts, pink blush on both cheeks, white collared shirt, broad navy tie, blue lanyard and white person-icon badge, thick black outlines and flat colors."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-03-talking-blank-bubble.png",
+      "sha256": "702a2b104bff68b2d1a47c8b9663fb910a40febd30d9991fb445a295cbe846fc",
+      "notes": "Opened and compared face/eyes, tousled dark fringe and crown tufts, pink blush on both cheeks, white collared shirt, broad navy tie, blue lanyard and white person-icon badge, thick black outlines and flat colors."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-04-side-with-back-figure.png",
+      "sha256": "28e4e85b46e4db3db05910dc58de90ba9c1e5fc7206882970f0c958f947ef5f6",
+      "notes": "Opened and compared face/eyes, tousled dark fringe and crown tufts, pink blush on both cheeks, white collared shirt, broad navy tie, blue lanyard and white person-icon badge, thick black outlines and flat colors."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-05-desk-whiteboard.png",
+      "sha256": "ad8b5f0913eb54c3a27b841b2836338be8f7503edac18e27746edbe914d56b7b",
+      "notes": "Opened and compared face/eyes, tousled dark fringe and crown tufts, pink blush on both cheeks, white collared shirt, broad navy tie, blue lanyard and white person-icon badge, thick black outlines and flat colors."
+    }
+  ],
+  "scenes": [
+    {
+      "file": "scene-01.png",
+      "sha256": "400b7ea68f3def73f0b66a9cc78d759c99adf02e70f34caea500634f4d61eca8",
+      "matchesMaster": true,
+      "notes": "At the switch in the dim room; large black oval eyes and rounded jaw, tousled dark bangs/crown, two pink cheeks, white collar/navy tie, blue lanyard/person badge, heavy black outline and flat fill match the five masters."
+    },
+    {
+      "file": "scene-02.png",
+      "sha256": "6a82a27683606e83ebad0c07e5d16092c6d0d94e89ba98ab143e94c26e7f003a",
+      "matchesMaster": true,
+      "notes": "Packing work bag; same oval eyes, round face, layered fringe and crown tufts, bilateral blush, white shirt/navy tie, blue lanyard and white person-icon badge; thick flat outlines."
+    },
+    {
+      "file": "scene-03.png",
+      "sha256": "7ddb3e2c6309b95f54049f6e4d1b11ffaf4d62c18ae04711454a1bb853452bde",
+      "matchesMaster": true,
+      "notes": "Pressing wall switch; same oval eyes and round chin, unruly front/crown hair, both blush patches, white shirt, broad navy tie, blue lanyard/person badge and consistent heavy contour."
+    },
+    {
+      "file": "scene-04.png",
+      "sha256": "42971971b57b025c4c36df6868ac0232d25e03b2f89759f78add1936d57f9308",
+      "matchesMaster": true,
+      "notes": "Shocked beside glowing monitor; round face and black oval eyes, same bangs and crown tufts, blush on both cheeks, shirt/tie, blue lanyard and person badge, bold even black lines and flat colors."
+    },
+    {
+      "file": "scene-05.png",
+      "sha256": "b39d745ed1ad8d133848f22659b913697170345789d650ff9eaf11c44a32af05",
+      "matchesMaster": true,
+      "notes": "Frozen with finger on switch; same oval eyes, rounded cheeks/jaw, dark fringe/crown hairs, bilateral pink blush, white shirt/navy tie, blue lanyard/person badge, master line and fill."
+    },
+    {
+      "file": "scene-06.png",
+      "sha256": "e7db94444c4c01a6ef0d004fb368ea17dff9a4cf0ce0053af6fa80c7fb61a975",
+      "matchesMaster": true,
+      "notes": "Awkward closed-eye apology; curved master smile eyes, round face, tousled bangs and crown tufts, two blush cheeks, white collar/navy tie, blue lanyard/person icon badge, thick black flat styling."
+    },
+    {
+      "file": "scene-07.png",
+      "sha256": "414a2f951bc170db526857efcc554e16714be97991c16e0b7ea8c4c01c115cf6",
+      "matchesMaster": true,
+      "notes": "Second goodbye beside large monitor; same black oval eyes, round face, dark fringe/crown spikes, blush both sides, white shirt and broad navy tie, blue lanyard/person badge, consistent black outline and flat color."
+    },
+    {
+      "file": "scene-08.png",
+      "sha256": "81263931f4ac84071bff036c387496ce553c0351b6f68c09ff43ec2bd6787a0c",
+      "matchesMaster": true,
+      "notes": "Checks office before switch; matching black oval eyes, round face, tousled fringe/crown hairs, two pink cheeks, white shirt/navy tie, blue lanyard with white person badge, heavy even contour and flat fill."
+    }
+  ],
+  "thumbnail": {
+    "file": "thumbnail.png",
+    "sha256": "8f8ca644c51f668e797e6b30e8bcffc56a991632edc2bd96388fa1ebc173c41e",
+    "matchesMaster": true,
+    "notes": "Opened against five masters: identical oval eyes, round face, dark bangs/crown tufts, two pink blush cheeks, white collar, broad navy tie, blue lanyard and white person-icon badge, heavy black flat style. Both Korean headline lines and employee are legible; 941x1672 portrait."
+  }
+}

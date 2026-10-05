@@ -1,0 +1,12 @@
+{
+  "scenes": [
+    {"id":"SCENE-01","order":1,"durationSec":5,"type":"STILL","reason":"불을 끈 직후 팀장의 한마디로 시작","imageFile":"scene-01.png","narration":"퇴근하면서 불을 딱 껐는데, 뒤에서 '저 아직 있어요'라는 소리가 났습니다. 여러분도 이런 적 있나요?","subtitle":"뒤에서 **저 아직 있어요**","motion":"slow_zoom_in"},
+    {"id":"SCENE-02","order":2,"durationSec":5,"type":"STILL","reason":"늦은 퇴근과 비어 보이는 사무실","imageFile":"scene-02.png","narration":"그날 제가 마지막 퇴근자인 줄 알았거든요. 사무실도 조용했고요.","subtitle":"내가 **마지막 퇴근**인 줄","motion":"slow_pan_right"},
+    {"id":"SCENE-03","order":3,"durationSec":5,"type":"STILL","reason":"문 옆 스위치를 누르는 결정적 행동","imageFile":"scene-03.png","narration":"가방 메고 문 옆 스위치를 눌렀죠. 절전까지 챙겼다고 뿌듯했는데.","subtitle":"스위치를 **딸깍**","motion":"slow_zoom_in"},
+    {"id":"SCENE-04","order":4,"durationSec":5,"type":"STILL","reason":"어둠 속 모니터와 손을 발견","imageFile":"scene-04.png","narration":"불이 꺼지자 안쪽 모니터 하나가 보이더라고요. 그 옆에 손까지.","subtitle":"어둠 속 **모니터 하나**","motion":"slow_pan_left"},
+    {"id":"SCENE-05","order":5,"durationSec":5,"type":"STILL","reason":"팀장이 아직 일하는 중이라는 반전","imageFile":"scene-05.png","narration":"팀장님이 야근 중이셨습니다. 저는 스위치에 손을 댄 채로 그대로 얼었어요.","subtitle":"팀장님이 **야근 중**","motion":"slow_zoom_in"},
+    {"id":"SCENE-06","order":6,"durationSec":5,"type":"STILL","reason":"급히 불을 켜고 사과하는 수습","imageFile":"scene-06.png","narration":"다시 불을 켜고 죄송하다고 했더니, 팀장님은 그냥 웃으시더군요.","subtitle":"급히 **다시 켰습니다**","motion":"slow_zoom_in"},
+    {"id":"SCENE-07","order":7,"durationSec":5,"type":"STILL","reason":"큰 모니터에 가려진 팀장 자리 설명","imageFile":"scene-07.png","narration":"큰 모니터에 가려져서 사람은 안 보였던 겁니다. 민망해서 인사만 두 번.","subtitle":"모니터 뒤에 **계셨다**","motion":"slow_pan_right"},
+    {"id":"SCENE-08","order":8,"durationSec":5,"type":"STILL","reason":"확인 습관과 공감 질문","imageFile":"scene-08.png","narration":"이젠 퇴근할 때 먼저 묻습니다. '불 꺼도 될까요?' 여러분도 이런 적 있으세요?","subtitle":"퇴근 전 **한 번 더 확인**","motion":"slow_zoom_out"}
+  ]
+}

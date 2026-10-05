@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-10-05",
+  "topic": "퇴근하며 사무실 불을 껐는데 팀장님이 아직 야근 중인 날",
+  "title": "퇴근하며 불 껐는데 팀장님이 아직 계셨습니다",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}
