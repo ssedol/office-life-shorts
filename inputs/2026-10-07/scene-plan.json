@@ -1,0 +1,12 @@
+{
+  "scenes": [
+    {"id":"SCENE-01","order":1,"durationSec":5,"type":"STILL","reason":"도시락 실종으로 시작하는 훅","imageFile":"scene-01.png","narration":"도시락이 사라졌습니다. 그런데 범인은 저였어요. 이런 적 있나요?","subtitle":"도시락이 **사라졌다**","motion":"slow_zoom_in"},
+    {"id":"SCENE-02","order":2,"durationSec":5,"type":"STILL","reason":"탕비실에서 도시락을 데움","imageFile":"scene-02.png","narration":"점심 도시락을 전자레인지에 넣고 잠깐 자리로 갔죠.","subtitle":"전자레인지에 **도시락**","motion":"slow_pan_right"},
+    {"id":"SCENE-03","order":3,"durationSec":5,"type":"STILL","reason":"갑작스러운 회의 호출","imageFile":"scene-03.png","narration":"그때 '회의 들어오세요'라는 말에 메모장만 챙겨 달려갔습니다.","subtitle":"갑자기 **회의 호출**","motion":"slow_zoom_in"},
+    {"id":"SCENE-04","order":4,"durationSec":5,"type":"STILL","reason":"배고픈 채로 길어진 회의","imageFile":"scene-04.png","narration":"회의가 길어져 배가 고픈데, 점심 못 먹은 것도 까먹었어요.","subtitle":"배는 고픈데 **회의 중**","motion":"slow_pan_left"},
+    {"id":"SCENE-05","order":5,"durationSec":5,"type":"STILL","reason":"자리에서 도시락을 찾지만 없음","imageFile":"scene-05.png","narration":"돌아와 도시락을 찾는데 가방에도 책상에도 없었습니다. 도시락 어디 뒀는지 까먹은 적 있죠?","subtitle":"가방에도 **없다**","motion":"slow_zoom_in"},
+    {"id":"SCENE-06","order":6,"durationSec":5,"type":"STILL","reason":"탕비실을 수색","imageFile":"scene-06.png","narration":"탕비실까지 갔더니 전자레인지 안에 익숙한 통이 보이더군요.","subtitle":"전자레인지 안 **익숙한 통**","motion":"slow_zoom_in"},
+    {"id":"SCENE-07","order":7,"durationSec":5,"type":"STILL","reason":"차가워진 도시락을 발견한 반전","imageFile":"scene-07.png","narration":"제 도시락. 두 시간이나 거기 있었던 겁니다. 다시 데워 먹었죠.","subtitle":"범인은 **저였습니다**","motion":"slow_pan_right"},
+    {"id":"SCENE-08","order":8,"durationSec":5,"type":"STILL","reason":"공감 질문과 마무리","imageFile":"scene-08.png","narration":"이젠 데우는 동안 앞을 안 떠납니다. 여러분도 점심을 깜빡한 적 있나요?","subtitle":"점심도 **잊어버린 날**","motion":"slow_zoom_out"}
+  ]
+}

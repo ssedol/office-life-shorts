@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "reviewedAt": "2026-10-07T01:16:53+09:00",
+  "reviewNotes": "Opened each of five masters and eight scenes individually after scene generation and before preview/final/upload. All scenes show the same master character. Saved thumbnail was opened and compared with the same five masters; exact two Korean headline lines, face, badge, and lunch container are visible.",
+  "masterReferences": [
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-01-shocked.png",
+      "sha256": "28469b406f418d18d316cada92e090a9165ff2dab678131ceca34519877e7f06",
+      "notes": "Opened after all eight scenes were generated; compared face and eyes, bangs and crown, bilateral blush, shirt and navy tie, blue lanyard and white person-icon badge, thick black outline and flat coloring."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-02-happy-coffee.png",
+      "sha256": "eb8b16205479a84386114c3cd871e9083489382270a68b12cbfb3bdb1d963515",
+      "notes": "Opened after all eight scenes were generated; compared face and eyes, bangs and crown, bilateral blush, shirt and navy tie, blue lanyard and white person-icon badge, thick black outline and flat coloring."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-03-talking-blank-bubble.png",
+      "sha256": "702a2b104bff68b2d1a47c8b9663fb910a40febd30d9991fb445a295cbe846fc",
+      "notes": "Opened after all eight scenes were generated; compared face and eyes, bangs and crown, bilateral blush, shirt and navy tie, blue lanyard and white person-icon badge, thick black outline and flat coloring."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-04-side-with-back-figure.png",
+      "sha256": "28e4e85b46e4db3db05910dc58de90ba9c1e5fc7206882970f0c958f947ef5f6",
+      "notes": "Opened after all eight scenes were generated; compared face and eyes, bangs and crown, bilateral blush, shirt and navy tie, blue lanyard and white person-icon badge, thick black outline and flat coloring."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-05-desk-whiteboard.png",
+      "sha256": "ad8b5f0913eb54c3a27b841b2836338be8f7503edac18e27746edbe914d56b7b",
+      "notes": "Opened after all eight scenes were generated; compared face and eyes, bangs and crown, bilateral blush, shirt and navy tie, blue lanyard and white person-icon badge, thick black outline and flat coloring."
+    }
+  ],
+  "scenes": [
+    {
+      "file": "scene-01.png",
+      "sha256": "dca408adf4de4f3b1d785aea3611ef5028c55f73c78aca6838b859fd116fbf89",
+      "matchesMaster": true,
+      "notes": "Empty bag hook: black oval eyes and round jaw, dark front fringe and two crown tufts, bilateral pink blush, white shirt/navy tie, blue lanyard/person badge, even black outline and flat fill match all masters."
+    },
+    {
+      "file": "scene-02.png",
+      "sha256": "5b7575125834c0347d14299013e36f7a0cd00776e374c4d8c927f5433a582a27",
+      "matchesMaster": true,
+      "notes": "Putting lunch into microwave: same round face and oval eyes, tousled fringe/crown, both blush cheeks, white collar and navy tie, blue lanyard with person-icon badge, bold flat drawing."
+    },
+    {
+      "file": "scene-03.png",
+      "sha256": "27835f1b5f72b1572e9398a62dbed27c36064bb4f8d454054c4ec32371fc3eff",
+      "matchesMaster": true,
+      "notes": "Meeting call with blank notepad: black oval eyes, peach round face, distinctive dark bangs/crown arcs, blush on both cheeks, white shirt/navy tie, blue lanyard and person badge, heavy contour/flat fill match."
+    },
+    {
+      "file": "scene-04.png",
+      "sha256": "1cd36d8f8507db06a204c64e1e1919ac1843818f7eef09f397330f58baee3515",
+      "matchesMaster": true,
+      "notes": "Hungry in meeting room: same oval eyes and rounded face, dark fringe and crown tufts, two blush patches, white collared shirt, broad navy tie, blue lanyard/person-icon badge, thick black contour and flat colors."
+    },
+    {
+      "file": "scene-05.png",
+      "sha256": "d32a213c0451795a8326a4e31a8302b9bd3f192c20a1176c75ac1208df16107d",
+      "matchesMaster": true,
+      "notes": "Searching empty bag: matching eyes and rounded face, dark tousled hair with raised crown strands, bilateral blush, white shirt/navy tie, blue lanyard/person badge, black even outline and flat fill."
+    },
+    {
+      "file": "scene-06.png",
+      "sha256": "810c24040681c446663e759672a9508d7ffebc354bb9e9301441cf2b10a08d08",
+      "matchesMaster": true,
+      "notes": "Microwave discovery: wide oval eyes and round face, familiar bangs and crown tufts, blush on each cheek, white shirt/navy tie, blue lanyard with white badge and blue person symbol, bold flat style."
+    },
+    {
+      "file": "scene-07.png",
+      "sha256": "fc6cd46ce39ad49055c07b16feb275ed98d557e99f863e62a02be7b6540245b3",
+      "matchesMaster": true,
+      "notes": "Holding recovered lunch: closed-eye smile matches happy master; same face shape, fringe/crown, both pink blush cheeks, white shirt, navy tie, blue lanyard/person badge and thick flat linework."
+    },
+    {
+      "file": "scene-08.png",
+      "sha256": "e8b37fe6bad5018249602c668ec198844d200b0790f0faa62845b253071da966",
+      "matchesMaster": true,
+      "notes": "Waiting at microwave: same black oval eyes and round face, tousled bangs/crown hair, blush on both cheeks, white shirt and broad navy tie, blue lanyard/person-icon badge, uniform heavy black outline and flat palette."
+    }
+  ],
+  "thumbnail": {
+    "file": "thumbnail.png",
+    "sha256": "b93b069da1b321742cf8dd7165b9d98871cd099d3a5eef0d7e64de815ece694f",
+    "matchesMaster": true,
+    "notes": "Opened saved 941x1672 cover against five masters: oval eyes, round peach face, dark bangs and crown tufts, two pink blush cheeks, white collar/navy tie, blue lanyard and white person-icon badge, thick black flat style. Exact readable headline: 도시락 실종? / 범인은 나였다."
+  }
+}

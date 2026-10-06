@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-10-07",
+  "topic": "점심 도시락을 전자레인지에 넣고 회의에 들어가 한참 뒤에야 찾은 날",
+  "title": "도시락이 사라진 줄 알았는데 전자레인지 안에 있었습니다",
+  "durationTargetSec": 40,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}
