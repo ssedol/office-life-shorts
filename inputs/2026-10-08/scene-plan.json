@@ -1,0 +1,12 @@
+{
+  "scenes": [
+    {"id":"SCENE-01","order":1,"durationSec":6,"type":"STILL","reason":"사무실에서 사진 창을 열어 둔 원인 소개","imageFile":"scene-01.png","narration":"점심시간, 저는 사무실 책상에서 노트북으로 주말 바다 사진을 보고 있었어요.","subtitle":"노트북에 **주말 사진**","motion":"slow_zoom_in"},
+    {"id":"SCENE-02","order":2,"durationSec":7,"type":"STILL","reason":"팀장의 요청 때문에 열린 사진 창을 닫지 않고 이동","imageFile":"scene-02.png","narration":"팀장님이 '회의실에서 실적표 보여주세요'라고 부르셨습니다. 저는 사진 창을 안 닫고 노트북만 덮었죠.","subtitle":"사진 창은 그대로, **노트북만 닫고**","motion":"slow_pan_right"},
+    {"id":"SCENE-03","order":3,"durationSec":6,"type":"STILL","reason":"노트북을 회의실 화면에 연결하는 행동","imageFile":"scene-03.png","narration":"저는 노트북을 들고 회의실로 갔습니다. 그리고 큰 화면 연결선을 꽂았죠.","subtitle":"회의실 큰 화면에 **연결**","motion":"slow_zoom_in"},
+    {"id":"SCENE-04","order":4,"durationSec":7,"type":"STILL","reason":"다시 연 노트북의 사진이 큰 화면에 그대로 나타남","imageFile":"scene-04.png","narration":"노트북을 다시 열자, 닫지 않았던 바다 사진이 회의실 큰 화면에 나타났어요.","subtitle":"실적표 대신 **바다 사진**","motion":"slow_zoom_in"},
+    {"id":"SCENE-05","order":5,"durationSec":6,"type":"STILL","reason":"팀장과 동료가 사진을 보며 오해가 커짐","imageFile":"scene-05.png","narration":"팀장님은 '실적표는 어디 있죠?'라고 물으셨고, 동료들은 사진을 보고 저를 돌아봤어요.","subtitle":"모두가 **저를 본다**","motion":"slow_pan_left"},
+    {"id":"SCENE-06","order":6,"durationSec":6,"type":"STILL","reason":"주인공이 사진 창이 그대로 열린 원인을 발견","imageFile":"scene-06.png","narration":"노트북을 살피니, 점심에 열었던 사진 창이 그대로 남아 있더군요.","subtitle":"원인은 **열린 사진 창**","motion":"slow_zoom_in"},
+    {"id":"SCENE-07","order":7,"durationSec":7,"type":"STILL","reason":"사진 창을 닫고 실적표를 열어 문제 해결","imageFile":"scene-07.png","narration":"저는 사진 창을 닫고 실적표를 열었습니다. '죄송해요. 이제 시작할게요.'","subtitle":"사진 닫고 **실적표 열기**","motion":"slow_pan_right"},
+    {"id":"SCENE-08","order":8,"durationSec":7,"type":"STILL","reason":"회의 뒤 재발 방지와 직장인 공감 질문","imageFile":"scene-08.png","narration":"회의 뒤에는 선을 꽂기 전 열린 창을 확인하기로 했어요. 여러분도 이런 적 있나요?","subtitle":"화면 연결 전 **창 확인**","motion":"slow_zoom_out"}
+  ]
+}

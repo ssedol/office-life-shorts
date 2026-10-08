@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-10-08",
+  "topic": "회의실에서 실적표 대신 주말 바다 사진이 큰 화면에 뜬 날",
+  "title": "회의실 화면에 실적표 대신 제 주말 사진이 떴습니다",
+  "durationTargetSec": 55,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}
