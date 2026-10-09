@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-10-09",
+  "topic": "회사 로비에서 동명이인의 택배를 제 것인 줄 알고 가져온 날",
+  "title": "제 택배인 줄 알았는데 같은 이름 동료의 상자였습니다",
+  "durationTargetSec": 70,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}

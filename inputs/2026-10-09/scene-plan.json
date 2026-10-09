@@ -1,0 +1,92 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01",
+      "order": 1,
+      "durationSec": 8,
+      "type": "STILL",
+      "reason": "주인공의 부서와 주문한 물건, 택배 알림 소개",
+      "imageFile": "scene-01.png",
+      "narration": "저는 디자인팀 민수예요. 회사 책상에서 새 마우스 택배 도착 알림을 보고 '마우스 왔다!' 했죠.",
+      "subtitle": "디자인팀 민수의 **마우스 택배**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02",
+      "order": 2,
+      "durationSec": 9,
+      "type": "STILL",
+      "reason": "로비에 같은 이름의 상자 두 개가 있고 부서를 보지 않은 채 큰 상자를 집음",
+      "imageFile": "scene-02.png",
+      "narration": "로비 선반에는 민수 앞으로 온 상자 두 개가 있었어요. 저는 부서명을 안 보고 앞쪽 큰 상자를 들었죠.",
+      "subtitle": "이름만 보고 **큰 상자**를 들었다",
+      "motion": "slow_pan_right"
+    },
+    {
+      "id": "SCENE-03",
+      "order": 3,
+      "durationSec": 8,
+      "type": "STILL",
+      "reason": "사무실에서 큰 상자를 열려다 마우스치고 너무 큰 크기에 멈칫함",
+      "imageFile": "scene-03.png",
+      "narration": "사무실 책상에서 상자 테이프를 뜯으려다 멈췄어요. 마우스 하나치고 상자가 너무 컸거든요.",
+      "subtitle": "마우스치고 **너무 큰 상자**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-04",
+      "order": 4,
+      "durationSec": 7,
+      "type": "STILL",
+      "reason": "동료가 영업팀 동명이인의 분실 택배를 찾으며 오해가 커짐",
+      "imageFile": "scene-04.png",
+      "narration": "그때 옆자리 동료가 물었어요. '영업팀 민수 씨가 택배를 찾는데, 혹시 못 봤어요?'",
+      "subtitle": "'영업팀 민수 씨 택배 못 봤어요?'",
+      "motion": "slow_pan_left"
+    },
+    {
+      "id": "SCENE-05",
+      "order": 5,
+      "durationSec": 8,
+      "type": "STILL",
+      "reason": "상자를 돌려 배송표의 영업팀 표기를 발견하고 실수 확인",
+      "imageFile": "scene-05.png",
+      "narration": "저는 큰 상자를 돌려 배송표를 확인했어요. 이름은 민수가 맞았지만, 부서는 영업팀이었습니다.",
+      "subtitle": "같은 이름, 다른 **영업팀**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-06",
+      "order": 6,
+      "durationSec": 9,
+      "type": "STILL",
+      "reason": "영업팀 동명이인에게 개봉하지 않은 큰 상자를 돌려주고 사과",
+      "imageFile": "scene-06.png",
+      "narration": "저는 테이프가 그대로 붙은 상자를 영업팀 민수 씨에게 돌려줬어요. '제 것인 줄 알았어요. 죄송합니다.'",
+      "subtitle": "상자를 돌려주고 **사과**",
+      "motion": "slow_pan_right"
+    },
+    {
+      "id": "SCENE-07",
+      "order": 7,
+      "durationSec": 8,
+      "type": "STILL",
+      "reason": "다시 로비에서 선반 아래 작은 디자인팀 택배를 찾음",
+      "imageFile": "scene-07.png",
+      "narration": "다시 로비로 내려가 선반 아래를 보니, 디자인팀 민수 앞으로 온 작은 마우스 상자가 있더라고요.",
+      "subtitle": "선반 아래 **진짜 내 택배**",
+      "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-08",
+      "order": 8,
+      "durationSec": 8,
+      "type": "STILL",
+      "reason": "책상에서 마우스를 확인하고 다음부터 이름과 부서를 함께 보기로 함",
+      "imageFile": "scene-08.png",
+      "narration": "책상에 새 마우스를 놓고 웃었죠. 이제 택배는 이름과 부서를 같이 봐요. 여러분도 동명이인 있나요?",
+      "subtitle": "택배는 **이름 + 부서** 확인",
+      "motion": "slow_zoom_out"
+    }
+  ]
+}
