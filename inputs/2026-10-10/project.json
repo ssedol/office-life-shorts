@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-10-10",
+  "topic": "회의실을 오전 대신 오후로 예약해 팀원들이 복도에서 기다린 날",
+  "title": "회의실 예약했다고 했는데 오전이 아니었습니다",
+  "durationTargetSec": 75,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}

@@ -1,0 +1,60 @@
+{
+  "scenes": [
+    {
+      "id": "SCENE-01", "order": 1, "durationSec": 9, "type": "STILL",
+      "reason": "주인공과 오전 회의의 목적, 회의실 예약 행동을 소개한다.",
+      "imageFile": "scene-01.png",
+      "narration": "저는 기획팀 민수예요. 아침 열 시 회의를 하려고 회사 큰 회의실을 예약했죠.",
+      "subtitle": "아침 10시 **큰 회의실 예약**", "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-02", "order": 2, "durationSec": 9, "type": "STILL",
+      "reason": "작은 오후 표시를 놓친 실제 원인을 보여 준다.",
+      "imageFile": "scene-02.png",
+      "narration": "저는 오전 열 시를 고른 줄 알고 예약 버튼을 눌렀어요. 작은 '오후' 표시를 못 봤거든요.",
+      "subtitle": "작은 **오후** 표시를 못 봄", "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-03", "order": 3, "durationSec": 8, "type": "STILL",
+      "reason": "잘못된 예약을 믿고 팀원들을 회의실로 데려간다.",
+      "imageFile": "scene-03.png",
+      "narration": "아침 열 시가 되자, 저는 팀원들을 데리고 예약한 큰 회의실 문 앞으로 갔습니다.",
+      "subtitle": "팀원들과 **회의실 앞으로**", "motion": "slow_pan_right"
+    },
+    {
+      "id": "SCENE-04", "order": 4, "durationSec": 9, "type": "STILL",
+      "reason": "다른 팀이 회의 중인 것을 발견하고 주인공이 예약을 주장한다.",
+      "imageFile": "scene-04.png",
+      "narration": "그런데 다른 팀이 그 방에서 회의 중이었어요. 저는 문을 열고 '제가 예약했는데요?' 했죠.",
+      "subtitle": "안에는 **다른 팀 회의 중**", "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-05", "order": 5, "durationSec": 9, "type": "STILL",
+      "reason": "복도 대기와 두 팀의 확인으로 오해가 커진다.",
+      "imageFile": "scene-05.png",
+      "narration": "제 팀원들은 복도에서 기다렸고, 안쪽 팀도 회의를 멈췄어요. 우리는 각자 예약 화면을 꺼냈습니다.",
+      "subtitle": "두 팀이 **예약 화면 확인**", "motion": "slow_pan_left"
+    },
+    {
+      "id": "SCENE-06", "order": 6, "durationSec": 8, "type": "STILL",
+      "reason": "자기 예약의 오후 10시를 발견해 문제의 원인을 확정한다.",
+      "imageFile": "scene-06.png",
+      "narration": "제 휴대전화에는 '오후 열 시'라고 적혀 있었어요. 제가 오전과 오후를 잘못 누른 거였죠.",
+      "subtitle": "내 예약은 **오후 10시**", "motion": "slow_zoom_in"
+    },
+    {
+      "id": "SCENE-07", "order": 7, "durationSec": 9, "type": "STILL",
+      "reason": "다른 팀에게 사과하고 빈 작은 회의실을 예약해 팀원들을 옮긴다.",
+      "imageFile": "scene-07.png",
+      "narration": "저는 안쪽 팀에 사과하고, 바로 옆 빈 작은 회의실을 예약해 팀원들을 그 방으로 옮겼어요.",
+      "subtitle": "사과하고 **옆 방으로 이동**", "motion": "slow_pan_right"
+    },
+    {
+      "id": "SCENE-08", "order": 8, "durationSec": 9, "type": "STILL",
+      "reason": "작은 방에서 회의를 시작하고 직장인이 공감할 확인 습관으로 마무리한다.",
+      "imageFile": "scene-08.png",
+      "narration": "작은 방에서 회의를 시작했죠. 이제 예약할 땐 오전·오후를 두 번 봐요. 여러분도 그런 적 있나요?",
+      "subtitle": "예약할 땐 **오전·오후 두 번 확인**", "motion": "slow_zoom_out"
+    }
+  ]
+}
