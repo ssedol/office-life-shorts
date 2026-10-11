@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-10-11",
+  "topic": "개인 치과 예약을 팀 공유 캘린더에 올려 모두가 본 날",
+  "title": "치과 예약했는데 팀원 모두의 달력에 떴습니다",
+  "durationTargetSec": 80,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}

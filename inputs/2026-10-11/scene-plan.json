@@ -1,0 +1,12 @@
+{
+  "scenes": [
+    {"id":"SCENE-01","order":1,"durationSec":10,"type":"STILL","reason":"민수, 회사 책상, 개인 치과 예약과 일정 알림 목적을 소개한다.","imageFile":"scene-01.png","narration":"기획팀 민수예요. 치과 예약을 팀원 모두에게 보여 준 적 있나요? 저는 금요일 퇴근 뒤 치과에 가려고, 회사 책상에서 일정 알림을 만들었습니다.","subtitle":"개인 치과 예약이 **팀원 모두에게?**","motion":"slow_zoom_in"},
+    {"id":"SCENE-02","order":2,"durationSec":9,"type":"STILL","reason":"팀 공유 달력이 선택된 상태에서 저장하는 원인을 보여 준다.","imageFile":"scene-02.png","narration":"일정 앱 맨 위에는 '기획팀 공유'가 선택돼 있었어요. 저는 그 글자를 못 보고 '금요일 6시 치과 진료'를 적어 저장했죠.","subtitle":"선택된 달력은 **기획팀 공유**","motion":"slow_zoom_in"},
+    {"id":"SCENE-03","order":3,"durationSec":9,"type":"STILL","reason":"저장 결과가 팀원의 컴퓨터에 나타난다.","imageFile":"scene-03.png","narration":"저장하자마자 팀 공유 달력에 제 치과 일정이 떴습니다. 옆자리 지연 씨의 컴퓨터에도 같은 일정이 보였어요.","subtitle":"옆자리 컴퓨터에도 **치과 일정**","motion":"slow_pan_right"},
+    {"id":"SCENE-04","order":4,"durationSec":9,"type":"STILL","reason":"지연의 질문으로 개인 일정이 공유됐다는 오해가 시작된다.","imageFile":"scene-04.png","narration":"지연 씨가 제 자리로 와서 '금요일 여섯 시에 팀이 치과에 가나요?' 하고 물었습니다. 저는 제 개인 일정이라며 고개를 저었죠.","subtitle":"“팀이 **치과에 가나요?**”","motion":"slow_zoom_in"},
+    {"id":"SCENE-05","order":5,"durationSec":9,"type":"STILL","reason":"다른 팀원까지 달력을 보면서 민망함이 커진다.","imageFile":"scene-05.png","narration":"그 말을 들은 다른 팀원들도 달력을 열었습니다. 모두의 화면에 제 치과 예약이 있어서, 제 자리로 시선이 모였어요.","subtitle":"팀원들 화면에 **전부 표시**","motion":"slow_pan_left"},
+    {"id":"SCENE-06","order":6,"durationSec":9,"type":"STILL","reason":"두 화면을 비교해 공유 달력 선택이 원인임을 발견한다.","imageFile":"scene-06.png","narration":"저는 지연 씨의 화면과 제 화면을 나란히 봤습니다. 그제야 제 일정 위에 '기획팀 공유'라고 적힌 걸 발견했어요.","subtitle":"원인은 **기획팀 공유** 선택","motion":"slow_zoom_in"},
+    {"id":"SCENE-07","order":7,"durationSec":10,"type":"STILL","reason":"공유 일정을 삭제하고 개인 달력에 다시 등록해 해결한다.","imageFile":"scene-07.png","narration":"저는 팀 공유 달력에서 치과 일정을 지웠습니다. 그리고 '개인' 달력을 고른 뒤, 같은 예약을 다시 저장했죠.","subtitle":"공유 일정 삭제 → **개인 달력 저장**","motion":"slow_pan_right"},
+    {"id":"SCENE-08","order":8,"durationSec":9,"type":"STILL","reason":"팀 달력에서 사라진 것을 확인하고 동료에게 설명하며 공감으로 끝낸다.","imageFile":"scene-08.png","narration":"팀 달력에서 치과 일정이 사라진 걸 확인하고 지연 씨에게 설명했습니다. 이제 저장 버튼보다 달력 이름을 먼저 봅니다. 여러분도 이런 적 있나요?","subtitle":"저장 전 **달력 이름부터 확인**","motion":"slow_zoom_out"}
+  ]
+}
