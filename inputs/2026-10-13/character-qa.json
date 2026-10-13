@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "reviewedAt": "2026-10-13T18:22:22+09:00",
+  "reviewNotes": "마스터 5장을 실제로 열고 각 생성 호출에 5장을 모두 입력. 장면 8장 생성 직후 한 장씩 열어 비교. 4번 초대 대상 오류와 6번 상태 글자 누락을 마스터 5장으로 재생성. 최종 8장 전체를 다시 열어 인물과 장면 인과를 재검수. 커버도 모순된 회의 대상 패널을 제거해 다시 생성하고 마스터 5장과 대조.",
+  "masterReferences": [
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-01-shocked.png",
+      "sha256": "28469b406f418d18d316cada92e090a9165ff2dab678131ceca34519877e7f06",
+      "notes": "실제로 열어 둥근 얼굴, 검정 타원 눈, 짙은 앞머리와 정수리 가닥, 양 볼 홍조, 흰 와이셔츠, 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색을 확인."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-02-happy-coffee.png",
+      "sha256": "eb8b16205479a84386114c3cd871e9083489382270a68b12cbfb3bdb1d963515",
+      "notes": "실제로 열어 둥근 얼굴, 검정 타원 눈, 짙은 앞머리와 정수리 가닥, 양 볼 홍조, 흰 와이셔츠, 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색을 확인."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-03-talking-blank-bubble.png",
+      "sha256": "702a2b104bff68b2d1a47c8b9663fb910a40febd30d9991fb445a295cbe846fc",
+      "notes": "실제로 열어 둥근 얼굴, 검정 타원 눈, 짙은 앞머리와 정수리 가닥, 양 볼 홍조, 흰 와이셔츠, 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색을 확인."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-04-side-with-back-figure.png",
+      "sha256": "28e4e85b46e4db3db05910dc58de90ba9c1e5fc7206882970f0c958f947ef5f6",
+      "notes": "실제로 열어 둥근 얼굴, 검정 타원 눈, 짙은 앞머리와 정수리 가닥, 양 볼 홍조, 흰 와이셔츠, 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색을 확인."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-05-desk-whiteboard.png",
+      "sha256": "ad8b5f0913eb54c3a27b841b2836338be8f7503edac18e27746edbe914d56b7b",
+      "notes": "실제로 열어 둥근 얼굴, 검정 타원 눈, 짙은 앞머리와 정수리 가닥, 양 볼 홍조, 흰 와이셔츠, 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색을 확인."
+    }
+  ],
+  "scenes": [
+    {
+      "file": "scene-01.png",
+      "sha256": "e3264a889a10bfca52516ef147ba4e416ed7f8c7e04229a498f6ab215a07022e",
+      "matchesMaster": true,
+      "notes": "목요일 회사 책상에서 민수가 휴가 중 상태를 선택한다. 마스터와 검정 타원 눈·둥근 얼굴·앞머리·정수리 가닥·홍조·흰 셔츠·네이비 넥타이·파란 사람 사원증·굵은 검정선·플랫 채색 일치."
+    },
+    {
+      "file": "scene-02.png",
+      "sha256": "1278ea087a213f51557c3c851bb4f8a222d278571d3fc08cef283b3fb44e5cad",
+      "matchesMaster": true,
+      "notes": "월요일 책상에서 빈 일정표를 보며 상태를 놓친다. 민수의 눈·얼굴·머리·홍조·흰 셔츠·넓은 네이비 넥타이·파란 사람 사원증·선과 채색이 마스터와 일치."
+    },
+    {
+      "file": "scene-03.png",
+      "sha256": "93b510e0244eefb85eac0d4777b135bc798dbab67ea0baea2ddf9d2c539db2cf",
+      "matchesMaster": true,
+      "notes": "칸막이 뒤 동료 화면에 민수 프로필과 휴가 중 표시가 있다. 작은 프로필의 둥근 얼굴·검정 눈·앞머리·정수리 가닥·홍조·셔츠와 넥타이 색·굵은 선이 마스터와 일치."
+    },
+    {
+      "file": "scene-04.png",
+      "sha256": "973fbad156e468368bf453e81fa8b6acea35c34e1c8531cbed5ea503343326ed",
+      "matchesMaster": true,
+      "notes": "재생성본: 왼쪽 메신저에는 마스터와 같은 민수 얼굴 프로필과 휴가 중 표시, 오른쪽 초대 대상에는 다른 팀원 단색 아이콘 세 개만 있어 민수가 빠진 게 분명하다. 프로필의 눈·얼굴·머리·홍조·셔츠·넥타이·파란 줄·선·채색 일치."
+    },
+    {
+      "file": "scene-05.png",
+      "sha256": "7c89e65ab8170384a831b2251e663f21738b83480f6f4da065d84b9cdcc4914c",
+      "matchesMaster": true,
+      "notes": "회의실 앞에서 민수가 동료에게 묻고 동료 노트북의 휴가 중 표시를 본다. 민수의 검정 눈·둥근 얼굴·머리 가닥·양 볼 홍조·흰 셔츠·네이비 넥타이·파란 사람 사원증·굵은 선·플랫 채색 일치."
+    },
+    {
+      "file": "scene-06.png",
+      "sha256": "9f656085e9b6163ae896bb599f2ed178c626106e5f34268e488558b4778a7444",
+      "matchesMaster": true,
+      "notes": "재생성본: 민수가 자기 프로필의 휴가 중 글자를 직접 짚어 원인을 발견한다. 눈·얼굴·앞머리·정수리 가닥·홍조·흰 셔츠·넥타이·파란 줄과 사람 사원증·굵은 선·채색 일치."
+    },
+    {
+      "file": "scene-07.png",
+      "sha256": "9315b20f51d48c264c7d6fe01adbb23f05de475287bcee0f6a2ee2cc70e9afb6",
+      "matchesMaster": true,
+      "notes": "온라인 상태와 민수가 추가된 회의 초대장이 같이 보인다. 민수의 눈·얼굴·머리 가닥·양 볼 홍조·흰 셔츠·넓은 네이비 넥타이·파란 사람 사원증·외곽선·채색 일치."
+    },
+    {
+      "file": "scene-08.png",
+      "sha256": "16fbf58fc7cc273cb4d7561ebe91cb2c27857bbd187aa17574a59576fe0d88a1",
+      "matchesMaster": true,
+      "notes": "민수가 노트북을 들고 늦게 회의실로 들어와 민망하게 웃는다. 검정 타원 눈·둥근 얼굴·짙은 앞머리와 정수리 가닥·홍조·흰 셔츠·네이비 넥타이·파란 사람 사원증·굵은 검정선·플랫 채색 일치."
+    }
+  ],
+  "thumbnail": {
+    "file": "thumbnail.png",
+    "sha256": "f4ad0e148ef0418c8aae3136c06351f0ad3a89f3e00204b3f5fe9042475e0eac",
+    "matchesMaster": true,
+    "notes": "최종 커버를 열어 마스터의 둥근 얼굴·검정 눈·앞머리·정수리 가닥·양 볼 홍조·흰 셔츠·넓은 네이비 넥타이·파란 사람 사원증·굵은 검정선·플랫 채색 일치. 두 줄 문구와 휴가 중 배지가 정확하고 선명함."
+  }
+}

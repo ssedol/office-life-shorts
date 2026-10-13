@@ -1,0 +1,12 @@
+{
+  "scenes": [
+    {"id":"SCENE-01","order":1,"durationSec":10,"type":"STILL","reason":"목요일에 휴가 상태를 켠 원인과 민수·회사 메신저를 소개한다.","imageFile":"scene-01.png","narration":"지난 목요일 퇴근 전, 기획팀 민수는 금요일 하루 쉬려고 회사 메신저의 자기 상태를 '휴가 중'으로 바꿨습니다.","subtitle":"금요일 휴가라 메신저를 **휴가 중**으로","motion":"slow_zoom_in"},
+    {"id":"SCENE-02","order":2,"durationSec":9,"type":"STILL","reason":"월요일 출근 뒤 상태를 해제하지 않은 사실을 보여 준다.","imageFile":"scene-02.png","narration":"월요일 아침, 민수는 다시 회사 책상에 앉아 노트북을 켰습니다. 그런데 메신저의 '휴가 중' 상태를 지우는 건 잊었어요.","subtitle":"월요일 출근, 상태는 여전히 **휴가 중**","motion":"slow_pan_right"},
+    {"id":"SCENE-03","order":3,"durationSec":9,"type":"STILL","reason":"동료가 휴가 표시를 보고 민수가 없는 줄 오해한다.","imageFile":"scene-03.png","narration":"같은 팀 동료는 메신저에서 민수 이름 옆의 '휴가 중' 표시를 봤습니다. 그래서 동료는 민수가 오늘도 쉬는 줄 알았죠.","subtitle":"동료는 민수가 **오늘도 쉬는 줄**","motion":"slow_zoom_in"},
+    {"id":"SCENE-04","order":4,"durationSec":10,"type":"STILL","reason":"동료가 민수를 제외하고 회의 초대장을 보내 결과가 생긴다.","imageFile":"scene-04.png","narration":"동료는 오전 팀 회의 초대장을 보낼 때 민수만 빼고 다른 팀원들을 초대했습니다. 민수의 일정표에는 회의가 뜨지 않았어요.","subtitle":"회의 초대에서 **민수만 빠짐**","motion":"slow_pan_left"},
+    {"id":"SCENE-05","order":5,"durationSec":11,"type":"STILL","reason":"민수가 동료에게 묻고 동료가 휴가 표시를 보여 주며 오해가 드러난다.","imageFile":"scene-05.png","narration":"민수는 회의실로 가는 동료들을 보고 '저도 회의 들어가나요?'라고 물었습니다. 동료는 '오늘 휴가 아니었어요?'라며 민수에게 메신저 화면을 보여 줬죠.","subtitle":"“저도 회의 들어가나요?” **“휴가 아니었어요?”**","motion":"slow_zoom_in"},
+    {"id":"SCENE-06","order":6,"durationSec":10,"type":"STILL","reason":"민수가 자기 휴가 상태를 발견하고 목요일 설정과 연결한다.","imageFile":"scene-06.png","narration":"민수는 그제야 자기 이름 옆에 아직 '휴가 중'이라고 적힌 걸 봤습니다. 지난 목요일에 켜 둔 상태를 월요일까지 지우지 않은 게 원인이었어요.","subtitle":"원인은 목요일에 켠 **휴가 상태**","motion":"slow_pan_right"},
+    {"id":"SCENE-07","order":7,"durationSec":10,"type":"STILL","reason":"상태를 온라인으로 바꾸고 동료가 회의 초대장을 추가한다.","imageFile":"scene-07.png","narration":"민수는 메신저 상태를 '온라인'으로 바꿨습니다. 동료는 민수를 회의 초대장에 추가했고, 민수는 새로 온 초대장을 눌렀어요.","subtitle":"상태를 바꾸고 **초대장 다시 받음**","motion":"slow_zoom_in"},
+    {"id":"SCENE-08","order":8,"durationSec":10,"type":"STILL","reason":"민수가 늦게 회의에 들어가고 직장인 공감 질문으로 끝낸다.","imageFile":"scene-08.png","narration":"민수는 조금 늦게 회의실에 들어갔습니다. '몸은 출근했는데 메신저만 휴가 중이었네요.' 퇴근 뒤 켜 둔 상태, 여러분도 깜빡한 적 있나요?","subtitle":"몸은 출근, 메신저만 **휴가 중**","motion":"slow_zoom_out"}
+  ]
+}

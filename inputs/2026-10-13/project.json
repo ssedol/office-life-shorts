@@ -1,0 +1,12 @@
+{
+  "channel": "오늘도출근",
+  "date": "2026-10-13",
+  "topic": "출근했는데 메신저 휴가 상태를 해제하지 않아 팀 회의 초대에서 빠진 날",
+  "title": "출근했는데 팀에서는 제가 휴가 중이래요",
+  "durationTargetSec": 80,
+  "sceneCount": 8,
+  "resolution": {"width": 1080, "height": 1920},
+  "fps": 30,
+  "tts": {},
+  "renderMode": "preview"
+}
