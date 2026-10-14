@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "reviewedAt": "2026-10-14T18:16:47+09:00",
+  "reviewNotes": "이미지 8장 생성 직후 마스터 5장과 장면 8장을 각각 실제로 열어 대조. 이야기 순서 위반이 있던 1·2·3·4·5·6·7·8번을 마스터 5장으로 재생성하고 최종 8장 전체를 다시 검수. 종이 수량은 인쇄 전 0, 첫 인쇄 뒤 1묶음, 재인쇄 뒤 3묶음, 회의실에서 세 사람에게 1묶음씩 이어진다. 썸네일도 마스터와 비교.",
+  "masterReferences": [
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-01-shocked.png",
+      "sha256": "28469b406f418d18d316cada92e090a9165ff2dab678131ceca34519877e7f06",
+      "notes": "실제로 열어 둥근 얼굴, 검정 타원 눈, 짙은 앞머리와 정수리 가닥, 양 볼 홍조, 흰 셔츠, 넓은 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색을 확인."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-02-happy-coffee.png",
+      "sha256": "eb8b16205479a84386114c3cd871e9083489382270a68b12cbfb3bdb1d963515",
+      "notes": "실제로 열어 둥근 얼굴, 검정 타원 눈, 짙은 앞머리와 정수리 가닥, 양 볼 홍조, 흰 셔츠, 넓은 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색을 확인."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-03-talking-blank-bubble.png",
+      "sha256": "702a2b104bff68b2d1a47c8b9663fb910a40febd30d9991fb445a295cbe846fc",
+      "notes": "실제로 열어 둥근 얼굴, 검정 타원 눈, 짙은 앞머리와 정수리 가닥, 양 볼 홍조, 흰 셔츠, 넓은 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색을 확인."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-04-side-with-back-figure.png",
+      "sha256": "28e4e85b46e4db3db05910dc58de90ba9c1e5fc7206882970f0c958f947ef5f6",
+      "notes": "실제로 열어 둥근 얼굴, 검정 타원 눈, 짙은 앞머리와 정수리 가닥, 양 볼 홍조, 흰 셔츠, 넓은 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색을 확인."
+    },
+    {
+      "file": "C:\\office-life-shorts\\assets\\character\\ref-05-desk-whiteboard.png",
+      "sha256": "ad8b5f0913eb54c3a27b841b2836338be8f7503edac18e27746edbe914d56b7b",
+      "notes": "실제로 열어 둥근 얼굴, 검정 타원 눈, 짙은 앞머리와 정수리 가닥, 양 볼 홍조, 흰 셔츠, 넓은 네이비 넥타이, 파란 목걸이와 사람 아이콘 사원증, 굵은 검정 외곽선과 플랫 채색을 확인."
+    }
+  ],
+  "scenes": [
+    {
+      "file": "scene-01.png",
+      "sha256": "5926aeedf0aa62e40b674eb8eb5e587104543edb85a025dc6ab30a452ccaffb4",
+      "matchesMaster": true,
+      "notes": "인쇄 전 민수와 텅 빈 프린터 두 출력구. 둥근 얼굴·검정 타원 눈·앞머리/정수리 가닥·양 볼 홍조·흰 셔츠·네이비 넥타이·파란 사람 사원증·굵은 검정선·플랫 채색이 마스터와 일치."
+    },
+    {
+      "file": "scene-02.png",
+      "sha256": "681be9f561068de1f482850583ff3f376813603a0e90fe13470721618baf6dcb",
+      "matchesMaster": true,
+      "notes": "동료가 옆 출력함을 열어 둔 사이 민수는 노트북만 본다. 아직 종이가 없다. 민수의 눈/얼굴, 머리, 홍조, 셔츠/넥타이, 파란 목걸이/사원증, 선/채색이 마스터와 일치."
+    },
+    {
+      "file": "scene-03.png",
+      "sha256": "2996b9562ec8338359523884a2c15a6a137e39b704b42562c25226c9b3a485d8",
+      "matchesMaster": true,
+      "notes": "첫 출력물 한 묶음이 옆 출력함에 있지만 민수는 빈 위쪽만 본다. 민수의 얼굴형·눈·앞머리·정수리·홍조·의상·파란 사람 사원증·굵은 선이 마스터와 일치."
+    },
+    {
+      "file": "scene-04.png",
+      "sha256": "e83fb2422d9fbad2496868775b50bfafa94ed545b1781a39a80b5018daa47ff3",
+      "matchesMaster": true,
+      "notes": "재인쇄 버튼에 손을 올린 민수 뒤로 옆 출력함에 자료 세 묶음. 눈과 둥근 얼굴, 정수리 가닥, 양 볼 홍조, 흰 셔츠와 네이비 넥타이, 파란 사람 사원증, 플랫 채색이 일치."
+    },
+    {
+      "file": "scene-05.png",
+      "sha256": "b89215095776800a48ca9c3af96fd016cec51bc3248c5f176982ebced08201fc",
+      "matchesMaster": true,
+      "notes": "동료 소매와 손이 도착하고 민수는 빈 위쪽을 가리킨다. 옆의 세 묶음은 아직 민수가 못 본다. 마스터와 눈·얼굴·머리·홍조·셔츠·넥타이·파란 사원증·굵은 선이 일치."
+    },
+    {
+      "file": "scene-06.png",
+      "sha256": "d7c3d3f8c24c24547a5e535ce1ed3b45de7f883a70efaf9a8f92b8c700001c69",
+      "matchesMaster": true,
+      "notes": "동료가 옆의 세 묶음을 가리키고 민수가 놀라며 발견한다. 새 인물 얼굴 없음. 민수의 눈·얼굴형·앞머리/정수리 가닥·양 볼 홍조·흰 셔츠·네이비 넥타이·파란 사람 사원증·플랫 채색 일치."
+    },
+    {
+      "file": "scene-07.png",
+      "sha256": "8b14c0ad2f986437b0ae7f05b5feedc0039089fb1e32d47dafd569bf74bfc5f8",
+      "matchesMaster": true,
+      "notes": "회의실에서 민수가 한 묶음을 들고 두 묶음을 동료들의 손에 건넨다. 민수의 검정 눈·둥근 얼굴·머리·홍조·흰 셔츠·네이비 넥타이·파란 사람 사원증·외곽선이 일치."
+    },
+    {
+      "file": "scene-08.png",
+      "sha256": "abf8c18b33880d4c338a324eea0324eadbe502cb3d4340096c14ea726b60910b",
+      "matchesMaster": true,
+      "notes": "회의실에서 민수와 동료 둘이 각자 자료를 들고 회의를 시작한다. 민수의 눈·둥근 얼굴·앞머리/정수리 가닥·홍조·흰 셔츠·네이비 넥타이·파란 사람 사원증·굵은 검정선·플랫 채색이 일치."
+    }
+  ],
+  "thumbnail": {
+    "file": "thumbnail.png",
+    "sha256": "5802446ce3b4407d072ac6796bcdcda54a18e64dcea27091b057afa90d0637dc",
+    "matchesMaster": true,
+    "notes": "커버를 실제로 열어 큰 두 줄 문구(프린터 고장? / 옆에 세 묶음!), 빈 위 출력구와 옆 세 묶음, 마스터의 눈·얼굴형·앞머리/정수리·양 볼 홍조·흰 셔츠·네이비 넥타이·파란 사람 사원증·검정 외곽선·플랫 채색을 확인."
+  }
+}

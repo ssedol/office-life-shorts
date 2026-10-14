@@ -1,0 +1,12 @@
+{
+  "scenes": [
+    {"id":"SCENE-01","order":1,"durationSec":10,"type":"STILL","reason":"민수와 회의 자료, 공용 프린터, 촉박한 상황을 소개한다.","imageFile":"scene-01.png","narration":"오전 팀 회의 10분 전, 기획팀 민수는 사무실 공용 프린터에서 회의 자료를 인쇄하려고 했습니다.","subtitle":"회의 10분 전, **자료 인쇄**","motion":"slow_zoom_in"},
+    {"id":"SCENE-02","order":2,"durationSec":10,"type":"STILL","reason":"옆 출력함이 열린 상태를 보여 주되 민수가 알아채지 못한 원인을 만든다.","imageFile":"scene-02.png","narration":"그 프린터는 종이가 위쪽이나 옆쪽으로 나옵니다. 앞 사람이 옆 출력함을 열어 둔 걸 민수는 못 봤어요.","subtitle":"열려 있던 **옆 출력함**","motion":"slow_pan_right"},
+    {"id":"SCENE-03","order":3,"durationSec":10,"type":"STILL","reason":"민수가 인쇄한 뒤 위쪽만 확인하고 실패로 오해한다.","imageFile":"scene-03.png","narration":"민수는 노트북에서 인쇄 버튼을 눌렀습니다. 그리고 프린터 위쪽만 확인했는데, 종이가 보이지 않았죠.","subtitle":"위쪽만 보니 **종이가 없다?**","motion":"slow_zoom_in"},
+    {"id":"SCENE-04","order":4,"durationSec":10,"type":"STILL","reason":"오해 때문에 인쇄를 반복하며 옆쪽에 자료가 쌓인다.","imageFile":"scene-04.png","narration":"인쇄가 실패한 줄 안 민수는 버튼을 두 번 더 눌렀습니다. 자료는 누를 때마다 옆 출력함에 쌓였어요.","subtitle":"두 번 더 누르자 **옆에 쌓인 자료**","motion":"slow_pan_left"},
+    {"id":"SCENE-05","order":5,"durationSec":10,"type":"STILL","reason":"시간 압박으로 동료를 부르고 프린터 고장이라는 오해가 커진다.","imageFile":"scene-05.png","narration":"회의 시간이 다가오자 민수는 동료를 불러 '프린터가 고장 났나 봐요'라고 말했습니다. 동료는 프린터 옆을 살폈죠.","subtitle":"“프린터가 **고장 났나 봐요**”","motion":"slow_zoom_in"},
+    {"id":"SCENE-06","order":6,"durationSec":10,"type":"STILL","reason":"동료가 옆 출력함을 가리키고 민수가 세 묶음을 발견한다.","imageFile":"scene-06.png","narration":"동료가 옆 출력함을 가리켰습니다. 민수는 거기서 같은 회의 자료가 세 묶음이나 쌓인 걸 발견했어요.","subtitle":"발견한 건 **자료 세 묶음**","motion":"slow_pan_right"},
+    {"id":"SCENE-07","order":7,"durationSec":10,"type":"STILL","reason":"자료를 회수하고 여분을 팀원에게 나눠 문제를 해결한다.","imageFile":"scene-07.png","narration":"민수는 자료를 모두 꺼내 한 묶음을 챙겼습니다. 남은 두 묶음은 회의실에서 팀원들에게 나눠 줬죠.","subtitle":"남은 자료는 **팀원들에게**","motion":"slow_zoom_in"},
+    {"id":"SCENE-08","order":8,"durationSec":10,"type":"STILL","reason":"회의가 제시간에 시작되고 출력함 확인이라는 공감 마무리로 끝낸다.","imageFile":"scene-08.png","narration":"덕분에 회의는 제시간에 시작됐습니다. 민수는 다음부터 인쇄 버튼을 다시 누르기 전에 출력함 두 곳을 먼저 보기로 했어요. 여러분도 이런 적 있나요?","subtitle":"다시 누르기 전에 **출력함부터!**","motion":"slow_zoom_out"}
+  ]
+}
